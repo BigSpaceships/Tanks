@@ -1,12 +1,11 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class TankController : MonoBehaviour {
     public InputActionMap controls;
-    
+
     [SerializeField] private List<WheelCollider> leftWheels;
     [SerializeField] private List<WheelCollider> rightWheels;
 
@@ -16,7 +15,7 @@ public class TankController : MonoBehaviour {
 
     [SerializeField] private float turnStopLimit;
     [SerializeField] private float turnStopSpeed;
-    
+
     private float _forwardInput;
     private float _turnInput;
 
@@ -28,7 +27,7 @@ public class TankController : MonoBehaviour {
 
     private void OnEnable() {
         controls.Enable();
-        
+
         controls["Move"].performed += OnMove;
         controls["Move"].canceled += OnMove;
     }
@@ -37,11 +36,11 @@ public class TankController : MonoBehaviour {
         var currentTurnRate = _rb.angularVelocity.y;
 
         var turnForceScale = _turnInput;
-        
+
         if (Mathf.Abs(currentTurnRate) > turnStopLimit && Mathf.Abs(_turnInput) <= .1) {
             turnForceScale = -Math.Sign(currentTurnRate) * turnStopSpeed;
         }
-        
+
         foreach (var wheel in leftWheels) {
             wheel.motorTorque = motorForce * _forwardInput + turnForceScale * turnForce;
 
@@ -51,6 +50,8 @@ public class TankController : MonoBehaviour {
             else {
                 wheel.brakeTorque = 0;
             }
+
+            ApplyVisualsToWheel(wheel);
         }
 
         foreach (var wheel in rightWheels) {
@@ -62,7 +63,22 @@ public class TankController : MonoBehaviour {
             else {
                 wheel.brakeTorque = 0;
             }
+
+            ApplyVisualsToWheel(wheel);
         }
+    }
+
+    private void ApplyVisualsToWheel(WheelCollider wheel) {
+        if (wheel.transform.childCount == 0) {
+            return;
+        }
+
+        var wheelRendererTransform = wheel.transform.GetChild(0);
+
+        wheel.GetWorldPose(out var position, out var rotation);
+
+        wheelRendererTransform.position = position;
+        wheelRendererTransform.rotation = rotation;
     }
 
     public void OnMove(InputAction.CallbackContext context) {
