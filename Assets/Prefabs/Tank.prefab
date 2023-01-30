@@ -650,11 +650,59 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controls:
-    m_Name: 
-    m_Id: 
+    m_Name: Controls
+    m_Id: aff256f1-75c7-4dbc-891d-b2fa6fe7447c
     m_Asset: {fileID: 0}
-    m_Actions: []
-    m_Bindings: []
+    m_Actions:
+    - m_Name: Move
+      m_Type: 0
+      m_ExpectedControlType: Vector2
+      m_Id: f9f5c246-8f8c-42a5-8fde-7e9e2cf2a9ff
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Bindings:
+    - m_Name: WASD
+      m_Id: 2091c862-8eaf-43ab-a4bf-b5ddf1818095
+      m_Path: 2DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 4
+    - m_Name: up
+      m_Id: aa37ce56-ff89-461a-a0b7-d25347ade69b
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    - m_Name: down
+      m_Id: 76d532cc-8bf7-400d-a321-850755d5df80
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    - m_Name: left
+      m_Id: 58724685-1845-4914-bc68-1c82980e587a
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
+    - m_Name: right
+      m_Id: 3ade5d6e-e02a-4416-b49a-05f7c5e9d135
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Move
+      m_Flags: 8
   leftWheels:
   - {fileID: 6300415802959791588}
   - {fileID: 6300415804050135741}
