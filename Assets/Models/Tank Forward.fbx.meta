@@ -11,17 +11,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Tank Metal
-    second: {fileID: 2100000, guid: 7a26fc9814379064f8e3e46deeb5c2a5, type: 2}
+    second: {fileID: 2100000, guid: 57e38efc1c3e9f148a267f4bd4ee5d15, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Tank Wheel Rubber
-    second: {fileID: 2100000, guid: 759654e5024692b409b19089a4cb3ac9, type: 2}
+    second: {fileID: 2100000, guid: a770b7eaa59346240b8fd7d4e56ff147, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Tank Window
-    second: {fileID: 2100000, guid: acb8740e852026e4e87754382ac9ed41, type: 2}
+    second: {fileID: 2100000, guid: eedf62cf79e16e946829c1412705958a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
