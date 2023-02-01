@@ -81,7 +81,7 @@ public class TankController : MonoBehaviour {
         wheelRendererTransform.rotation = rotation;
     }
 
-    public void OnMove(InputAction.CallbackContext context) {
+    private void OnMove(InputAction.CallbackContext context) {
         _forwardInput = context.ReadValue<Vector2>().y;
         _turnInput = context.ReadValue<Vector2>().x;
     }
