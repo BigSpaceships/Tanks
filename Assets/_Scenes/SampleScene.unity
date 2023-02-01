@@ -711,6 +711,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tank
       objectReference: {fileID: 0}
+    - target: {fileID: 6300415802549390449, guid: 0f1dbb490a9dd8f4d89eb01a6653ee19, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6300415802549390455, guid: 0f1dbb490a9dd8f4d89eb01a6653ee19, type: 3}
       propertyPath: m_RootOrder
       value: 4

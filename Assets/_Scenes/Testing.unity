@@ -249,6 +249,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tank
       objectReference: {fileID: 0}
+    - target: {fileID: 6300415802549390454, guid: 0f1dbb490a9dd8f4d89eb01a6653ee19, type: 3}
+      propertyPath: controls.m_Actions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6300415802549390454, guid: 0f1dbb490a9dd8f4d89eb01a6653ee19, type: 3}
+      propertyPath: controls.m_Bindings.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6300415802549390454, guid: 0f1dbb490a9dd8f4d89eb01a6653ee19, type: 3}
+      propertyPath: controls.m_Actions.Array.data[1].m_Id
+      value: ebde5bb8-c5d1-4c03-9ac2-152f2bd1d4cd
+      objectReference: {fileID: 0}
+    - target: {fileID: 6300415802549390454, guid: 0f1dbb490a9dd8f4d89eb01a6653ee19, type: 3}
+      propertyPath: controls.m_Bindings.Array.data[5].m_Id
+      value: 3d4a1a11-1196-4296-a1f1-7bb0e16b8d8b
+      objectReference: {fileID: 0}
+    - target: {fileID: 6300415802549390454, guid: 0f1dbb490a9dd8f4d89eb01a6653ee19, type: 3}
+      propertyPath: controls.m_Actions.Array.data[1].m_Name
+      value: New action
+      objectReference: {fileID: 0}
+    - target: {fileID: 6300415802549390454, guid: 0f1dbb490a9dd8f4d89eb01a6653ee19, type: 3}
+      propertyPath: controls.m_Actions.Array.data[1].m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6300415802549390454, guid: 0f1dbb490a9dd8f4d89eb01a6653ee19, type: 3}
+      propertyPath: controls.m_Bindings.Array.data[5].m_Action
+      value: New action
+      objectReference: {fileID: 0}
+    - target: {fileID: 6300415802549390454, guid: 0f1dbb490a9dd8f4d89eb01a6653ee19, type: 3}
+      propertyPath: controls.m_Actions.Array.data[1].m_ExpectedControlType
+      value: Button
+      objectReference: {fileID: 0}
     - target: {fileID: 6300415802549390455, guid: 0f1dbb490a9dd8f4d89eb01a6653ee19, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -259,11 +291,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6300415802549390455, guid: 0f1dbb490a9dd8f4d89eb01a6653ee19, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.04
       objectReference: {fileID: 0}
     - target: {fileID: 6300415802549390455, guid: 0f1dbb490a9dd8f4d89eb01a6653ee19, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1.81
       objectReference: {fileID: 0}
     - target: {fileID: 6300415802549390455, guid: 0f1dbb490a9dd8f4d89eb01a6653ee19, type: 3}
       propertyPath: m_LocalRotation.w
@@ -307,6 +339,7 @@ GameObject:
   - component: {fileID: 961739752}
   - component: {fileID: 961739751}
   - component: {fileID: 961739750}
+  - component: {fileID: 961739754}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -413,6 +446,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &961739754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961739749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edc76808c7588b042be2748548b990df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraControls:
+    m_Name: Camera Controls
+    m_Id: b4fd2759-7b73-411a-86a1-4a22fda09069
+    m_Asset: {fileID: 0}
+    m_Actions:
+    - m_Name: Zoom
+      m_Type: 0
+      m_ExpectedControlType: Axis
+      m_Id: 81dab385-17f6-4f8a-ae32-9a18d779c3af
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Bindings:
+    - m_Name: 
+      m_Id: 0d235111-ccab-43bd-98a2-c217d9e4cde2
+      m_Path: <Mouse>/scroll/y
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Zoom
+      m_Flags: 0
+  tank: {fileID: 982097543}
+  zoomSpeed: 1
+  distanceRange: {x: 1, y: 15}
+  distanceFromTank: 0
+  pitch: 0
+  yaw: 0
+--- !u!1 &982097543 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6300415802549390449, guid: 0f1dbb490a9dd8f4d89eb01a6653ee19, type: 3}
+  m_PrefabInstance: {fileID: 331297401}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1160234425
 GameObject:
   m_ObjectHideFlags: 0
