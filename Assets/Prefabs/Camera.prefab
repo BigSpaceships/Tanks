@@ -103,9 +103,10 @@ MonoBehaviour:
   zoomSpeed: 1
   distanceRange: {x: 3, y: 30}
   sensitivity: 0.1
-  distanceFromTank: 0
-  pitch: 0
+  distanceFromTank: 10
+  pitch: 45
   yaw: 0
+  display: 
 --- !u!1 &3176970178094358690
 GameObject:
   m_ObjectHideFlags: 0

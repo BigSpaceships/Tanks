@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1645505891
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1645505892}
+  m_Layer: 9
+  m_Name: Camera Follow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1645505892
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1645505891}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6300415802549390455}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &19216300650958913
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,7 +42,7 @@ GameObject:
   - component: {fileID: 6726504674280909306}
   - component: {fileID: 9021243341877487281}
   - component: {fileID: 1535712670041411836}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wheel Back Left Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +126,7 @@ GameObject:
   - component: {fileID: 2145190113897590357}
   - component: {fileID: 1559375808760905188}
   - component: {fileID: 2596876344223945485}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Barrel Tip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +209,7 @@ GameObject:
   - component: {fileID: 3101121951316773401}
   - component: {fileID: 242073152849861985}
   - component: {fileID: 880127955026571670}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Piston Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +292,7 @@ GameObject:
   - component: {fileID: 8821455096002015693}
   - component: {fileID: 5888510531524144349}
   - component: {fileID: 2331205345492913949}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wheel Front Left Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,7 +376,7 @@ GameObject:
   - component: {fileID: 812621405437706419}
   - component: {fileID: 4982981352460621620}
   - component: {fileID: 2898271715724219023}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wheel Front Right Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -429,7 +460,7 @@ GameObject:
   - component: {fileID: 7800733811625143913}
   - component: {fileID: 5314198580197239876}
   - component: {fileID: 7469516410414367521}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wheel Back Right Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -512,7 +543,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6300415802258162462}
   - component: {fileID: 6300415802258162461}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Right Middle Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -574,7 +605,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6300415802345861919}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wheels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -613,7 +644,7 @@ GameObject:
   - component: {fileID: 6300415802549390455}
   - component: {fileID: 6300415802549390448}
   - component: {fileID: 6300415802549390454}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -633,6 +664,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8843987702796664435}
+  - {fileID: 1645505892}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -742,7 +774,7 @@ GameObject:
   - component: {fileID: 6300415802645202380}
   - component: {fileID: 6300415802645202370}
   - component: {fileID: 6300415802645202371}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wheel Front Left Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -825,7 +857,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6300415802959791589}
   - component: {fileID: 6300415802959791588}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Left Front Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -889,7 +921,7 @@ GameObject:
   - component: {fileID: 6300415803692531875}
   - component: {fileID: 6300415803692531873}
   - component: {fileID: 6300415803692531874}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wheel Front Right Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -972,7 +1004,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6300415803756040927}
   - component: {fileID: 6300415803756040926}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Right Front Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1035,7 +1067,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6300415804050135742}
   - component: {fileID: 6300415804050135741}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Left Middle Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1098,7 +1130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6300415804148092700}
   - component: {fileID: 6300415804148092691}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Left Back Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1161,7 +1193,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6300415804218300449}
   - component: {fileID: 6300415804218300448}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Right Back Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1225,7 +1257,7 @@ GameObject:
   - component: {fileID: 7389800896385757258}
   - component: {fileID: 7841434168803499612}
   - component: {fileID: 496990233336062325}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1309,7 +1341,7 @@ GameObject:
   - component: {fileID: 4070347155613231567}
   - component: {fileID: 5755120042560918846}
   - component: {fileID: 3262720325183742514}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Piston Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1392,7 +1424,7 @@ GameObject:
   - component: {fileID: 1371132275203012327}
   - component: {fileID: 6737615180228201664}
   - component: {fileID: 4630463232703862107}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1479,7 +1511,7 @@ GameObject:
   - component: {fileID: 7707641561798001948}
   - component: {fileID: 8212304410742514888}
   - component: {fileID: 8212304410742514895}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tank Idle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
