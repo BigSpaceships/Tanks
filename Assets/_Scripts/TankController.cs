@@ -28,10 +28,12 @@ public class TankController : NetworkBehaviour {
 
     private void OnEnable() {
         if (NetworkManager.Singleton.IsClient) {
-            controls.Enable();
+            if (NetworkObject.IsOwner) {
+                controls.Enable();
 
-            controls["Move"].performed += OnMove;
-            controls["Move"].canceled += OnMove;
+                controls["Move"].performed += OnMove;
+                controls["Move"].canceled += OnMove;
+            }
         }
     }
 
