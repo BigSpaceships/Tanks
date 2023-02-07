@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class TankController : MonoBehaviour {
+public class TankController : NetworkBehaviour {
     public InputActionMap controls;
 
     [SerializeField] private List<WheelCollider> leftWheels;
@@ -26,13 +27,21 @@ public class TankController : MonoBehaviour {
     }
 
     private void OnEnable() {
-        controls.Enable();
+        if (NetworkManager.Singleton.IsClient) {
+            controls.Enable();
 
-        controls["Move"].performed += OnMove;
-        controls["Move"].canceled += OnMove;
+            controls["Move"].performed += OnMove;
+            controls["Move"].canceled += OnMove;
+        }
     }
 
     private void Update() {
+        if (NetworkManager.Singleton.IsServer) {
+            Move();
+        }
+    }
+
+    private void Move() {
         var currentTurnRate = _rb.angularVelocity.y;
 
         var turnForceScale = _turnInput;
@@ -82,7 +91,19 @@ public class TankController : MonoBehaviour {
     }
 
     private void OnMove(InputAction.CallbackContext context) {
+        if (!NetworkManager.Singleton.IsClient) return;
+
+        if (!NetworkObject.IsOwner) return;
+
         _forwardInput = context.ReadValue<Vector2>().y;
         _turnInput = context.ReadValue<Vector2>().x;
+
+        SendMovementInputServerRpc(context.ReadValue<Vector2>());
+    }
+
+    [ServerRpc]
+    private void SendMovementInputServerRpc(Vector2 input) {
+        _forwardInput = input.y;
+        _turnInput = input.x;
     }
 }
