@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -39,6 +40,12 @@ public class CameraController : MonoBehaviour {
     }
 
     private void Update() {
+        tank = GetFocusedTank();
+
+        if (!tank) {
+            return;
+        }
+
         distanceFromTank -= _zoomInput * zoomSpeed;
 
         pitch -= _orbitInput.y * sensitivity;
@@ -89,5 +96,19 @@ public class CameraController : MonoBehaviour {
         }
 
         return hasLayers;
+    }
+
+    private GameObject GetFocusedTank() {
+        if (NetworkManager.Singleton.IsClient && (NetworkManager.Singleton.LocalClient != null)) {
+            var focusedTank = NetworkManager.Singleton.LocalClient.PlayerObject.gameObject;
+
+            if (!focusedTank) {
+                // focusedTank = GameObject.FindGameObjectsWithTag("Player")[0];
+            }
+
+            return focusedTank;
+        }
+
+        return null;
     }
 }
