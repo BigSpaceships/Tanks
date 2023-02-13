@@ -1,8 +1,12 @@
 using Unity.Netcode;
 using UnityEngine;
+using System;
+using System.Net;
+using Unity.Netcode.Transports.UTP;
 
 public class GUIButtonManager : MonoBehaviour {
-    private string ip;
+    public string ip;
+    public string clientIp;
 
     private void OnGUI() {
         GUILayout.BeginArea(new Rect(10, 10, 300, 300));
@@ -17,10 +21,11 @@ public class GUIButtonManager : MonoBehaviour {
     }
 
     private void StartButtons() {
-        if (GUILayout.Button("Host")) NetworkManager.Singleton.StartHost();
-        if (GUILayout.Button("Client")) NetworkManager.Singleton.StartClient();
+        if (GUILayout.Button("Host")) StartHost();
+        if (GUILayout.Button("Client")) StartClient();
         if (GUILayout.Button("Server")) NetworkManager.Singleton.StartServer();
-        ip = GUILayout.TextField("Client IP");
+        GUILayout.Label("Client IP: ", "label");
+        ip = GUILayout.TextField(ip, 24, "textfield");
     }
 
     private static void StatusLabels() {
@@ -28,5 +33,23 @@ public class GUIButtonManager : MonoBehaviour {
 
         GUILayout.Label("Transport: " + NetworkManager.Singleton.NetworkConfig.NetworkTransport.GetType().Name);
         GUILayout.Label("Mode: " + mode);
+        var hostName = Dns.GetHostName();
+        GUILayout.Label("IP: " + Dns.GetHostEntry(hostName).AddressList[0]);
+    }
+
+    private void StartHost()
+    {
+        string hostName = Dns.GetHostName();
+        clientIp = Dns.GetHostEntry(hostName).AddressList[0].ToString();
+        NetworkManager nm = GetComponentInParent<NetworkManager>();
+        nm.GetComponent<UnityTransport>().ConnectionData.Address = clientIp;
+        NetworkManager.Singleton.StartHost();
+    }
+
+    private void StartClient()
+    {
+        NetworkManager nm = GetComponentInParent<NetworkManager>();
+        nm.GetComponent<UnityTransport>().ConnectionData.Address = ip;
+        NetworkManager.Singleton.StartClient();
     }
 }
