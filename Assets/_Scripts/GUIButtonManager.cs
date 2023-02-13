@@ -1,8 +1,7 @@
-using Unity.Netcode;
-using UnityEngine;
-using System;
 using System.Net;
+using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
+using UnityEngine;
 
 public class GUIButtonManager : MonoBehaviour {
     public string ip;
@@ -37,19 +36,17 @@ public class GUIButtonManager : MonoBehaviour {
         GUILayout.Label("IP: " + Dns.GetHostEntry(hostName).AddressList[0]);
     }
 
-    private void StartHost()
-    {
+    private void StartHost() {
         string hostName = Dns.GetHostName();
         clientIp = Dns.GetHostEntry(hostName).AddressList[0].ToString();
         NetworkManager nm = GetComponentInParent<NetworkManager>();
-        nm.GetComponent<UnityTransport>().ConnectionData.Address = clientIp;
+        nm.GetComponent<UnityTransport>().SetConnectionData(clientIp, 5500, "0.0.0.0");
         NetworkManager.Singleton.StartHost();
     }
 
-    private void StartClient()
-    {
+    private void StartClient() {
         NetworkManager nm = GetComponentInParent<NetworkManager>();
-        nm.GetComponent<UnityTransport>().ConnectionData.Address = ip;
+        nm.GetComponent<UnityTransport>().SetConnectionData(ip, 5500);
         NetworkManager.Singleton.StartClient();
     }
 }

@@ -282,6 +282,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a593919dabe074a4daab8aca04a84550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ip: 
+  clientIp: 
 --- !u!1 &1160234425
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,7 +371,7 @@ MonoBehaviour:
   m_MaxConnectAttempts: 60
   m_DisconnectTimeoutMS: 30000
   ConnectionData:
-    Address: 10.80.123.28
+    Address: 127.0.0.1
     Port: 5500
     ServerListenAddress: 
   DebugSimulator:

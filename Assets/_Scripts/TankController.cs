@@ -27,14 +27,11 @@ public class TankController : NetworkBehaviour {
     }
 
     private void OnEnable() {
-        if (NetworkManager.Singleton.IsClient) {
-            if (NetworkObject.IsOwner) {
-                controls.Enable();
+        UpdateControls();
+    }
 
-                controls["Move"].performed += OnMove;
-                controls["Move"].canceled += OnMove;
-            }
-        }
+    public override void OnNetworkSpawn() {
+        UpdateControls();
     }
 
     private void Update() {
@@ -76,6 +73,18 @@ public class TankController : NetworkBehaviour {
             }
 
             ApplyVisualsToWheel(wheel);
+        }
+    }
+
+    private void UpdateControls() {
+        if (NetworkManager.Singleton.IsClient) {
+            Debug.Log("controls");
+            if (NetworkObject.IsOwner) {
+                controls.Enable();
+
+                controls["Move"].performed += OnMove;
+                controls["Move"].canceled += OnMove;
+            }
         }
     }
 
