@@ -40,13 +40,11 @@ public class GUIButtonManager : MonoBehaviour {
         string hostName = Dns.GetHostName();
         clientIp = Dns.GetHostEntry(hostName).AddressList[0].ToString();
         NetworkManager nm = GetComponentInParent<NetworkManager>();
-        nm.GetComponent<UnityTransport>().SetConnectionData(clientIp, 5500, "0.0.0.0");
         NetworkManager.Singleton.StartHost();
     }
 
     private void StartClient() {
         NetworkManager nm = GetComponentInParent<NetworkManager>();
-        nm.GetComponent<UnityTransport>().SetConnectionData(ip, 5500);
         NetworkManager.Singleton.StartClient();
     }
 }

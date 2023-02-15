@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.community.netcode.transport.websocket": {
+      "version": "https://github.com/Unity-Technologies/multiplayer-community-contributions.git?path=/Transports/com.community.netcode.transport.websocket",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "2a5a082ba7d77e4371152b90ca1583d085d26222"
+    },
     "com.unity.burst": {
       "version": "1.6.6",
       "depth": 2,
