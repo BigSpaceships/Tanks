@@ -1,20 +1,15 @@
+using System;
 using System.Collections;
-using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class NameController : MonoBehaviour {
-    [SerializeField] private TextMeshProUGUI text;
-    [SerializeField] private RectTransform panel;
-    [SerializeField] private float padding;
+    private void Update() {
+        transform.rotation = quaternion.identity;
 
-    public IEnumerator UpdateWidth() {
-        if (text.renderedWidth < 0.001) {
-            yield return null;
-        }
-
-        var width = text.renderedWidth;
-
-        panel.anchorMax = new Vector2(panel.pivot.x + width / 2, panel.anchorMax.y);
-        panel.anchorMin = new Vector2(panel.pivot.x - width / 2, panel.anchorMin.y);
+        var cameraPos = Camera.main.transform.position;
+        var relativeVector = cameraPos - transform.position;
+        
+        transform.Rotate(Vector3.up, -Mathf.Atan2(relativeVector.z, relativeVector.x) * Mathf.Rad2Deg - 90);
     }
 }
