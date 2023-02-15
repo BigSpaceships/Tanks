@@ -41,10 +41,11 @@ public class GUIButtonManager : MonoBehaviour {
     }
 
     private void StartHost() {
-        string hostName = Dns.GetHostName();
-        clientIp = Dns.GetHostEntry(hostName).AddressList[0].ToString();
-        NetworkManager nm = GetComponentInParent<NetworkManager>();
+        // string hostName = Dns.GetHostName();
+        // clientIp = Dns.GetHostEntry(hostName).AddressList[0].ToString();
+        // NetworkManager nm = GetComponentInParent<NetworkManager>();
         NetworkManager.Singleton.StartHost();
+        // NetworkManager.Singleton.StartClient();
     }
 
     private void StartClient() {
@@ -53,15 +54,9 @@ public class GUIButtonManager : MonoBehaviour {
     }
 
     private void Disconnect() {
-        if (NetworkManager.Singleton.IsServer) {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            foreach (var (key, value) in NetworkManager.Singleton.ConnectedClients) {
-                NetworkManager.Singleton.DisconnectClient(key);
-            }
-        }
-        else {
-            NetworkManager.Singleton.GetComponent<WebSocketTransport>().Shutdown();
-        }
-        // NetworkManager.Singleton.
+        
+        NetworkManager.Singleton.Shutdown();
+
+        SceneManager.LoadScene(0);
     }
 }
