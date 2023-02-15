@@ -1,7 +1,9 @@
 using System.Net;
+using Netcode.Transports.WebSocket;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GUIButtonManager : MonoBehaviour {
     public string ip;
@@ -27,13 +29,15 @@ public class GUIButtonManager : MonoBehaviour {
         ip = GUILayout.TextField(ip, 24, "textfield");
     }
 
-    private static void StatusLabels() {
+    private void StatusLabels() {
         var mode = NetworkManager.Singleton.IsHost ? "Host" : NetworkManager.Singleton.IsClient ? "Client" : "Server";
 
         GUILayout.Label("Transport: " + NetworkManager.Singleton.NetworkConfig.NetworkTransport.GetType().Name);
         GUILayout.Label("Mode: " + mode);
         var hostName = Dns.GetHostName();
         GUILayout.Label("IP: " + Dns.GetHostEntry(hostName).AddressList[0]);
+        
+        if (GUILayout.Button("Disconnect")) Disconnect();
     }
 
     private void StartHost() {
@@ -46,5 +50,18 @@ public class GUIButtonManager : MonoBehaviour {
     private void StartClient() {
         NetworkManager nm = GetComponentInParent<NetworkManager>();
         NetworkManager.Singleton.StartClient();
+    }
+
+    private void Disconnect() {
+        if (NetworkManager.Singleton.IsServer) {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            foreach (var (key, value) in NetworkManager.Singleton.ConnectedClients) {
+                NetworkManager.Singleton.DisconnectClient(key);
+            }
+        }
+        else {
+            NetworkManager.Singleton.GetComponent<WebSocketTransport>().Shutdown();
+        }
+        // NetworkManager.Singleton.
     }
 }
