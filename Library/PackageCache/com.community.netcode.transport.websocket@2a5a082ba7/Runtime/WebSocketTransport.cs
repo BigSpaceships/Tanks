@@ -22,8 +22,8 @@ namespace Netcode.Transports.WebSocket
 
         public override ulong ServerClientId => 0;
 
-        public override void DisconnectLocalClient() {
-            if (WebSocketClient == null) return;
+        public override void DisconnectLocalClient()
+        {
             WebSocketClient.Close();
         }
 
@@ -115,8 +115,6 @@ namespace Netcode.Transports.WebSocket
             var protocol = SecureConnection ? "wss" : "ws";
             WebSocketClient = WebSocketClientFactory.Create($"{protocol}://{ConnectAddress}:{Port}{Path}");
             WebSocketClient.Connect();
-            
-            Debug.Log("connected");
 
             IsStarted = true;
 

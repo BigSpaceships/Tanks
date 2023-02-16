@@ -263,7 +263,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 1.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6067713366569380716}
   m_Father: {fileID: 7389800896385757258}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -452,6 +453,37 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &788807164907357707
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6067713366569380716}
+  m_Layer: 8
+  m_Name: ShotSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6067713366569380716
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788807164907357707}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2145190113897590357}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1444991899749955216
 GameObject:
   m_ObjectHideFlags: 0
@@ -902,6 +934,7 @@ GameObject:
   - component: {fileID: 1832396456902728551}
   - component: {fileID: 4943463964405945040}
   - component: {fileID: 6821084742278125719}
+  - component: {fileID: 7972225907487182108}
   m_Layer: 9
   m_Name: Tank
   m_TagString: Player
@@ -1088,6 +1121,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7972225907487182108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6300415802549390449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b63106117eb7847bb86cf7560c1d3969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controls:
+    m_Name: Controls
+    m_Id: ae0c1dce-967a-4708-be62-f286a6085bfc
+    m_Asset: {fileID: 0}
+    m_Actions:
+    - m_Name: Fire
+      m_Type: 1
+      m_ExpectedControlType: Button
+      m_Id: 6d88a91a-a451-43c4-be6a-c5cd8a23f64f
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Bindings:
+    - m_Name: 
+      m_Id: 9aede641-7023-422a-99a1-f689d5873997
+      m_Path: <Mouse>/leftButton
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Fire
+      m_Flags: 0
+  shell: {fileID: 7454593480812251092, guid: 13b3efb05d59b4d3198fc2175bdc7abd, type: 3}
+  shotSpawn: {fileID: 6067713366569380716}
 --- !u!1 &6300415802645202381
 GameObject:
   m_ObjectHideFlags: 0
