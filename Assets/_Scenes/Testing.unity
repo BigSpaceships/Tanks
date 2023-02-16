@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 43414552}
   - component: {fileID: 43414553}
   m_Layer: 5
-  m_Name: Mode Select
+  m_Name: Play Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -162,7 +162,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &43414553
 MonoBehaviour:
@@ -182,6 +182,9 @@ MonoBehaviour:
   - {fileID: 1350908662}
   - {fileID: 667418805}
   serverOptions: []
+  modeDropdown: {fileID: 1442674439}
+  clientIpField: {fileID: 667418807}
+  nameField: {fileID: 1350908664}
 --- !u!1 &173902612
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,7 +404,7 @@ GameObject:
   - component: {fileID: 304074760}
   - component: {fileID: 304074759}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Play Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -471,7 +474,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 304074760}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 43414553}
+        m_TargetAssemblyTypeName: PlayGUIManager, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &304074760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -834,7 +849,7 @@ GameObject:
   - component: {fileID: 516672871}
   - component: {fileID: 516672870}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Play Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1305,6 +1320,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 866017097}
   m_CullTransparentMesh: 1
+--- !u!1 &930329274
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 930329275}
+  m_Layer: 0
+  m_Name: ClientManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &930329275
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 930329274}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1381154616}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &997416033
 GameObject:
   m_ObjectHideFlags: 0
@@ -2003,7 +2049,6 @@ GameObject:
   - component: {fileID: 1381154616}
   - component: {fileID: 1381154615}
   - component: {fileID: 1381154617}
-  - component: {fileID: 1381154618}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -2052,12 +2097,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1381154613}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 2.430839, z: -1.6604706}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 997416034}
+  - {fileID: 930329275}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2079,18 +2125,6 @@ MonoBehaviour:
   SecureConnection: 0
   AllowForwardedRequest: 1
   CertificateBase64String: 
---- !u!114 &1381154618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1381154613}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e40b3f4523d51d4590b11805eb17d46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1398917143
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Netcode.Transports.WebSocket;
+using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 
 public class PlayGUIManager : MonoBehaviour {
@@ -7,6 +11,10 @@ public class PlayGUIManager : MonoBehaviour {
     [SerializeField] private List<GameObject> clientOptions;
     [SerializeField] private List<GameObject> serverOptions;
 
+    [SerializeField] private TMP_Dropdown modeDropdown;
+    [SerializeField] private TMP_InputField clientIpField;
+    [SerializeField] private TMP_InputField nameField;
+    
     private List<GameObject> AllOptions =>
         clientOptions.Union(hostOptions.Union(serverOptions)).ToList();
 
@@ -19,6 +27,27 @@ public class PlayGUIManager : MonoBehaviour {
 
         foreach (var optionsToDisplay in optionArray[option]) {
             optionsToDisplay.SetActive(true);
+        }
+    }
+
+    public void Play() {
+        switch (modeDropdown.value) {
+            case 0:
+                // host
+                NetworkManager.Singleton.StartHost();
+                break;
+            case 1:
+                // client
+                NetworkManager.Singleton.GetComponent<WebSocketTransport>().ConnectAddress = clientIpField.text;
+                NetworkManager.Singleton.StartClient();
+                break;
+            case 2:
+                // server
+                NetworkManager.Singleton.StartServer();
+                break;
+            default:
+                Debug.LogError($"Illegal option {modeDropdown.value}");
+                break;
         }
     }
 }
