@@ -14,9 +14,15 @@ public class PlayGUIManager : MonoBehaviour {
     [SerializeField] private TMP_Dropdown modeDropdown;
     [SerializeField] private TMP_InputField clientIpField;
     [SerializeField] private TMP_InputField nameField;
-    
+
+    public static PlayGUIManager Manager { get; private set; }
+
     private List<GameObject> AllOptions =>
         clientOptions.Union(hostOptions.Union(serverOptions)).ToList();
+
+    private void Start() {
+        Manager = this;
+    }
 
     public void UpdateOptionDisplays(int option) {
         foreach (var optionObject in AllOptions) {
@@ -49,5 +55,11 @@ public class PlayGUIManager : MonoBehaviour {
                 Debug.LogError($"Illegal option {modeDropdown.value}");
                 break;
         }
+        
+        transform.Find("Display").gameObject.SetActive(false);
+    }
+
+    public string GetName() {
+        return nameField.text;
     }
 }
