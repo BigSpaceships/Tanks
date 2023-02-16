@@ -3,7 +3,7 @@ using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class NameController : MonoBehaviour {
+public class LookAtCamera : MonoBehaviour {
     private void Update() {
         transform.rotation = quaternion.identity;
 
