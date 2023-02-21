@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using Unity.Collections;
 using Unity.Netcode;
+using UnityEngine;
 
 public class TankData : NetworkBehaviour {
     private NetworkVariable<FixedString32Bytes> _name = new("");
@@ -11,6 +12,7 @@ public class TankData : NetworkBehaviour {
     }
 
     public override void OnNetworkSpawn() {
+        Debug.Log(_name.Value);
         _name.OnValueChanged += UpdateNamePlate;
 
         if (IsOwner && IsClient) {
