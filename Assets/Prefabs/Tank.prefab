@@ -1157,6 +1157,7 @@ MonoBehaviour:
       m_Flags: 0
   shell: {fileID: 7454593480812251092, guid: 13b3efb05d59b4d3198fc2175bdc7abd, type: 3}
   shotSpawn: {fileID: 6067713366569380716}
+  shotForce: 50
 --- !u!1 &6300415802645202381
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
 public class TankData : NetworkBehaviour {    
-    private NetworkVariable<string> _name = new("");
+    private NetworkVariable<FixedString32Bytes> _name = new("");
 
     private void OnEnable() {
         UpdateNamePlate("", "");
@@ -24,10 +25,10 @@ public class TankData : NetworkBehaviour {
         _name.OnValueChanged -= UpdateNamePlate;
     }
 
-    private void UpdateNamePlate(string previous, string current) {
+    private void UpdateNamePlate(FixedString32Bytes previous, FixedString32Bytes current) {
         var nameText = Array.Find(gameObject.GetComponentsInChildren<TextMeshProUGUI>(), text => text.name == "Name Text");
 
-        nameText.text = _name.Value;
+        nameText.text = _name.Value.ToString();
     }
 
     [ServerRpc]
