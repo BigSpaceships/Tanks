@@ -1,12 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using Unity.Collections;
 using Unity.Netcode;
-using UnityEngine;
 
-public class TankData : NetworkBehaviour {    
+public class TankData : NetworkBehaviour {
     private NetworkVariable<FixedString32Bytes> _name = new("");
 
     private void OnEnable() {
@@ -17,7 +14,7 @@ public class TankData : NetworkBehaviour {
         _name.OnValueChanged += UpdateNamePlate;
 
         if (IsOwner && IsClient) {
-            _name.Value = PlayGUIManager.Manager.GetName();
+            ChangeName(PlayGUIManager.Manager.GetName());
         }
     }
 
@@ -26,7 +23,8 @@ public class TankData : NetworkBehaviour {
     }
 
     private void UpdateNamePlate(FixedString32Bytes previous, FixedString32Bytes current) {
-        var nameText = Array.Find(gameObject.GetComponentsInChildren<TextMeshProUGUI>(), text => text.name == "Name Text");
+        var nameText = Array.Find(gameObject.GetComponentsInChildren<TextMeshProUGUI>(),
+            text => text.name == "Name Text");
 
         nameText.text = _name.Value.ToString();
     }
@@ -35,7 +33,7 @@ public class TankData : NetworkBehaviour {
     private void ChangeNameServerRpc(string newName) {
         _name.Value = newName;
     }
-    
+
     public void ChangeName(string newName) {
         if (IsClient && IsOwner) {
             ChangeNameServerRpc(newName);
