@@ -1017,6 +1017,14 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
+    - m_Name: Flip
+      m_Type: 1
+      m_ExpectedControlType: Button
+      m_Id: 745bfa8e-a43d-44f0-982c-f590d0b3c82a
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
     m_Bindings:
     - m_Name: WASD
       m_Id: 2091c862-8eaf-43ab-a4bf-b5ddf1818095
@@ -1058,6 +1066,14 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Move
       m_Flags: 8
+    - m_Name: 
+      m_Id: 277a55aa-44c4-47c9-a06a-c9687af97f88
+      m_Path: <Keyboard>/r
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Flip
+      m_Flags: 0
   leftWheels:
   - {fileID: 6300415802959791588}
   - {fileID: 6300415804050135741}
@@ -1071,6 +1087,7 @@ MonoBehaviour:
   breakForce: 1500
   turnStopLimit: 0.1
   turnStopSpeed: 1.5
+  flipHeight: 2
 --- !u!114 &1832396456902728551
 MonoBehaviour:
   m_ObjectHideFlags: 0
