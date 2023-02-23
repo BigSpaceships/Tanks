@@ -13,10 +13,14 @@ public class TankData : NetworkBehaviour {
 
     public override void OnNetworkSpawn() {
         Debug.Log(_name.Value);
+
         _name.OnValueChanged += UpdateNamePlate;
 
         if (IsOwner && IsClient) {
             ChangeName(PlayGUIManager.Manager.GetName());
+        }
+        else if (IsClient) {
+            UpdateNamePlate("", "");
         }
     }
 
