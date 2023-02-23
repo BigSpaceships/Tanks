@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Netcode.Transports.WebSocket;
@@ -28,8 +27,8 @@ public class PlayGUIManager : MonoBehaviour {
         foreach (var optionObject in AllOptions) {
             optionObject.SetActive(false);
         }
-        
-        var optionArray = new[] {hostOptions, clientOptions, serverOptions};
+
+        var optionArray = new[] { hostOptions, clientOptions, serverOptions };
 
         foreach (var optionsToDisplay in optionArray[option]) {
             optionsToDisplay.SetActive(true);
@@ -55,11 +54,19 @@ public class PlayGUIManager : MonoBehaviour {
                 Debug.LogError($"Illegal option {modeDropdown.value}");
                 break;
         }
-        
-        transform.Find("Display").gameObject.SetActive(false);
+
+        transform.Find("Play Options").gameObject.SetActive(false);
+        transform.Find("In Game").gameObject.SetActive(true);
     }
 
     public string GetName() {
         return nameField.text;
+    }
+
+    public void Disconnect() {
+        NetworkManager.Singleton.Shutdown();
+
+        transform.Find("Play Options").gameObject.SetActive(true);
+        transform.Find("In Game").gameObject.SetActive(false);
     }
 }

@@ -24,7 +24,9 @@ namespace Netcode.Transports.WebSocket
 
         public override void DisconnectLocalClient()
         {
-            WebSocketClient.Close();
+            if (WebSocketClient != null) {
+                WebSocketClient.Close();
+            }
         }
 
         public override void DisconnectRemoteClient(ulong clientId)
