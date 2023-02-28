@@ -125,8 +125,9 @@ public class TankController : NetworkBehaviour {
 
     [ServerRpc]
     private void FlipServerRpc() {
-        var yRot = transform.rotation.y;
+        var yRot = transform.rotation.eulerAngles.y;
         transform.rotation = Quaternion.identity;
+        transform.Rotate(Vector3.up, yRot);
         transform.Translate(Vector3.up * flipHeight);
     }
 
