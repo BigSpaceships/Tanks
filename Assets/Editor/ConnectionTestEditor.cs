@@ -12,6 +12,10 @@ public class ConnectionTestEditor : Editor
         if (GUILayout.Button("Connect")) {
             ((ConnectionTesting)target).ConnectSignalingServer();
         }
+        
+        if (GUILayout.Button("Disconnect")) {
+            ((ConnectionTesting)target).DisconnectSignalingServer();
+        }
 
         if (GUILayout.Button("Send Message")) {
             ((ConnectionTesting)target).SendMessage();
