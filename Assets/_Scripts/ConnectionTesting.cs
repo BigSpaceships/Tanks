@@ -12,17 +12,13 @@ public class ConnectionTesting : MonoBehaviour {
     private RTCPeerConnection localPC;
 
     private DelegateOnIceCandidate localOnIceCandidate;
-    // private DelegateOnIceCandidate remoteOnIceCandidate;
     
     private DelegateOnIceConnectionChange localOnIceConnectionChange;
-    // private DelegateOnIceConnectionChange remoteOnIceConnectionChange;
     
     public void Setup() {
         localOnIceCandidate = candidate => { OnIceCandidate(localPC, candidate); };
-        // remoteOnIceCandidate = candidate => { OnIceCandidate(remotePC, candidate); };
 
         localOnIceConnectionChange = state => { OnIceConnectionChange(localPC, state); };
-        // remoteOnIceConnectionChange = state => { OnIceConnectionChange(remotePC, state); };
     }
     
     public void ConnectSignalingServer() {
