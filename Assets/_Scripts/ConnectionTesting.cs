@@ -10,15 +10,28 @@ public class ConnectionTesting : MonoBehaviour {
     public SocketIOUnity socket;
     
     private RTCPeerConnection localPC;
+    private RTCDataChannel dataChannel;
 
     private DelegateOnIceCandidate localOnIceCandidate;
     
     private DelegateOnIceConnectionChange localOnIceConnectionChange;
+
+    private DelegateOnDataChannel onDataChannel;
+    private DelegateOnMessage onDataChannelMessage;
     
     public void Setup() {
         localOnIceCandidate = candidate => { OnIceCandidate(localPC, candidate); };
 
         localOnIceConnectionChange = state => { OnIceConnectionChange(localPC, state); };
+
+        onDataChannel = channel => {
+            dataChannel = channel;
+            dataChannel.OnMessage = onDataChannelMessage;
+        };
+
+        onDataChannelMessage = bytes => {
+            Debug.Log(System.Text.Encoding.UTF8.GetString(bytes));
+        };
     }
     
     public void ConnectSignalingServer() {
@@ -48,18 +61,26 @@ public class ConnectionTesting : MonoBehaviour {
         
         socket.OnUnityThread("sessionDescription", data => {
             var type = (RTCSdpType)data.GetValue<int>(1);
+            var desc = data.GetValue<string>();
+            
+            Debug.Log(desc);
 
             if (type == RTCSdpType.Offer) {
-                StartCoroutine(OnSessionDescriptionReceived(data.GetValue<string>()));
+                StartCoroutine(OnSessionDescriptionReceived(desc));
             }
 
             if (type == RTCSdpType.Answer) {
-                StartCoroutine(OnAnswerReceived(data.GetValue<string>()));
+                StartCoroutine(OnAnswerReceived(desc));
             }
         });
         
         socket.OnUnityThread("iceCandidate", data => {
-            var iceCandidateInit = data.GetValue<RTCIceCandidateInit>();
+
+            var iceCandidateInit = new RTCIceCandidateInit {
+                candidate = data.GetValue<string>(0),
+                sdpMid = data.GetValue<string>(1),
+                sdpMLineIndex = data.GetValue<int>(2)
+            };
             receiveIceCandidate(iceCandidateInit);
         });
     }
@@ -75,10 +96,15 @@ public class ConnectionTesting : MonoBehaviour {
 
         localPC.OnIceCandidate = localOnIceCandidate;
         localPC.OnIceConnectionChange = localOnIceConnectionChange;
+
+        localPC.OnDataChannel = onDataChannel;
     }
     
     public IEnumerator StartConnection() {
         CreateLocalPC();
+
+        RTCDataChannelInit config = new RTCDataChannelInit();
+        dataChannel = localPC.CreateDataChannel("data", config);
         
         Debug.Log("Creating offer");
         var createOfferOp = localPC.CreateOffer();
@@ -156,7 +182,7 @@ public class ConnectionTesting : MonoBehaviour {
         
         Debug.Log("Successfully set remote description");
     }
-
+    
     public void SendMessage() {
         socket.Emit("test", "HELOOOO");
     }
@@ -191,7 +217,7 @@ public class ConnectionTesting : MonoBehaviour {
 
     private void OnIceCandidate(RTCPeerConnection pc, RTCIceCandidate candidate) {
         // pc.AddIceCandidate(new RTCIceCandidate(candidate.))
-        socket.Emit("iceCandidate", new RTCIceCandidateInit {candidate = candidate.Candidate, sdpMid = candidate.SdpMid, sdpMLineIndex = candidate.SdpMLineIndex});
+        socket.Emit("iceCandidate", candidate.Candidate, candidate.SdpMid, candidate.SdpMLineIndex);
         Debug.Log($"remote ICE Candidate: {candidate}");
     }
 
