@@ -1,6 +1,5 @@
-using System;
+﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using SocketIOClient;
 using Unity.WebRTC;
 using UnityEngine;
@@ -8,17 +7,17 @@ using UnityEngine;
 [ExecuteAlways]
 public class ConnectionTesting : MonoBehaviour {
     public SocketIOUnity socket;
-    
+
     private RTCPeerConnection localPC;
     private RTCDataChannel dataChannel;
 
     private DelegateOnIceCandidate localOnIceCandidate;
-    
+
     private DelegateOnIceConnectionChange localOnIceConnectionChange;
 
     private DelegateOnDataChannel onDataChannel;
     private DelegateOnMessage onDataChannelMessage;
-    
+
     public void Setup() {
         localOnIceCandidate = candidate => { OnIceCandidate(localPC, candidate); };
 
@@ -29,40 +28,32 @@ public class ConnectionTesting : MonoBehaviour {
             dataChannel.OnMessage = onDataChannelMessage;
         };
 
-        onDataChannelMessage = bytes => {
-            Debug.Log(System.Text.Encoding.UTF8.GetString(bytes));
-        };
+        onDataChannelMessage = bytes => { Debug.Log(System.Text.Encoding.UTF8.GetString(bytes)); };
     }
-    
+
     public void ConnectSignalingServer() {
         DisconnectSignalingServer();
-        
+
         var uri = new Uri("https://TanksSignalingServer.bigspaceships.repl.co");
-        socket = new SocketIOUnity(uri, new SocketIOOptions
-        {
+        socket = new SocketIOUnity(uri, new SocketIOOptions {
             Transport = SocketIOClient.Transport.TransportProtocol.WebSocket
         });
-        
+
         socket.Connect();
 
-        socket.OnConnected += (sender , args) => {
-            var senderSocket = (SocketIOUnity) sender;
+        socket.OnConnected += (sender, args) => {
+            var senderSocket = (SocketIOUnity)sender;
             socket.Emit("type", "unity");
         };
 
-        socket.On("test", data => {
-            Debug.Log(data.GetValue<string>());
-        });
-        
-        socket.OnUnityThread("join", data => {
-            
-            StartCoroutine(StartConnection());
-        });
-        
+        socket.On("test", data => { Debug.Log(data.GetValue<string>()); });
+
+        socket.OnUnityThread("join", data => { StartCoroutine(StartConnection()); });
+
         socket.OnUnityThread("sessionDescription", data => {
             var type = (RTCSdpType)data.GetValue<int>(1);
             var desc = data.GetValue<string>();
-            
+
             Debug.Log(desc);
 
             if (type == RTCSdpType.Offer) {
@@ -73,9 +64,8 @@ public class ConnectionTesting : MonoBehaviour {
                 StartCoroutine(OnAnswerReceived(desc));
             }
         });
-        
-        socket.OnUnityThread("iceCandidate", data => {
 
+        socket.OnUnityThread("iceCandidate", data => {
             var iceCandidateInit = new RTCIceCandidateInit {
                 candidate = data.GetValue<string>(0),
                 sdpMid = data.GetValue<string>(1),
@@ -87,10 +77,10 @@ public class ConnectionTesting : MonoBehaviour {
 
     public void CreateLocalPC() {
         Setup();
-        
+
         Debug.Log("joining");
         var config = GetConfig();
-        
+
         Debug.Log("Creating local RTCPeerConnection");
         localPC = new RTCPeerConnection(ref config);
 
@@ -99,13 +89,13 @@ public class ConnectionTesting : MonoBehaviour {
 
         localPC.OnDataChannel = onDataChannel;
     }
-    
+
     public IEnumerator StartConnection() {
         CreateLocalPC();
 
         RTCDataChannelInit config = new RTCDataChannelInit();
         dataChannel = localPC.CreateDataChannel("data", config);
-        
+
         Debug.Log("Creating offer");
         var createOfferOp = localPC.CreateOffer();
         yield return createOfferOp;
@@ -114,7 +104,7 @@ public class ConnectionTesting : MonoBehaviour {
             Debug.LogError(createOfferOp.Error.message);
             yield break;
         }
-        
+
         Debug.Log("Setting local description");
         var localDesc = createOfferOp.Desc;
         var localDescriptionOp = localPC.SetLocalDescription(ref localDesc);
@@ -124,16 +114,16 @@ public class ConnectionTesting : MonoBehaviour {
             Debug.LogError(localDescriptionOp.Error.message);
             yield break;
         }
-        
+
         Debug.Log($"Local description: \n{localDesc.sdp}");
         socket.Emit("sessionDescription", localDesc.sdp, localDesc.type);
     }
 
     public IEnumerator OnSessionDescriptionReceived(string desc) {
         CreateLocalPC();
-        
-        var remoteDesc = new RTCSessionDescription {sdp = desc, type = RTCSdpType.Offer};
-        
+
+        var remoteDesc = new RTCSessionDescription { sdp = desc, type = RTCSdpType.Offer };
+
         Debug.Log($"Received remote description {desc}");
         Debug.Log("Setting remote description");
         var remoteDescriptionOp = localPC.SetRemoteDescription(ref remoteDesc);
@@ -152,7 +142,7 @@ public class ConnectionTesting : MonoBehaviour {
             Debug.Log(createAnswerOp.Error.message);
             yield break;
         }
-        
+
         Debug.Log("Setting local description");
         var answerDescription = createAnswerOp.Desc;
         var localDescriptionOp = localPC.SetLocalDescription(ref answerDescription);
@@ -162,7 +152,7 @@ public class ConnectionTesting : MonoBehaviour {
             Debug.LogError(localDescriptionOp.Error.message);
             yield break;
         }
-        
+
         Debug.Log($"Sending answer {answerDescription.sdp}");
         socket.Emit("sessionDescription", answerDescription.sdp, answerDescription.type);
     }
@@ -170,7 +160,7 @@ public class ConnectionTesting : MonoBehaviour {
     public IEnumerator OnAnswerReceived(string desc) {
         Debug.Log($"Received answer \n{desc}");
 
-        var remoteDescription = new RTCSessionDescription {sdp = desc, type = RTCSdpType.Answer};
+        var remoteDescription = new RTCSessionDescription { sdp = desc, type = RTCSdpType.Answer };
         var remoteDescriptionOp = localPC.SetRemoteDescription(ref remoteDescription);
 
         yield return remoteDescriptionOp;
@@ -179,17 +169,17 @@ public class ConnectionTesting : MonoBehaviour {
             Debug.LogError(remoteDescriptionOp.Error.message);
             yield break;
         }
-        
+
         Debug.Log("Successfully set remote description");
     }
-    
+
     public void SendMessage() {
         socket.Emit("test", "HELOOOO");
     }
 
     public void DisconnectSignalingServer() {
-        if (socket is not {Connected: true}) return;
-        
+        if (socket is not { Connected: true }) return;
+
         Debug.Log("disconnecting");
         socket.Disconnect();
         socket.Dispose();
@@ -206,9 +196,8 @@ public class ConnectionTesting : MonoBehaviour {
 
     private RTCConfiguration GetConfig() {
         RTCConfiguration config = default;
-        
-        config.iceServers = new RTCIceServer[]
-        {
+
+        config.iceServers = new RTCIceServer[] {
             new RTCIceServer { urls = new string[] { "stun:stun.l.google.com:19302" } }
         };
 
@@ -224,19 +213,17 @@ public class ConnectionTesting : MonoBehaviour {
     private void receiveIceCandidate(RTCIceCandidateInit candidateInit) {
         var iceCandidate = new RTCIceCandidate(candidateInit);
         localPC.AddIceCandidate(iceCandidate);
-        
+
         Debug.Log($"Added new ice candidate {candidateInit.candidate}");
     }
-    
-    string GetName(RTCPeerConnection pc)
-    {
+
+    string GetName(RTCPeerConnection pc) {
         return (pc == localPC) ? "local" : "remote";
     }
-    
+
     void OnIceConnectionChange(RTCPeerConnection pc, RTCIceConnectionState state) // just log ig
     {
-        switch (state)
-        {
+        switch (state) {
             case RTCIceConnectionState.New:
                 Debug.Log($"{GetName(pc)} IceConnectionState: New");
                 break;
