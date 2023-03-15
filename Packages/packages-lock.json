@@ -1,12 +1,5 @@
 {
   "dependencies": {
-    "com.community.netcode.transport.websocket": {
-      "version": "https://github.com/Unity-Technologies/multiplayer-community-contributions.git?path=/Transports/com.community.netcode.transport.websocket",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "6c13abfeb8707da936e1ebc191c621fe41754fd5"
-    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
