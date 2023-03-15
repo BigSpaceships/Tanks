@@ -23,6 +23,8 @@ public class WebRtcTransport : NetworkTransport {
         _socket.Connect();
 
         _socket.OnConnected += (sender, args) => { _socket.Emit("type", _type.ToString()); };
+
+        _socket.On("initiateConnection", data => { });
     }
 
     public override bool StartClient() {

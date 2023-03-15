@@ -205,7 +205,6 @@ public class ConnectionTesting : MonoBehaviour {
     }
 
     private void OnIceCandidate(RTCPeerConnection pc, RTCIceCandidate candidate) {
-        // pc.AddIceCandidate(new RTCIceCandidate(candidate.))
         socket.Emit("iceCandidate", candidate.Candidate, candidate.SdpMid, candidate.SdpMLineIndex);
         Debug.Log($"remote ICE Candidate: {candidate}");
     }
