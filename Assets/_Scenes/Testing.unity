@@ -2353,6 +2353,7 @@ GameObject:
   - component: {fileID: 1381154616}
   - component: {fileID: 1381154615}
   - component: {fileID: 1381154617}
+  - component: {fileID: 1381154618}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -2376,7 +2377,7 @@ MonoBehaviour:
   LogLevel: 1
   NetworkConfig:
     ProtocolVersion: 0
-    NetworkTransport: {fileID: 1381154617}
+    NetworkTransport: {fileID: 1381154618}
     PlayerPrefab: {fileID: 6300415802549390449, guid: 0f1dbb490a9dd8f4d89eb01a6653ee19, type: 3}
     NetworkPrefabs:
     - Override: 0
@@ -2428,11 +2429,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54618226c9df54608af7731199ed5f0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1381154618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381154613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8585fa24ed645b54ab77470eb43506e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   ConnectAddress: 127.0.0.1
   Path: /netcode
-  Port: 5500
+  Port: 7777
   SecureConnection: 0
-  AllowForwardedRequest: 1
+  AllowForwardedRequest: 0
   CertificateBase64String: 
 --- !u!1 &1398917143
 GameObject:

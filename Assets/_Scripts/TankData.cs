@@ -6,9 +6,11 @@ using UnityEngine;
 
 public class TankData : NetworkBehaviour {
     private NetworkVariable<FixedString32Bytes> _name = new("");
+    private NetworkVariable<int> _health = new NetworkVariable<int>();
 
     private void OnEnable() {
         UpdateNamePlate("", "");
+        _health.Value = 100;
     }
 
     public override void OnNetworkSpawn() {
@@ -40,9 +42,30 @@ public class TankData : NetworkBehaviour {
         _name.Value = newName;
     }
 
+    [ServerRpc]
+    private void ChangeHealthServerRpc(int newHealth)
+    {
+        _health.Value -= newHealth;
+    }
+    
     public void ChangeName(string newName) {
         if (IsClient && IsOwner) {
             ChangeNameServerRpc(newName);
         }
+    }
+
+    public void ChangeHealth(int h)
+    {
+        print(_health.Value);
+        if (_health.Value <= 0)
+        {
+            DestroyTank();
+        }
+        ChangeHealthServerRpc(h);
+    }
+
+    private void DestroyTank() // TODO: add more to make the game better
+    {
+        Destroy(gameObject);
     }
 }
