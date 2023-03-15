@@ -1,0 +1,75 @@
+Index: Assets/_Scripts/TankData.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Assets/_Scripts/TankData.cs b/Assets/_Scripts/TankData.cs
+--- a/Assets/_Scripts/TankData.cs	
++++ b/Assets/_Scripts/TankData.cs	
+@@ -7,6 +7,7 @@
+ 
+ public class TankData : NetworkBehaviour {    
+     private NetworkVariable<string> _name = new("");
++    private NetworkVariable<int> _health = new NetworkVariable<int>();
+ 
+     private void OnEnable() {
+         UpdateNamePlate("", "");
+@@ -34,10 +35,26 @@
+     private void ChangeNameServerRpc(string newName) {
+         _name.Value = newName;
+     }
++
++    [ServerRpc]
++    private void ChangeHealthServerRpc(int health)
++    {
++        _health.Value -= health;
++    }
++    //hello - by grayson
+     
+     public void ChangeName(string newName) {
+         if (IsClient && IsOwner) {
+             ChangeNameServerRpc(newName);
+         }
+     }
++
++    public void ChangeHealth(int newHealth)
++    {
++        if (IsClient && IsOwner)
++        {
++            ChangeHealthServerRpc(newHealth);
++            print(newHealth);
++        }
++    }
+ }
+Index: Assets/Prefabs/Shot.prefab
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Assets/Prefabs/Shot.prefab b/Assets/Prefabs/Shot.prefab
+--- a/Assets/Prefabs/Shot.prefab	
++++ b/Assets/Prefabs/Shot.prefab	
+@@ -16,6 +16,7 @@
+   - component: {fileID: 221250905017609735}
+   - component: {fileID: 7908031214483812607}
+   - component: {fileID: 2870863084518455016}
++  - component: {fileID: -4316621532413835476}
+   m_Layer: 0
+   m_Name: Shot
+   m_TagString: Untagged
+@@ -171,3 +172,15 @@
+   m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+   m_Name: 
+   m_EditorClassIdentifier: 
++--- !u!114 &-4316621532413835476
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 7454593480812251092}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 0d1977aa2aea0d9488db1f3681c1dc74, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
