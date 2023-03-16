@@ -4,16 +4,18 @@ using Unity.WebRTC;
 using UnityEngine;
 
 public class WebRtcConnection {
-    private SocketIOUnity _socket;
+    private readonly SocketIOUnity _socket;
+    private WebRtcTransport _transport;
 
-    private RTCPeerConnection _pc;
+    private readonly RTCPeerConnection _pc;
     private RTCDataChannel _dataChannel;
 
     private DelegateOnDataChannel _onDataChannel;
     private DelegateOnMessage _onDataChannelMessage;
 
-    public WebRtcConnection(SocketIOUnity socket) {
+    public WebRtcConnection(SocketIOUnity socket, WebRtcTransport transport) {
         _socket = socket;
+        _transport = transport;
         
         _socket.OnUnityThread("sessionDescription", data => {
             var desc = data.GetValue<string>();
@@ -40,7 +42,7 @@ public class WebRtcConnection {
 
         var config = GetConfig();
 
-        Debug.Log("Creating local RTCPeerConnection");
+        _transport.Log("Creating local RTCPeerConnection");
 
         _pc = new RTCPeerConnection(ref config);
 
@@ -58,11 +60,11 @@ public class WebRtcConnection {
     }
 
     public IEnumerator StartConnection() {
-        Debug.Log("hello");
+        _transport.Log("hello");
         RTCDataChannelInit config = new RTCDataChannelInit();
         _dataChannel = _pc.CreateDataChannel("data", config);
 
-        Debug.Log("Creating offer");
+        _transport.Log("Creating offer");
         var createOfferOp = _pc.CreateOffer();
         yield return createOfferOp;
 
@@ -71,7 +73,7 @@ public class WebRtcConnection {
             yield break;
         }
 
-        Debug.Log("Setting local description");
+        _transport.Log("Setting local description");
         var localDesc = createOfferOp.Desc;
         var localDescOp = _pc.SetLocalDescription(ref localDesc);
         yield return localDescOp;
@@ -81,15 +83,15 @@ public class WebRtcConnection {
             yield break;
         }
 
-        Debug.Log($"Local description: \n{localDesc.sdp}");
+        _transport.Log($"Local description: \n{localDesc.sdp}");
         _socket.Emit("sessionDescription", localDesc.sdp, localDesc.type);
     }
 
     private IEnumerator OnSessionDescriptionReceived(string desc) {
         var remoteDesc = new RTCSessionDescription {sdp = desc, type = RTCSdpType.Offer};
         
-        Debug.Log($"Received remote description {desc}");
-        Debug.Log("Setting remote description");
+        _transport.Log($"Received remote description {desc}");
+        _transport.Log("Setting remote description");
 
         var remoteDescOp = _pc.SetRemoteDescription(ref remoteDesc);
         yield return remoteDescOp;
@@ -99,7 +101,7 @@ public class WebRtcConnection {
             yield break;
         }
 
-        Debug.Log("Creating Answer");
+        _transport.Log("Creating Answer");
         var createAnswerOp = _pc.CreateAnswer();
         yield return createAnswerOp;
 
@@ -108,7 +110,7 @@ public class WebRtcConnection {
             yield break;
         }
 
-        Debug.Log("Setting local description");
+        _transport.Log("Setting local description");
         var answerDesc = createAnswerOp.Desc;
         var localDescOp = _pc.SetLocalDescription(ref answerDesc);
         yield return localDescOp;
@@ -118,12 +120,12 @@ public class WebRtcConnection {
             yield break;
         }
         
-        Debug.Log($"Sending answer {answerDesc.sdp}");
+        _transport.Log($"Sending answer {answerDesc.sdp}");
         _socket.Emit("sessionDescription", answerDesc.sdp, answerDesc.type);
     }
 
     private IEnumerator OnAnswerReceived(string desc) {
-        Debug.Log($"Received answer \n{desc}");
+        _transport.Log($"Received answer \n{desc}");
 
         var remoteDesc = new RTCSessionDescription {sdp = desc, type = RTCSdpType.Answer};
         var remoteDescOp = _pc.SetRemoteDescription(ref remoteDesc);
@@ -135,7 +137,7 @@ public class WebRtcConnection {
             yield break;
         }
         
-        Debug.Log("Successfully set remote description");
+        _transport.Log("Successfully set remote description");
     }
 
     private RTCConfiguration GetConfig() {
@@ -150,42 +152,42 @@ public class WebRtcConnection {
 
     private void OnIceCandidate(RTCIceCandidate candidate) {
         _socket.Emit("iceCandidate", candidate.Candidate, candidate.SdpMid, candidate.SdpMLineIndex);
-        Debug.Log($"remote ICE Candidate: {candidate}");
+        _transport.Log($"remote ICE Candidate: {candidate}");
     }
 
     private void RecieveIceCandidate(RTCIceCandidateInit candidateInit) {
         var iceCandidate = new RTCIceCandidate(candidateInit);
         _pc.AddIceCandidate(iceCandidate);
         
-        Debug.Log($"Added new ice candidate {candidateInit.candidate}");
+        _transport.Log($"Added new ice candidate {candidateInit.candidate}");
     }
 
     void OnIceConnectionChange(RTCIceConnectionState state) // just log ig
     {
         switch (state) {
             case RTCIceConnectionState.New:
-                Debug.Log("IceConnectionState: New");
+                _transport.Log("IceConnectionState: New");
                 break;
             case RTCIceConnectionState.Checking:
-                Debug.Log("IceConnectionState: Checking");
+                _transport.Log("IceConnectionState: Checking");
                 break;
             case RTCIceConnectionState.Closed:
-                Debug.Log("IceConnectionState: Closed");
+                _transport.Log("IceConnectionState: Closed");
                 break;
             case RTCIceConnectionState.Completed:
-                Debug.Log("IceConnectionState: Completed");
+                _transport.Log("IceConnectionState: Completed");
                 break;
             case RTCIceConnectionState.Connected:
-                Debug.Log("IceConnectionState: Connected");
+                _transport.Log("IceConnectionState: Connected");
                 break;
             case RTCIceConnectionState.Disconnected:
-                Debug.Log("IceConnectionState: Disconnected");
+                _transport.Log("IceConnectionState: Disconnected");
                 break;
             case RTCIceConnectionState.Failed:
-                Debug.Log("IceConnectionState: Failed");
+                _transport.Log("IceConnectionState: Failed");
                 break;
             case RTCIceConnectionState.Max:
-                Debug.Log("IceConnectionState: Max");
+                _transport.Log("IceConnectionState: Max");
                 break;
             default:
                 break;

@@ -7,6 +7,8 @@ public class WebRtcTransport : NetworkTransport {
     private SocketIOUnity _socket;
     private WebRtcConnection _webRtcConnection;
 
+    [SerializeField] private bool logNetworkDebug;
+
     private enum Type {
         Server,
         Client,
@@ -15,7 +17,7 @@ public class WebRtcTransport : NetworkTransport {
     private Type _type;
 
     private void StartSocket() {
-        Debug.Log(_type);
+        Log(_type);
         var uri = new Uri("https://TanksSignalingServer.bigspaceships.repl.co");
         _socket = new SocketIOUnity(uri, new SocketIOOptions {
             Transport = SocketIOClient.Transport.TransportProtocol.WebSocket
@@ -25,7 +27,7 @@ public class WebRtcTransport : NetworkTransport {
 
         _socket.OnConnected += (sender, args) => { _socket.Emit("type", _type.ToString()); };
 
-        _webRtcConnection = new WebRtcConnection(_socket);
+        _webRtcConnection = new WebRtcConnection(_socket, this);
         
         _socket.OnUnityThread("initiateConnection", data => {
             Debug.Log("hi");
@@ -73,11 +75,14 @@ public class WebRtcTransport : NetworkTransport {
         // throw new NotImplementedException();
     }
 
-    public override NetworkEvent PollEvent(out ulong clientId, out ArraySegment<byte> payload,
-        out float receiveTime) {
+    public override NetworkEvent PollEvent(out ulong clientId, out ArraySegment<byte> payload, out float receiveTime) {
         clientId = 0;
         receiveTime = Time.realtimeSinceStartup;
         payload = new ArraySegment<Byte>();
         return NetworkEvent.Nothing;
+    }
+
+    public void Log(object message) {
+        if (logNetworkDebug) Debug.Log(message);
     }
 }
