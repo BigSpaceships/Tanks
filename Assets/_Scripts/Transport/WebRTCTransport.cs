@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class WebRtcTransport : NetworkTransport {
     private SocketIOUnity _socket;
+    private WebRtcConnection _webRtcConnection;
 
     private enum Type {
         Server,
@@ -24,7 +25,12 @@ public class WebRtcTransport : NetworkTransport {
 
         _socket.OnConnected += (sender, args) => { _socket.Emit("type", _type.ToString()); };
 
-        _socket.On("initiateConnection", data => { });
+        _webRtcConnection = new WebRtcConnection(_socket);
+        
+        _socket.OnUnityThread("initiateConnection", data => {
+            Debug.Log("hi");
+            StartCoroutine(_webRtcConnection.StartConnection());
+        });
     }
 
     public override bool StartClient() {
@@ -53,7 +59,8 @@ public class WebRtcTransport : NetworkTransport {
     }
 
     public override void Shutdown() {
-        // throw new NotImplementedException();
+        _socket.Disconnect();
+        _webRtcConnection.Close();
     }
 
     public override void Initialize(NetworkManager networkManager = null) {
