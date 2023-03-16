@@ -55,12 +55,12 @@ public class WebRtcTransport : NetworkTransport {
 
     public override ulong GetCurrentRtt(ulong clientId) {
         // throw new NotImplementedException();
-        return 0;
+        return 1;
     }
 
     public override void Shutdown() {
-        _socket.Disconnect();
-        _webRtcConnection.Close();
+        _socket?.Disconnect();
+        _webRtcConnection?.Close();
     }
 
     public override void Initialize(NetworkManager networkManager = null) {
