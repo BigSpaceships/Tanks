@@ -37,7 +37,7 @@ public class WebRtcConnection {
                 sdpMid = data.GetValue<string>(1),
                 sdpMLineIndex = data.GetValue<int>(2)
             };
-            RecieveIceCandidate(iceCandidateInit);
+            ReceiveIceCandidate(iceCandidateInit);
         });
 
         var config = GetConfig();
@@ -155,14 +155,14 @@ public class WebRtcConnection {
         _transport.Log($"remote ICE Candidate: {candidate}");
     }
 
-    private void RecieveIceCandidate(RTCIceCandidateInit candidateInit) {
+    private void ReceiveIceCandidate(RTCIceCandidateInit candidateInit) {
         var iceCandidate = new RTCIceCandidate(candidateInit);
         _pc.AddIceCandidate(iceCandidate);
         
         _transport.Log($"Added new ice candidate {candidateInit.candidate}");
     }
 
-    void OnIceConnectionChange(RTCIceConnectionState state) // just log ig
+    private void OnIceConnectionChange(RTCIceConnectionState state) // just log ig
     {
         switch (state) {
             case RTCIceConnectionState.New:
