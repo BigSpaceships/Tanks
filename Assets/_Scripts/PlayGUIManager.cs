@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Netcode.Transports.WebSocket;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
@@ -28,8 +26,8 @@ public class PlayGUIManager : MonoBehaviour {
         foreach (var optionObject in AllOptions) {
             optionObject.SetActive(false);
         }
-        
-        var optionArray = new[] {hostOptions, clientOptions, serverOptions};
+
+        var optionArray = new[] { hostOptions, clientOptions, serverOptions };
 
         foreach (var optionsToDisplay in optionArray[option]) {
             optionsToDisplay.SetActive(true);
@@ -44,7 +42,7 @@ public class PlayGUIManager : MonoBehaviour {
                 break;
             case 1:
                 // client
-                NetworkManager.Singleton.GetComponent<WebSocketTransport>().ConnectAddress = clientIpField.text;
+                // NetworkManager.Singleton.GetComponent<WebSocketTransport>().ConnectAddress = clientIpField.text;
                 NetworkManager.Singleton.StartClient();
                 break;
             case 2:
@@ -55,7 +53,7 @@ public class PlayGUIManager : MonoBehaviour {
                 Debug.LogError($"Illegal option {modeDropdown.value}");
                 break;
         }
-        
+
         transform.Find("Display").gameObject.SetActive(false);
     }
 

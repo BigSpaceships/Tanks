@@ -202,7 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c330916a264598b430c9b691274467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  logNetworkDebug: 0
+  logNetworkDebug: 1
 --- !u!1 &1750591537
 GameObject:
   m_ObjectHideFlags: 0

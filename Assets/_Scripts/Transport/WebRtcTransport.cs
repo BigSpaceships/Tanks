@@ -14,6 +14,9 @@ public class WebRtcTransport : NetworkTransport {
         Client,
     }
 
+    private ulong _id;
+    private ulong OtherId => (ulong)(_id == 1 ? 2 : 1);
+
     private Type _type;
 
     private void StartSocket() {
@@ -27,7 +30,7 @@ public class WebRtcTransport : NetworkTransport {
 
         _socket.OnConnected += (sender, args) => { _socket.Emit("type", _type.ToString()); };
 
-        _webRtcConnection = new WebRtcConnection(_socket, this);
+        _webRtcConnection = new WebRtcConnection(_socket, this, _id, OtherId);
 
         _socket.OnUnityThread("initiateConnection", data => {
             Debug.Log("hi");
@@ -37,13 +40,21 @@ public class WebRtcTransport : NetworkTransport {
 
     public override bool StartClient() {
         _type = Type.Client;
+
+        _id = 2; // TODO: Cursed AF
+
         StartSocket();
+
         return true;
     }
 
     public override bool StartServer() {
         _type = Type.Server;
+
+        _id = 1; // TODO: Cursed AF
+
         StartSocket();
+
         return true;
     }
 
@@ -69,7 +80,7 @@ public class WebRtcTransport : NetworkTransport {
         // throw new NotImplementedException();
     }
 
-    public override ulong ServerClientId { get; }
+    public override ulong ServerClientId => 0;
 
     public override void Send(ulong clientId, ArraySegment<byte> data, NetworkDelivery delivery) {
         // throw new NotImplementedException();
