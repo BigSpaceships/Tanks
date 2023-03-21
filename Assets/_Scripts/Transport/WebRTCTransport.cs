@@ -28,7 +28,7 @@ public class WebRtcTransport : NetworkTransport {
         _socket.OnConnected += (sender, args) => { _socket.Emit("type", _type.ToString()); };
 
         _webRtcConnection = new WebRtcConnection(_socket, this);
-        
+
         _socket.OnUnityThread("initiateConnection", data => {
             Debug.Log("hi");
             StartCoroutine(_webRtcConnection.StartConnection());
@@ -80,6 +80,10 @@ public class WebRtcTransport : NetworkTransport {
         receiveTime = Time.realtimeSinceStartup;
         payload = new ArraySegment<Byte>();
         return NetworkEvent.Nothing;
+    }
+
+    public void ProcessEvent(NetworkEvent eventType, ulong clientId, ArraySegment<byte> payload, float receiveTime) {
+        InvokeOnTransportEvent(eventType, clientId, payload, receiveTime);
     }
 
     public void Log(object message) {

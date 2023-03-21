@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Unity.Netcode;
 using Unity.WebRTC;
 using UnityEngine;
@@ -13,13 +14,21 @@ public class WebRtcConnection {
     private DelegateOnDataChannel _onDataChannel;
     private DelegateOnMessage _onDataChannelMessage;
 
+    public void SendMessage(ArraySegment<byte> data) {
+        _dataChannel.Send(data.Array);
+    }
+
+    private void ReceiveMessage(byte[] data) {
+        // _transport.ProcessEvent(NetworkEvent.Data, );
+    }
+
     public WebRtcConnection(SocketIOUnity socket, WebRtcTransport transport) {
         _socket = socket;
         _transport = transport;
-        
+
         _socket.OnUnityThread("sessionDescription", data => {
             var desc = data.GetValue<string>();
-            var type = (RTCSdpType) data.GetValue<int>(1);
+            var type = (RTCSdpType)data.GetValue<int>(1);
 
             switch (type) {
                 case RTCSdpType.Offer:
@@ -30,7 +39,7 @@ public class WebRtcConnection {
                     break;
             }
         });
-        
+
         _socket.OnUnityThread("iceCandidate", data => {
             var iceCandidateInit = new RTCIceCandidateInit {
                 candidate = data.GetValue<string>(),
@@ -49,9 +58,11 @@ public class WebRtcConnection {
         _pc.OnIceCandidate = OnIceCandidate;
         _pc.OnIceConnectionChange = OnIceConnectionChange;
 
+        _pc.OnConnectionStateChange = OnConnectionStateChange;
+
         _pc.OnDataChannel = channel => {
             _dataChannel = channel;
-            _dataChannel.OnMessage = _onDataChannelMessage;
+            _dataChannel.OnMessage = ReceiveMessage;
         };
     }
 
@@ -88,8 +99,8 @@ public class WebRtcConnection {
     }
 
     private IEnumerator OnSessionDescriptionReceived(string desc) {
-        var remoteDesc = new RTCSessionDescription {sdp = desc, type = RTCSdpType.Offer};
-        
+        var remoteDesc = new RTCSessionDescription { sdp = desc, type = RTCSdpType.Offer };
+
         _transport.Log($"Received remote description {desc}");
         _transport.Log("Setting remote description");
 
@@ -119,7 +130,7 @@ public class WebRtcConnection {
             Debug.LogError(localDescOp.Error.message);
             yield break;
         }
-        
+
         _transport.Log($"Sending answer {answerDesc.sdp}");
         _socket.Emit("sessionDescription", answerDesc.sdp, answerDesc.type);
     }
@@ -127,7 +138,7 @@ public class WebRtcConnection {
     private IEnumerator OnAnswerReceived(string desc) {
         _transport.Log($"Received answer \n{desc}");
 
-        var remoteDesc = new RTCSessionDescription {sdp = desc, type = RTCSdpType.Answer};
+        var remoteDesc = new RTCSessionDescription { sdp = desc, type = RTCSdpType.Answer };
         var remoteDescOp = _pc.SetRemoteDescription(ref remoteDesc);
 
         yield return remoteDescOp;
@@ -136,7 +147,7 @@ public class WebRtcConnection {
             Debug.LogError(remoteDescOp.Error.message);
             yield break;
         }
-        
+
         _transport.Log("Successfully set remote description");
     }
 
@@ -158,8 +169,12 @@ public class WebRtcConnection {
     private void ReceiveIceCandidate(RTCIceCandidateInit candidateInit) {
         var iceCandidate = new RTCIceCandidate(candidateInit);
         _pc.AddIceCandidate(iceCandidate);
-        
+
         _transport.Log($"Added new ice candidate {candidateInit.candidate}");
+    }
+
+    private void OnConnectionStateChange(RTCPeerConnectionState state) {
+        _transport.Log($"PeerConnectionState: {state.ToString()}");
     }
 
     private void OnIceConnectionChange(RTCIceConnectionState state) // just log ig
