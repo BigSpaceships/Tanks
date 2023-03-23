@@ -9,6 +9,7 @@ public class TankShooting : NetworkBehaviour {
     private GameObject currentShell;
 
     [Range(10, 100)] public float shotForce;
+    [SerializeField] public float barrelMoveSpeed = 5f;
 
     private void OnEnable() {
         UpdateControls();
