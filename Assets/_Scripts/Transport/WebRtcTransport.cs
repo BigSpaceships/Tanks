@@ -15,22 +15,26 @@ public class WebRtcTransport : NetworkTransport {
     }
 
     private ulong _id;
-    private ulong OtherId => (ulong)(_id == 1 ? 2 : 1);
+    private ulong _lastId = 0;
+    private ulong NextId => _lastId++;
 
     private Type _type;
 
     private void StartSocket() {
         Log(_type);
-        var uri = new Uri("https://TanksSignalingServer.bigspaceships.repl.co");
+        var uri = new Uri("https://8080-bigspaceshi-tanksignals-itvkcauzscy.ws-us92.gitpod.io/");
         _socket = new SocketIOUnity(uri, new SocketIOOptions {
             Transport = SocketIOClient.Transport.TransportProtocol.WebSocket
         });
 
         _socket.Connect();
 
-        _socket.OnConnected += (sender, args) => { _socket.Emit("type", _type.ToString()); };
+        _socket.OnConnected += (sender, args) => {
+            Debug.Log("hi");
+            _socket.Emit("type", _type.ToString());
+        };
 
-        _webRtcConnection = new WebRtcConnection(_socket, this, _id, OtherId);
+        _webRtcConnection = new WebRtcConnection(_socket, this, NextId);
 
         _socket.OnUnityThread("initiateConnection", data => {
             Debug.Log("hi");
@@ -40,8 +44,6 @@ public class WebRtcTransport : NetworkTransport {
 
     public override bool StartClient() {
         _type = Type.Client;
-
-        _id = 2; // TODO: Cursed AF
 
         StartSocket();
 
@@ -83,7 +85,7 @@ public class WebRtcTransport : NetworkTransport {
     public override ulong ServerClientId => 0;
 
     public override void Send(ulong clientId, ArraySegment<byte> data, NetworkDelivery delivery) {
-        // throw new NotImplementedException();
+        _webRtcConnection.SendMessage(data);
     }
 
     public override NetworkEvent PollEvent(out ulong clientId, out ArraySegment<byte> payload, out float receiveTime) {
@@ -93,8 +95,19 @@ public class WebRtcTransport : NetworkTransport {
         return NetworkEvent.Nothing;
     }
 
-    public void ProcessEvent(NetworkEvent eventType, ulong clientId, ArraySegment<byte> payload, float receiveTime) {
-        InvokeOnTransportEvent(eventType, clientId, payload, receiveTime);
+    public void ProcessEvent(NetworkEvent eventType, WebRtcConnection peer, ArraySegment<byte> payload,
+        float receiveTime) {
+        InvokeOnTransportEvent(eventType, GetMlapiClientId(peer), payload, receiveTime);
+    }
+
+    ulong GetMlapiClientId(WebRtcConnection peer) {
+        ulong clientId = (ulong)peer.id;
+
+        if (_type == Type.Server) {
+            clientId += 1;
+        }
+
+        return clientId;
     }
 
     public void Log(object message) {

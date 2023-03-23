@@ -14,8 +14,7 @@ public class WebRtcConnection {
     private DelegateOnDataChannel _onDataChannel;
     private DelegateOnMessage _onDataChannelMessage;
 
-    private ulong _receivingId;
-    private ulong _id;
+    public ulong id { get; }
 
     public void SendMessage(ArraySegment<byte> data) {
         _dataChannel.Send(data.Array);
@@ -23,14 +22,13 @@ public class WebRtcConnection {
 
     private void ReceiveMessage(byte[] data) {
         // ArraySegment<byte> newData = new ArraySegment<byte>(data)
-        _transport.ProcessEvent(NetworkEvent.Data, _receivingId, new ArraySegment<byte>(data), 0);
+        _transport.ProcessEvent(NetworkEvent.Data, this, new ArraySegment<byte>(data), 0);
     }
 
-    public WebRtcConnection(SocketIOUnity socket, WebRtcTransport transport, ulong id, ulong receivingId) {
+    public WebRtcConnection(SocketIOUnity socket, WebRtcTransport transport, ulong id) {
         _socket = socket;
         _transport = transport;
-        _receivingId = receivingId;
-        _id = id;
+        this.id = id;
 
         _socket.OnUnityThread("sessionDescription", data => {
             var desc = data.GetValue<string>();
@@ -184,10 +182,10 @@ public class WebRtcConnection {
 
         switch (state) {
             case RTCPeerConnectionState.Connected:
-                _transport.ProcessEvent(NetworkEvent.Connect, _id, default, Time.time);
+                _transport.ProcessEvent(NetworkEvent.Connect, this, default, Time.time);
                 break;
             case RTCPeerConnectionState.Disconnected:
-                _transport.ProcessEvent(NetworkEvent.Disconnect, _id, default, Time.time);
+                _transport.ProcessEvent(NetworkEvent.Disconnect, this, default, Time.time);
                 break;
         }
     }
