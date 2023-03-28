@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using SocketIOClient;
 using Unity.Netcode;
 using Unity.WebRTC;
@@ -15,11 +16,12 @@ public class WebRtcTransport : NetworkTransport {
         Client,
     }
 
-    private ulong _id;
     private ulong _lastId = 0;
     private ulong NextId => _lastId++;
 
     private Type _type;
+
+    private Dictionary<ulong, WebRtcConnection> _peers = new Dictionary<ulong, WebRtcConnection>();
 
     private void StartSocket() {
         var uri = new Uri("https://8080-bigspaceshi-tanksignals-itvkcauzscy.ws-us92.gitpod.io/");
@@ -72,8 +74,6 @@ public class WebRtcTransport : NetworkTransport {
 
     public override bool StartServer() {
         _type = Type.Server;
-
-        _id = 1; // TODO: Cursed AF
 
         StartSocket();
 
