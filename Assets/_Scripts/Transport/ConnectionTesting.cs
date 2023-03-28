@@ -34,7 +34,7 @@ public class ConnectionTesting : MonoBehaviour {
     public void ConnectSignalingServer() {
         DisconnectSignalingServer();
 
-        var uri = new Uri("https://TanksSignalingServer.bigspaceships.repl.co");
+        var uri = new Uri("https://8080-bigspaceshi-tanksignals-itvkcauzscy.ws-us92.gitpod.io/");
         socket = new SocketIOUnity(uri, new SocketIOOptions {
             Transport = SocketIOClient.Transport.TransportProtocol.WebSocket
         });
@@ -86,6 +86,7 @@ public class ConnectionTesting : MonoBehaviour {
 
         localPC.OnIceCandidate = localOnIceCandidate;
         localPC.OnIceConnectionChange = localOnIceConnectionChange;
+        localPC.OnConnectionStateChange = OnConnectionStateChange;
 
         localPC.OnDataChannel = onDataChannel;
     }
@@ -250,5 +251,9 @@ public class ConnectionTesting : MonoBehaviour {
             default:
                 break;
         }
+    }
+    
+    void OnConnectionStateChange(RTCPeerConnectionState state) {
+        Debug.Log($"PeerConnectionState: {state.ToString()}");
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using SocketIOClient;
 using Unity.Netcode;
 using UnityEngine;
@@ -62,10 +63,12 @@ public class WebRtcTransport : NetworkTransport {
 
     public override void DisconnectRemoteClient(ulong clientId) {
         // throw new NotImplementedException();
+        Log($"disconnect {clientId}");
     }
 
     public override void DisconnectLocalClient() {
         // throw new NotImplementedException();
+        Log("disconnect local");
     }
 
     public override ulong GetCurrentRtt(ulong clientId) {
@@ -74,6 +77,7 @@ public class WebRtcTransport : NetworkTransport {
     }
 
     public override void Shutdown() {
+        Log("Shutdown");
         _socket?.Disconnect();
         _webRtcConnection?.Close();
     }
@@ -91,7 +95,7 @@ public class WebRtcTransport : NetworkTransport {
     public override NetworkEvent PollEvent(out ulong clientId, out ArraySegment<byte> payload, out float receiveTime) {
         clientId = 0;
         receiveTime = Time.realtimeSinceStartup;
-        payload = new ArraySegment<Byte>();
+        payload = new ArraySegment<byte>();
         return NetworkEvent.Nothing;
     }
 

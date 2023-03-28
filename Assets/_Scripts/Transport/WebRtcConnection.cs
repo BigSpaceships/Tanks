@@ -17,12 +17,13 @@ public class WebRtcConnection {
     public ulong id { get; }
 
     public void SendMessage(ArraySegment<byte> data) {
-        _dataChannel.Send(data.Array);
+        _dataChannel.Send(data.ToArray());
     }
 
     private void ReceiveMessage(byte[] data) {
+        _transport.Log("message");
         // ArraySegment<byte> newData = new ArraySegment<byte>(data)
-        _transport.ProcessEvent(NetworkEvent.Data, this, new ArraySegment<byte>(data), 0);
+        _transport.ProcessEvent(NetworkEvent.Data, this, new ArraySegment<byte>(data), Time.time);
     }
 
     public WebRtcConnection(SocketIOUnity socket, WebRtcTransport transport, ulong id) {
@@ -67,7 +68,14 @@ public class WebRtcConnection {
         _pc.OnDataChannel = channel => {
             _dataChannel = channel;
             _dataChannel.OnMessage = ReceiveMessage;
+            
+            _dataChannel.OnClose = OnDataChannelClosed;
+            
+            OnDataChannelOpen();
         };
+
+
+        _pc.OnTrack = track => Debug.Log(track.ToString());
     }
 
     public void Close() {
@@ -78,6 +86,10 @@ public class WebRtcConnection {
         _transport.Log("hello");
         RTCDataChannelInit config = new RTCDataChannelInit();
         _dataChannel = _pc.CreateDataChannel("data", config);
+        
+        _dataChannel.OnMessage = ReceiveMessage;
+        _dataChannel.OnOpen = OnDataChannelOpen;
+        _dataChannel.OnClose = OnDataChannelClosed;
 
         _transport.Log("Creating offer");
         var createOfferOp = _pc.CreateOffer();
@@ -177,17 +189,16 @@ public class WebRtcConnection {
         _transport.Log($"Added new ice candidate {candidateInit.candidate}");
     }
 
+    private void OnDataChannelOpen() {
+        _transport.ProcessEvent(NetworkEvent.Connect, this, default, Time.time);
+    }
+
+    private void OnDataChannelClosed() {
+        _transport.ProcessEvent(NetworkEvent.Disconnect, this, default, Time.time);
+    }
+
     private void OnConnectionStateChange(RTCPeerConnectionState state) {
         _transport.Log($"PeerConnectionState: {state.ToString()}");
-
-        switch (state) {
-            case RTCPeerConnectionState.Connected:
-                _transport.ProcessEvent(NetworkEvent.Connect, this, default, Time.time);
-                break;
-            case RTCPeerConnectionState.Disconnected:
-                _transport.ProcessEvent(NetworkEvent.Disconnect, this, default, Time.time);
-                break;
-        }
     }
 
     private void OnIceConnectionChange(RTCIceConnectionState state) // just log ig
