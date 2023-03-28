@@ -29,28 +29,6 @@ public class WebRtcConnection {
         _transport = transport;
         this.id = id;
 
-        _socket.OnUnityThread("sessionDescription", data => {
-            var desc = data.GetValue<string>();
-            var type = (RTCSdpType)data.GetValue<int>(1);
-
-            switch (type) {
-                case RTCSdpType.Offer:
-                    NetworkManager.Singleton.StartCoroutine(OnSessionDescriptionReceived(desc));
-                    break;
-                case RTCSdpType.Answer:
-                    NetworkManager.Singleton.StartCoroutine(OnAnswerReceived(desc));
-                    break;
-            }
-        });
-
-        _socket.OnUnityThread("iceCandidate", data => {
-            var iceCandidateInit = new RTCIceCandidateInit {
-                candidate = data.GetValue<string>(),
-                sdpMid = data.GetValue<string>(1),
-                sdpMLineIndex = data.GetValue<int>(2)
-            };
-            ReceiveIceCandidate(iceCandidateInit);
-        });
 
         var config = GetConfig();
 
@@ -110,7 +88,7 @@ public class WebRtcConnection {
         _socket.Emit("sessionDescription", localDesc.sdp, localDesc.type);
     }
 
-    private IEnumerator OnSessionDescriptionReceived(string desc) {
+    public IEnumerator OnSessionDescriptionReceived(string desc) {
         var remoteDesc = new RTCSessionDescription { sdp = desc, type = RTCSdpType.Offer };
 
         _transport.Log($"Received remote description {desc}");
@@ -147,7 +125,7 @@ public class WebRtcConnection {
         _socket.Emit("sessionDescription", answerDesc.sdp, answerDesc.type);
     }
 
-    private IEnumerator OnAnswerReceived(string desc) {
+    public IEnumerator OnAnswerReceived(string desc) {
         _transport.Log($"Received answer \n{desc}");
 
         var remoteDesc = new RTCSessionDescription { sdp = desc, type = RTCSdpType.Answer };
@@ -178,7 +156,7 @@ public class WebRtcConnection {
         _transport.Log($"remote ICE Candidate: {candidate}");
     }
 
-    private void ReceiveIceCandidate(RTCIceCandidateInit candidateInit) {
+    public void ReceiveIceCandidate(RTCIceCandidateInit candidateInit) {
         var iceCandidate = new RTCIceCandidate(candidateInit);
         _pc.AddIceCandidate(iceCandidate);
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using SocketIOClient;
 using Unity.Netcode;
+using Unity.WebRTC;
 using UnityEngine;
 
 public class WebRtcTransport : NetworkTransport {
@@ -36,6 +37,29 @@ public class WebRtcTransport : NetworkTransport {
         _webRtcConnection = new WebRtcConnection(_socket, this, NextId);
 
         _socket.OnUnityThread("initiateConnection", data => { StartCoroutine(_webRtcConnection.StartConnection()); });
+
+        _socket.OnUnityThread("sessionDescription", data => {
+            var desc = data.GetValue<string>();
+            var type = (RTCSdpType)data.GetValue<int>(1);
+
+            switch (type) {
+                case RTCSdpType.Offer:
+                    StartCoroutine(_webRtcConnection.OnSessionDescriptionReceived(desc));
+                    break;
+                case RTCSdpType.Answer:
+                    StartCoroutine(_webRtcConnection.OnAnswerReceived(desc));
+                    break;
+            }
+        });
+
+        _socket.OnUnityThread("iceCandidate", data => {
+            var iceCandidateInit = new RTCIceCandidateInit {
+                candidate = data.GetValue<string>(),
+                sdpMid = data.GetValue<string>(1),
+                sdpMLineIndex = data.GetValue<int>(2)
+            };
+            _webRtcConnection.ReceiveIceCandidate(iceCandidateInit);
+        });
     }
 
     public override bool StartClient() {
