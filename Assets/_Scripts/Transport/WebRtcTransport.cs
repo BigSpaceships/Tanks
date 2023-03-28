@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using SocketIOClient;
 using Unity.Netcode;
 using UnityEngine;
@@ -22,7 +21,6 @@ public class WebRtcTransport : NetworkTransport {
     private Type _type;
 
     private void StartSocket() {
-        Log(_type);
         var uri = new Uri("https://8080-bigspaceshi-tanksignals-itvkcauzscy.ws-us92.gitpod.io/");
         _socket = new SocketIOUnity(uri, new SocketIOOptions {
             Transport = SocketIOClient.Transport.TransportProtocol.WebSocket
@@ -31,16 +29,13 @@ public class WebRtcTransport : NetworkTransport {
         _socket.Connect();
 
         _socket.OnConnected += (sender, args) => {
-            Debug.Log("hi");
+            Log("Socket connected");
             _socket.Emit("type", _type.ToString());
         };
 
         _webRtcConnection = new WebRtcConnection(_socket, this, NextId);
 
-        _socket.OnUnityThread("initiateConnection", data => {
-            Debug.Log("hi");
-            StartCoroutine(_webRtcConnection.StartConnection());
-        });
+        _socket.OnUnityThread("initiateConnection", data => { StartCoroutine(_webRtcConnection.StartConnection()); });
     }
 
     public override bool StartClient() {

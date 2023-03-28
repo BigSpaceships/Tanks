@@ -21,8 +21,6 @@ public class WebRtcConnection {
     }
 
     private void ReceiveMessage(byte[] data) {
-        _transport.Log("message");
-        // ArraySegment<byte> newData = new ArraySegment<byte>(data)
         _transport.ProcessEvent(NetworkEvent.Data, this, new ArraySegment<byte>(data), Time.time);
     }
 
@@ -68,12 +66,11 @@ public class WebRtcConnection {
         _pc.OnDataChannel = channel => {
             _dataChannel = channel;
             _dataChannel.OnMessage = ReceiveMessage;
-            
+
             _dataChannel.OnClose = OnDataChannelClosed;
-            
+
             OnDataChannelOpen();
         };
-
 
         _pc.OnTrack = track => Debug.Log(track.ToString());
     }
@@ -83,10 +80,9 @@ public class WebRtcConnection {
     }
 
     public IEnumerator StartConnection() {
-        _transport.Log("hello");
         RTCDataChannelInit config = new RTCDataChannelInit();
         _dataChannel = _pc.CreateDataChannel("data", config);
-        
+
         _dataChannel.OnMessage = ReceiveMessage;
         _dataChannel.OnOpen = OnDataChannelOpen;
         _dataChannel.OnClose = OnDataChannelClosed;
