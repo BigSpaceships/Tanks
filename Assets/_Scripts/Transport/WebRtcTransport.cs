@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using SocketIOClient;
 using Unity.Netcode;
 using Unity.WebRTC;
@@ -7,7 +9,6 @@ using UnityEngine;
 
 public class WebRtcTransport : NetworkTransport {
     private SocketIOUnity _socket;
-    private WebRtcConnection _webRtcConnection;
 
     [SerializeField] private bool logNetworkDebug;
 
@@ -21,10 +22,11 @@ public class WebRtcTransport : NetworkTransport {
 
     private Type _type;
 
-    private Dictionary<ulong, WebRtcConnection> _peers = new Dictionary<ulong, WebRtcConnection>();
+    private Dictionary<ulong, WebRtcConnection> _peers = new();
+    private Dictionary<string, ulong> _peerSocketIds = new();
 
     private void StartSocket() {
-        var uri = new Uri("https://8080-bigspaceshi-tanksignals-itvkcauzscy.ws-us92.gitpod.io/");
+        var uri = new Uri("https://8080-bigspaceshi-tanksignals-itvkcauzscy.ws-us93.gitpod.io/");
         _socket = new SocketIOUnity(uri, new SocketIOOptions {
             Transport = SocketIOClient.Transport.TransportProtocol.WebSocket
         });
@@ -33,35 +35,60 @@ public class WebRtcTransport : NetworkTransport {
 
         _socket.OnConnected += (sender, args) => {
             Log("Socket connected");
-            _socket.Emit("type", _type.ToString());
+            _socket.Emit("join", _type.ToString());
         };
 
-        _webRtcConnection = new WebRtcConnection(_socket, this, NextId);
 
-        _socket.OnUnityThread("initiateConnection", data => { StartCoroutine(_webRtcConnection.StartConnection()); });
+        _socket.OnUnityThread("initiateConnection", data => {
+            var senderId = data.GetValue<string>();
 
-        _socket.OnUnityThread("sessionDescription", data => {
-            var desc = data.GetValue<string>();
-            var type = (RTCSdpType)data.GetValue<int>(1);
-
-            switch (type) {
-                case RTCSdpType.Offer:
-                    StartCoroutine(_webRtcConnection.OnSessionDescriptionReceived(desc));
-                    break;
-                case RTCSdpType.Answer:
-                    StartCoroutine(_webRtcConnection.OnAnswerReceived(desc));
-                    break;
-            }
+            var newId = StartConnection(senderId);
+            
+            _peerSocketIds.Add(senderId, newId);
+            
+            StartCoroutine(_peers[newId].StartConnection(senderId));
+        });
+        
+        _socket.OnUnityThread("sessionDescriptionOffer", data => {
+            var senderId = data.GetValue<string>(0);
+            var desc = new RTCSessionDescription {
+                sdp = data.GetValue<string>(1),
+                type = RTCSdpType.Offer
+            };
+            
+            var newId = StartConnection(senderId);
+            _peerSocketIds.Add(senderId, newId);
+            
+            StartCoroutine(_peers[newId].OnSessionDescriptionReceived(senderId, desc));
+        });
+        
+        _socket.OnUnityThread("sessionDescriptionAnswer", data => {
+            var senderId = data.GetValue<string>(0);
+            var desc = new RTCSessionDescription {
+                sdp = data.GetValue<string>(1),
+                type = RTCSdpType.Answer
+            };
+            
+            StartCoroutine(_peers[_peerSocketIds[senderId]].OnAnswerReceived(desc));
         });
 
         _socket.OnUnityThread("iceCandidate", data => {
+            var senderId = data.GetValue<string>();
             var iceCandidateInit = new RTCIceCandidateInit {
-                candidate = data.GetValue<string>(),
-                sdpMid = data.GetValue<string>(1),
-                sdpMLineIndex = data.GetValue<int>(2)
+                candidate = data.GetValue<string>(1),
+                sdpMid = data.GetValue<string>(2),
+                sdpMLineIndex = data.GetValue<int>(3)
             };
-            _webRtcConnection.ReceiveIceCandidate(iceCandidateInit);
+            
+            _peers[_peerSocketIds[senderId]].ReceiveIceCandidate(iceCandidateInit);
         });
+    }
+
+    private ulong StartConnection(string id) {
+        var newId = NextId;
+        _peers[newId] = new WebRtcConnection(_socket, this, newId);
+
+        return newId;
     }
 
     public override bool StartClient() {
@@ -98,7 +125,9 @@ public class WebRtcTransport : NetworkTransport {
     public override void Shutdown() {
         Log("Shutdown");
         _socket?.Disconnect();
-        _webRtcConnection?.Close();
+        foreach (var (id, connection) in _peers) {
+            connection.Close();
+        }
     }
 
     public override void Initialize(NetworkManager networkManager = null) {
@@ -108,7 +137,8 @@ public class WebRtcTransport : NetworkTransport {
     public override ulong ServerClientId => 0;
 
     public override void Send(ulong clientId, ArraySegment<byte> data, NetworkDelivery delivery) {
-        _webRtcConnection.SendMessage(data);
+        Debug.Log(string.Join(", ", _peers.Keys));
+        _peers[clientId].SendMessage(data);
     }
 
     public override NetworkEvent PollEvent(out ulong clientId, out ArraySegment<byte> payload, out float receiveTime) {
@@ -135,5 +165,11 @@ public class WebRtcTransport : NetworkTransport {
 
     public void Log(object message) {
         if (logNetworkDebug) Debug.Log(message);
+    }
+
+    [Serializable]
+    public struct DescriptionData {
+        public RTCSdpType type;
+        public string desc;
     }
 }

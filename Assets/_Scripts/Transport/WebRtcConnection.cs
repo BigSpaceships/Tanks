@@ -15,6 +15,7 @@ public class WebRtcConnection {
     private DelegateOnMessage _onDataChannelMessage;
 
     public ulong id { get; }
+    private string _otherSocketId;
 
     public void SendMessage(ArraySegment<byte> data) {
         _dataChannel.Send(data.ToArray());
@@ -28,7 +29,6 @@ public class WebRtcConnection {
         _socket = socket;
         _transport = transport;
         this.id = id;
-
 
         var config = GetConfig();
 
@@ -51,13 +51,16 @@ public class WebRtcConnection {
         };
 
         _pc.OnTrack = track => Debug.Log(track.ToString());
+        
     }
 
     public void Close() {
         _pc.Close();
     }
 
-    public IEnumerator StartConnection() {
+    public IEnumerator StartConnection(string otherId) {
+        _otherSocketId = otherId;
+        
         RTCDataChannelInit config = new RTCDataChannelInit();
         _dataChannel = _pc.CreateDataChannel("data", config);
 
@@ -85,16 +88,16 @@ public class WebRtcConnection {
         }
 
         _transport.Log($"Local description: \n{localDesc.sdp}");
-        _socket.Emit("sessionDescription", localDesc.sdp, localDesc.type);
+        _socket.Emit("sessionDescriptionOffer", _otherSocketId, localDesc.sdp);
     }
 
-    public IEnumerator OnSessionDescriptionReceived(string desc) {
-        var remoteDesc = new RTCSessionDescription { sdp = desc, type = RTCSdpType.Offer };
-
+    public IEnumerator OnSessionDescriptionReceived(string otherId, RTCSessionDescription desc) {
+        _otherSocketId = otherId; 
+        
         _transport.Log($"Received remote description {desc}");
         _transport.Log("Setting remote description");
 
-        var remoteDescOp = _pc.SetRemoteDescription(ref remoteDesc);
+        var remoteDescOp = _pc.SetRemoteDescription(ref desc);
         yield return remoteDescOp;
 
         if (remoteDescOp.IsError) {
@@ -122,14 +125,13 @@ public class WebRtcConnection {
         }
 
         _transport.Log($"Sending answer {answerDesc.sdp}");
-        _socket.Emit("sessionDescription", answerDesc.sdp, answerDesc.type);
+        _socket.Emit("sessionDescriptionAnswer", _otherSocketId, answerDesc.sdp);
     }
 
-    public IEnumerator OnAnswerReceived(string desc) {
+    public IEnumerator OnAnswerReceived(RTCSessionDescription desc) {
         _transport.Log($"Received answer \n{desc}");
 
-        var remoteDesc = new RTCSessionDescription { sdp = desc, type = RTCSdpType.Answer };
-        var remoteDescOp = _pc.SetRemoteDescription(ref remoteDesc);
+        var remoteDescOp = _pc.SetRemoteDescription(ref desc);
 
         yield return remoteDescOp;
 
@@ -152,7 +154,7 @@ public class WebRtcConnection {
     }
 
     private void OnIceCandidate(RTCIceCandidate candidate) {
-        _socket.Emit("iceCandidate", candidate.Candidate, candidate.SdpMid, candidate.SdpMLineIndex);
+        _socket.Emit("iceCandidate", _otherSocketId, candidate.Candidate, candidate.SdpMid, candidate.SdpMLineIndex);
         _transport.Log($"remote ICE Candidate: {candidate}");
     }
 
