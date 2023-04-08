@@ -85,7 +85,8 @@ public class WebRtcTransport : NetworkTransport {
     }
 
     private ulong StartConnection(string id) {
-        var newId = NextId;
+        var newId = GetMlAPIClientId(NextId);
+        Debug.Log(newId);
         _peers[newId] = new WebRtcConnection(_socket, this, newId);
 
         return newId;
@@ -150,11 +151,10 @@ public class WebRtcTransport : NetworkTransport {
 
     public void ProcessEvent(NetworkEvent eventType, WebRtcConnection peer, ArraySegment<byte> payload,
         float receiveTime) {
-        InvokeOnTransportEvent(eventType, GetMlapiClientId(peer), payload, receiveTime);
+        InvokeOnTransportEvent(eventType, peer.id, payload, receiveTime);
     }
 
-    ulong GetMlapiClientId(WebRtcConnection peer) {
-        ulong clientId = (ulong)peer.id;
+    private ulong GetMlAPIClientId(ulong clientId) {
 
         if (_type == Type.Server) {
             clientId += 1;
