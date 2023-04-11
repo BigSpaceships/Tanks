@@ -1,0 +1,19 @@
+name: GitlabSync
+
+on: 
+  - push
+  - delete 
+  
+jobs: 
+  sync: 
+    runs-on: ubuntu-latest
+    name: Git Repo Sync
+    steps: 
+      - uses: actions/checkout@v2
+        with: 
+          fetch-depth: 0
+      - uses: wangchucheng/git-repo-sync@v0.1.0
+        with: 
+          gitlab-url: ${{ secrets.TARGET_URL }}
+          gitlab-username: ${{ secrets.TARGET_USERNAME }}
+          gitlab-token: ${{ secrets.TARGET_TOKEN }}
