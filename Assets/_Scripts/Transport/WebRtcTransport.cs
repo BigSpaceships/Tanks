@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using SocketIOClient;
 using Unity.Netcode;
 using Unity.WebRTC;
@@ -43,32 +41,32 @@ public class WebRtcTransport : NetworkTransport {
             var senderId = data.GetValue<string>();
 
             var newId = StartConnection(senderId);
-            
+
             _peerSocketIds.Add(senderId, newId);
-            
+
             StartCoroutine(_peers[newId].StartConnection(senderId));
         });
-        
+
         _socket.OnUnityThread("sessionDescriptionOffer", data => {
             var senderId = data.GetValue<string>(0);
             var desc = new RTCSessionDescription {
                 sdp = data.GetValue<string>(1),
                 type = RTCSdpType.Offer
             };
-            
+
             var newId = StartConnection(senderId);
             _peerSocketIds.Add(senderId, newId);
-            
+
             StartCoroutine(_peers[newId].OnSessionDescriptionReceived(senderId, desc));
         });
-        
+
         _socket.OnUnityThread("sessionDescriptionAnswer", data => {
             var senderId = data.GetValue<string>(0);
             var desc = new RTCSessionDescription {
                 sdp = data.GetValue<string>(1),
                 type = RTCSdpType.Answer
             };
-            
+
             StartCoroutine(_peers[_peerSocketIds[senderId]].OnAnswerReceived(desc));
         });
 
@@ -79,7 +77,7 @@ public class WebRtcTransport : NetworkTransport {
                 sdpMid = data.GetValue<string>(2),
                 sdpMLineIndex = data.GetValue<int>(3)
             };
-            
+
             _peers[_peerSocketIds[senderId]].ReceiveIceCandidate(iceCandidateInit);
         });
     }
@@ -109,17 +107,26 @@ public class WebRtcTransport : NetworkTransport {
     }
 
     public override void DisconnectRemoteClient(ulong clientId) {
-        // throw new NotImplementedException();
-        Log($"disconnect {clientId}");
+        if (_peers.ContainsKey(clientId)) {
+            _peers[clientId].Close();
+            _peers.Remove(clientId);
+
+            Log($"disconnect {clientId}");
+        }
     }
 
     public override void DisconnectLocalClient() {
-        // throw new NotImplementedException();
+        foreach (var peerPair in _peers) {
+            peerPair.Value.Close();
+        }
+
+        _peers.Clear();
+
         Log("disconnect local");
     }
 
+    // TODO: Ping
     public override ulong GetCurrentRtt(ulong clientId) {
-        // throw new NotImplementedException();
         return 1;
     }
 
@@ -131,14 +138,11 @@ public class WebRtcTransport : NetworkTransport {
         }
     }
 
-    public override void Initialize(NetworkManager networkManager = null) {
-        // throw new NotImplementedException();
-    }
+    public override void Initialize(NetworkManager networkManager = null) { }
 
     public override ulong ServerClientId => 0;
 
     public override void Send(ulong clientId, ArraySegment<byte> data, NetworkDelivery delivery) {
-        Debug.Log(string.Join(", ", _peers.Keys));
         _peers[clientId].SendMessage(data);
     }
 
@@ -155,7 +159,6 @@ public class WebRtcTransport : NetworkTransport {
     }
 
     private ulong GetMlAPIClientId(ulong clientId) {
-
         if (_type == Type.Server) {
             clientId += 1;
         }
