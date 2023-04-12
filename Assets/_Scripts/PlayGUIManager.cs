@@ -10,7 +10,6 @@ public class PlayGUIManager : MonoBehaviour {
     [SerializeField] private List<GameObject> serverOptions;
 
     [SerializeField] private TMP_Dropdown modeDropdown;
-    [SerializeField] private TMP_InputField clientIpField;
     [SerializeField] private TMP_InputField nameField;
 
     public static PlayGUIManager Manager { get; private set; }
