@@ -2374,7 +2374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RunInBackground: 1
-  LogLevel: 1
+  LogLevel: 0
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 1381154618}
@@ -2426,27 +2426,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1381154613}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54618226c9df54608af7731199ed5f0b, type: 3}
+  m_Script: {fileID: 11500000, guid: 82c330916a264598b430c9b691274467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1381154618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1381154613}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8585fa24ed645b54ab77470eb43506e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ConnectAddress: 127.0.0.1
-  Path: /netcode
-  Port: 7777
-  SecureConnection: 0
-  AllowForwardedRequest: 0
-  CertificateBase64String: 
+  logNetworkDebug: 1
 --- !u!1 &1398917143
 GameObject:
   m_ObjectHideFlags: 0

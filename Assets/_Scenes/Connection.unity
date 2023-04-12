@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &46592175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,7 +157,7 @@ MonoBehaviour:
   LogLevel: 1
   NetworkConfig:
     ProtocolVersion: 0
-    NetworkTransport: {fileID: 0}
+    NetworkTransport: {fileID: 46592177}
     PlayerPrefab: {fileID: 0}
     NetworkPrefabs: []
     TickRate: 30
@@ -202,6 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c330916a264598b430c9b691274467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  logNetworkDebug: 1
 --- !u!1 &1750591537
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,7 +303,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1867393159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,7 +313,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1867393158}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abfb8ccaf766a2d41bc8cc9f04c1c35d, type: 3}
+  m_Script: {fileID: 11500000, guid: e6351f5a56f744eaa91d14c688065e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1867393160

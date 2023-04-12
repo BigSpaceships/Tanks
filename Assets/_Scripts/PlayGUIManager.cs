@@ -43,7 +43,7 @@ public class PlayGUIManager : MonoBehaviour {
                 break;
             case 1:
                 // client
-                NetworkManager.Singleton.GetComponent<WebSocketTransport>().ConnectAddress = clientIpField.text;
+                // NetworkManager.Singleton.GetComponent<WebSocketTransport>().ConnectAddress = clientIpField.text;
                 NetworkManager.Singleton.StartClient();
                 break;
             case 2:
