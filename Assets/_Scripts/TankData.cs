@@ -7,22 +7,25 @@ public class TankData : NetworkBehaviour {
     private NetworkVariable<FixedString32Bytes> _name = new("");
 
     private void OnEnable() {
-        UpdateNamePlate("", "");
+        UpdateNamePlate();
     }
 
     public override void OnNetworkSpawn() {
-        _name.OnValueChanged += UpdateNamePlate;
+        _name.OnValueChanged += (_, _) => UpdateNamePlate();
 
         if (IsOwner && IsClient) {
-            _name.Value = PlayGUIManager.Manager.GetName();
+            ChangeName(PlayGUIManager.Manager.GetName());
+        }
+        else if (IsClient) {
+            UpdateNamePlate();
         }
     }
 
     public override void OnNetworkDespawn() {
-        _name.OnValueChanged -= UpdateNamePlate;
+        _name.OnValueChanged -= (_, _) => UpdateNamePlate();
     }
 
-    private void UpdateNamePlate(FixedString32Bytes previous, FixedString32Bytes current) {
+    private void UpdateNamePlate() {
         var nameText = Array.Find(gameObject.GetComponentsInChildren<TextMeshProUGUI>(),
             text => text.name == "Name Text");
 

@@ -934,7 +934,7 @@ GameObject:
   - component: {fileID: 1832396456902728551}
   - component: {fileID: 4943463964405945040}
   - component: {fileID: 6821084742278125719}
-  - component: {fileID: 7972225907487182108}
+  - component: {fileID: 200118605}
   m_Layer: 9
   m_Name: Tank
   m_TagString: Player
@@ -990,7 +990,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GlobalObjectIdHash: 951099334
   AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
+  DontDestroyWithOwner: 1
   AutoObjectParentSync: 1
 --- !u!114 &6300415802549390454
 MonoBehaviour:
@@ -1013,6 +1013,14 @@ MonoBehaviour:
       m_Type: 0
       m_ExpectedControlType: Vector2
       m_Id: f9f5c246-8f8c-42a5-8fde-7e9e2cf2a9ff
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    - m_Name: Flip
+      m_Type: 1
+      m_ExpectedControlType: Button
+      m_Id: 745bfa8e-a43d-44f0-982c-f590d0b3c82a
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
@@ -1058,6 +1066,14 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Move
       m_Flags: 8
+    - m_Name: 
+      m_Id: 277a55aa-44c4-47c9-a06a-c9687af97f88
+      m_Path: <Keyboard>/r
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Flip
+      m_Flags: 0
   leftWheels:
   - {fileID: 6300415802959791588}
   - {fileID: 6300415804050135741}
@@ -1071,6 +1087,7 @@ MonoBehaviour:
   breakForce: 1500
   turnStopLimit: 0.1
   turnStopSpeed: 1.5
+  flipHeight: 2
 --- !u!114 &1832396456902728551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1121,42 +1138,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7972225907487182108
-MonoBehaviour:
+--- !u!65 &200118605
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6300415802549390449}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b63106117eb7847bb86cf7560c1d3969, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controls:
-    m_Name: Controls
-    m_Id: ae0c1dce-967a-4708-be62-f286a6085bfc
-    m_Asset: {fileID: 0}
-    m_Actions:
-    - m_Name: Fire
-      m_Type: 1
-      m_ExpectedControlType: Button
-      m_Id: 6d88a91a-a451-43c4-be6a-c5cd8a23f64f
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Bindings:
-    - m_Name: 
-      m_Id: 9aede641-7023-422a-99a1-f689d5873997
-      m_Path: <Mouse>/leftButton
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Fire
-      m_Flags: 0
-  shell: {fileID: 7454593480812251092, guid: 13b3efb05d59b4d3198fc2175bdc7abd, type: 3}
-  shotSpawn: {fileID: 6067713366569380716}
+  serializedVersion: 2
+  m_Size: {x: 4.9294157, y: 4.068119, z: 5.7807293}
+  m_Center: {x: 0.15585709, y: 1.5340595, z: -0.14077568}
 --- !u!1 &6300415802645202381
 GameObject:
   m_ObjectHideFlags: 0

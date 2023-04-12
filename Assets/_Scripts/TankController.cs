@@ -17,6 +17,8 @@ public class TankController : NetworkBehaviour {
     [SerializeField] private float turnStopLimit;
     [SerializeField] private float turnStopSpeed;
 
+    [SerializeField] private float flipHeight;
+
     private float _forwardInput;
     private float _turnInput;
 
@@ -78,12 +80,13 @@ public class TankController : NetworkBehaviour {
 
     private void UpdateControls() {
         if (NetworkManager.Singleton.IsClient) {
-            Debug.Log("controls");
             if (NetworkObject.IsOwner) {
                 controls.Enable();
 
                 controls["Move"].performed += OnMove;
                 controls["Move"].canceled += OnMove;
+
+                controls["Flip"].performed += OnFlip;
             }
         }
     }
@@ -110,6 +113,22 @@ public class TankController : NetworkBehaviour {
         _turnInput = context.ReadValue<Vector2>().x;
 
         SendMovementInputServerRpc(context.ReadValue<Vector2>());
+    }
+
+    private void OnFlip(InputAction.CallbackContext context) {
+        if (!NetworkManager.Singleton.IsClient) return;
+
+        if (!NetworkObject.IsOwner) return;
+
+        FlipServerRpc();
+    }
+
+    [ServerRpc]
+    private void FlipServerRpc() {
+        var yRot = transform.rotation.eulerAngles.y;
+        transform.rotation = Quaternion.identity;
+        transform.Rotate(Vector3.up, yRot);
+        transform.Translate(Vector3.up * flipHeight);
     }
 
     [ServerRpc]

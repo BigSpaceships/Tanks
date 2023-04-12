@@ -3,6 +3,7 @@ using System.Linq;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using Netcode.Transports.WebSocket;
 
 public class PlayGUIManager : MonoBehaviour {
     [SerializeField] private List<GameObject> hostOptions;
@@ -54,10 +55,18 @@ public class PlayGUIManager : MonoBehaviour {
                 break;
         }
 
-        transform.Find("Display").gameObject.SetActive(false);
+        transform.Find("Play Options").gameObject.SetActive(false);
+        transform.Find("In Game").gameObject.SetActive(true);
     }
 
     public string GetName() {
         return nameField.text;
+    }
+
+    public void Disconnect() {
+        NetworkManager.Singleton.Shutdown();
+
+        transform.Find("Play Options").gameObject.SetActive(true);
+        transform.Find("In Game").gameObject.SetActive(false);
     }
 }
