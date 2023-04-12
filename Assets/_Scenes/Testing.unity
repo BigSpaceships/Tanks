@@ -2353,7 +2353,6 @@ GameObject:
   - component: {fileID: 1381154616}
   - component: {fileID: 1381154615}
   - component: {fileID: 1381154617}
-  - component: {fileID: 1381154618}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -2377,7 +2376,7 @@ MonoBehaviour:
   LogLevel: 0
   NetworkConfig:
     ProtocolVersion: 0
-    NetworkTransport: {fileID: 1381154618}
+    NetworkTransport: {fileID: 1381154617}
     PlayerPrefab: {fileID: 6300415802549390449, guid: 0f1dbb490a9dd8f4d89eb01a6653ee19, type: 3}
     NetworkPrefabs:
     - Override: 0

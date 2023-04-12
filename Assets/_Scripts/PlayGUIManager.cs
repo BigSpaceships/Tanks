@@ -3,7 +3,6 @@ using System.Linq;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
-using Netcode.Transports.WebSocket;
 
 public class PlayGUIManager : MonoBehaviour {
     [SerializeField] private List<GameObject> hostOptions;
