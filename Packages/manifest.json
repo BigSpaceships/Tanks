@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.community.netcode.transport.websocket": "https://github.com/Unity-Technologies/multiplayer-community-contributions.git?path=/Transports/com.community.netcode.transport.websocket",
     "com.itisnajim.socketiounity": "https://github.com/itisnajim/SocketIOUnity.git",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.collab-proxy": "1.15.16",
