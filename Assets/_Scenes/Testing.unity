@@ -1464,6 +1464,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aimObject: {fileID: 0}
+  numberOfPoints: 10
+  launchSpeed: 10
 --- !u!4 &1070459158
 Transform:
   m_ObjectHideFlags: 0

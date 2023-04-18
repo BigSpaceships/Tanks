@@ -57,6 +57,10 @@ public class TankData : NetworkBehaviour {
         }
     }
 
+    public Vector3 GetTargetPosition() {
+        return _targetPosition.Value;
+    }
+
     private void OnDrawGizmos() {
         Debug.DrawLine(_targetPosition.Value, _targetPosition.Value + Vector3.up, Color.green);
     }
