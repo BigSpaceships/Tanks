@@ -12,6 +12,7 @@ public class Aim : MonoBehaviour {
     [SerializeField] private float _launchAngle;
     private float _yawAngle;
     private float _pathLength;
+    private float _tEnd;
     private float _gravityValue;
     
     [SerializeField] private float launchSpeed;
@@ -51,7 +52,12 @@ public class Aim : MonoBehaviour {
                 (_gravityValue * horizontalDistance * horizontalDistance +
                  2 * relativeVector.y * launchSpeed * launchSpeed))) / (_gravityValue * horizontalDistance));
 
-        _yawAngle = (float)Mathf.Atan2(relativeVector.x, relativeVector.z);
+        _tEnd = horizontalDistance / launchSpeed / Mathf.Cos(_launchAngle);
+
+        // _pathLength = Util.Integrate((float x) => Mathf.Sqrt(Mathf.Pow(launchSpeed * Mathf.Cos(_launchAngle), 2) +
+        //                                                      Mathf.Pow(-_gravityValue * x + launchSpeed * Mathf.Sin(_launchAngle), 2)), 0, _tEnd, 100);
+
+        _yawAngle = Mathf.Atan2(relativeVector.x, relativeVector.z);
     }
 
     void DrawPath() {
@@ -59,8 +65,15 @@ public class Aim : MonoBehaviour {
 
         var points = new Vector3[numberOfPoints];
 
+        if (float.IsNaN(_launchAngle)) {
+            _lineRenderer.positionCount = numberOfPoints;
+            _lineRenderer.SetPositions(points);
+
+            return;
+        }
+
         for (int i = 0; i < numberOfPoints; i++) {
-            var t = i / (float) (numberOfPoints - 1);
+            var t = i * _tEnd / numberOfPoints;
 
             var horizontalDist = launchSpeed * t * Mathf.Cos(_launchAngle);
 
@@ -73,7 +86,8 @@ public class Aim : MonoBehaviour {
 
             points[i] = _focusedTank.transform.position + posChange;
         }
-        
+
+        _lineRenderer.positionCount = numberOfPoints;
         _lineRenderer.SetPositions(points);
     }
 }
