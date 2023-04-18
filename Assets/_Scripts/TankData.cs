@@ -2,9 +2,11 @@ using System;
 using TMPro;
 using Unity.Collections;
 using Unity.Netcode;
+using UnityEngine;
 
 public class TankData : NetworkBehaviour {
-    private NetworkVariable<FixedString32Bytes> _name = new("");
+    private readonly NetworkVariable<FixedString32Bytes> _name = new("");
+    private readonly NetworkVariable<Vector3> _targetPosition = new();
 
     private void OnEnable() {
         UpdateNamePlate();
@@ -12,6 +14,7 @@ public class TankData : NetworkBehaviour {
 
     public override void OnNetworkSpawn() {
         _name.OnValueChanged += (_, _) => UpdateNamePlate();
+        // _targetPosition.OnValueChanged += 
 
         if (IsOwner && IsClient) {
             ChangeName(PlayGUIManager.Manager.GetName());
@@ -41,5 +44,20 @@ public class TankData : NetworkBehaviour {
         if (IsClient && IsOwner) {
             ChangeNameServerRpc(newName);
         }
+    }
+
+    [ServerRpc]
+    private void UpdateTargetPositionServerRpc(Vector3 pos) {
+        _targetPosition.Value = pos;
+    }
+
+    public void UpdateTargetPosition(Vector3 pos) {
+        if (IsClient && IsOwner) {
+            UpdateTargetPositionServerRpc(pos);
+        }
+    }
+
+    private void OnDrawGizmos() {
+        Debug.DrawLine(_targetPosition.Value, _targetPosition.Value + Vector3.up, Color.green);
     }
 }
