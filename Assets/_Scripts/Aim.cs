@@ -7,11 +7,18 @@ public class Aim : MonoBehaviour {
     [SerializeField] private int numberOfPoints;
 
     private GameObject _focusedTank;
+    private LineRenderer _lineRenderer;
 
-    private float _launchAngle;
+    [SerializeField] private float _launchAngle;
     private float _yawAngle;
     private float _pathLength;
+    private float _gravityValue;
+    
     [SerializeField] private float launchSpeed;
+
+    private void Start() {
+        _lineRenderer = GetComponent<LineRenderer>();
+    }
 
     void Update() {
         _focusedTank = GameManager.GetFocusedTank();
@@ -25,35 +32,48 @@ public class Aim : MonoBehaviour {
         }
 
         CalculatePathValues();
+        
+        DrawPath();
     }
 
     private void CalculatePathValues() {
         if (_focusedTank == null) return;
 
-        var gravityValue = -Physics.gravity.y;
+        _gravityValue = -Physics.gravity.y;
 
         var relativeVector =
             _focusedTank.GetComponent<TankData>().GetTargetPosition() - _focusedTank.transform.position;
 
         var horizontalDistance = new Vector3(relativeVector.x, 0, relativeVector.z).magnitude;
 
-        _launchAngle = (float)Math.Atan(
-            (launchSpeed * launchSpeed - Math.Sqrt(Math.Pow(launchSpeed, 4) - gravityValue *
-                (gravityValue * horizontalDistance * horizontalDistance +
-                 2 * relativeVector.y * launchSpeed * launchSpeed))) / (gravityValue * horizontalDistance));
+        _launchAngle = Mathf.Atan(
+            (launchSpeed * launchSpeed - Mathf.Sqrt(Mathf.Pow(launchSpeed, 4) - _gravityValue *
+                (_gravityValue * horizontalDistance * horizontalDistance +
+                 2 * relativeVector.y * launchSpeed * launchSpeed))) / (_gravityValue * horizontalDistance));
 
-        _yawAngle = (float)Math.Atan2(relativeVector.x, relativeVector.z);
+        _yawAngle = (float)Mathf.Atan2(relativeVector.x, relativeVector.z);
     }
 
     void DrawPath() {
         if (_focusedTank == null) return;
 
-        var targetPos = _focusedTank.GetComponent<TankData>().GetTargetPosition();
-
         var points = new Vector3[numberOfPoints];
 
         for (int i = 0; i < numberOfPoints; i++) {
-            // var horizontalDist = launchSpeed * 
+            var t = i / (float) (numberOfPoints - 1);
+
+            var horizontalDist = launchSpeed * t * Mathf.Cos(_launchAngle);
+
+            var xDist = Mathf.Sin(_yawAngle) * horizontalDist;
+            var zDist = Mathf.Cos(_yawAngle) * horizontalDist;
+
+            var yDist = -.5f * _gravityValue * t * t + launchSpeed * t * Mathf.Sin(_launchAngle);
+
+            var posChange = new Vector3(xDist, yDist, zDist);
+
+            points[i] = _focusedTank.transform.position + posChange;
         }
+        
+        _lineRenderer.SetPositions(points);
     }
 }

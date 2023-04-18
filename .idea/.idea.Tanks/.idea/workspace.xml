@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e32f4b0b-25dc-417b-a3fe-5ffdb37d187b" name="Changes" comment="">
+    <list default="true" id="e32f4b0b-25dc-417b-a3fe-5ffdb37d187b" name="Changes" comment="FIX: whoops i did gitignore wrong">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Tanks/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tanks/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tank.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tank.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/TankData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/TankData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/TankShooting.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/TankShooting.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Aim.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/Aim.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,15 +21,25 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Packages/WebSocketTransport.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/_Scripts/DamageDealShot.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/_Scripts/RespawnManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/587abc34beb9401ea7c272afdb191b971e600/86/067c9470/RTCIceCandidateInit.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.netcode.gameobjects@1.2.0/Editor/NetworkManagerEditor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/587abc34beb9401ea7c272afdb191b971e600/5a/c8e6e95b/RTCSessionDescription.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1e25940ea5c641a6ba277827373bbee048200/10/1fd2d419/NetworkEvent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.webrtc@3.0.0-pre.4/Runtime/Scripts/RTCPeerConnection.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.netcode.gameobjects@1.2.0/Runtime/Transports/NetworkTransport.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_InputField.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3ea01e77be99618395f448b16bd7cc2bd4248bd9e5d8474964b2d97f39c5d74/System.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.netcode.gameobjects@1.2.0/Runtime/Transports/UTP/UnityTransport.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.netcode.gameobjects@1.2.0/Runtime/Core/NetworkBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.netcode.gameobjects@1.2.0/Runtime/Messaging/MessagingSystem.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.netcode.gameobjects@1.2.0/Runtime/Core/NetworkManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/587abc34beb9401ea7c272afdb191b971e600/b3/db11db8a/RTCSdpType.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2M3PeIg5woiwcHxOFg8zNVhC6hV" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -186,17 +193,15 @@
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/_Scripts/DestroyShot.cs</url>
           <line>33</line>
-          <properties documentPath="C:\Users\kfb13\RiderProjects\Tanks\Assets\_Scripts\DestroyShot.cs" initialLine="33" containingFunctionPresentation="method 'NetDespawnServerRPC'">
-            <startOffsets>
-              <option value="626" />
-            </startOffsets>
-            <endOffsets>
-              <option value="627" />
-            </endOffsets>
-          </properties>
+          <properties documentPath="C:\Users\kfb13\RiderProjects\Tanks\Assets\_Scripts\DestroyShot.cs" initialLine="33" containingFunctionPresentation="method 'NetDespawnServerRPC'" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="Frame#ConnectionTesting+&lt;&gt;c.&lt;ConnectSignalingServer&gt;b__8_4" memberName="data" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>
