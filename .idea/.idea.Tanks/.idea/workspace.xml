@@ -5,11 +5,199 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e32f4b0b-25dc-417b-a3fe-5ffdb37d187b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Tanks/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_13_2023_11_05_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tanks/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_13_2023_11_05_AM__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Tanks/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tanks/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tank.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tank.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/TankData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/TankData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/TankShooting.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/TankShooting.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/IWebSocketClient.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/IWebSocketClient.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/JSWebSocketClient.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/JSWebSocketClient.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/JSWebSocketClient.jslib" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/JSWebSocketClient.jslib.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/LICENSE.txt.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/README.md.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/ByteOrder.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/ByteOrder.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/CloseEventArgs.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/CloseEventArgs.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/CloseStatusCode.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/CloseStatusCode.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/CompressionMethod.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/CompressionMethod.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/ErrorEventArgs.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/ErrorEventArgs.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Ext.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Ext.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Fin.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Fin.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/HttpBase.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/HttpBase.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/HttpRequest.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/HttpRequest.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/HttpResponse.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/HttpResponse.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/LogData.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/LogData.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/LogLevel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/LogLevel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Logger.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Logger.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Mask.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Mask.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/MessageEventArgs.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/MessageEventArgs.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/AuthenticationBase.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/AuthenticationBase.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/AuthenticationChallenge.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/AuthenticationChallenge.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/AuthenticationResponse.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/AuthenticationResponse.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/AuthenticationSchemes.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/AuthenticationSchemes.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/Chunk.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/Chunk.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/ChunkStream.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/ChunkStream.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/ChunkedRequestStream.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/ChunkedRequestStream.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/ClientSslConfiguration.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/ClientSslConfiguration.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/Cookie.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/Cookie.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/CookieCollection.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/CookieCollection.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/CookieException.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/CookieException.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/EndPointListener.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/EndPointListener.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/EndPointManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/EndPointManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpBasicIdentity.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpBasicIdentity.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpConnection.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpConnection.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpDigestIdentity.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpDigestIdentity.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpHeaderInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpHeaderInfo.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpHeaderType.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpHeaderType.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpListener.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpListener.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpListenerAsyncResult.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpListenerAsyncResult.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpListenerContext.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpListenerContext.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpListenerException.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpListenerException.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpListenerPrefix.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpListenerPrefix.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpListenerPrefixCollection.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpListenerPrefixCollection.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpListenerRequest.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpListenerRequest.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpListenerResponse.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpListenerResponse.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpRequestHeader.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpRequestHeader.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpResponseHeader.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpResponseHeader.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpStatusCode.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpStatusCode.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpStreamAsyncResult.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpStreamAsyncResult.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpUtility.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpUtility.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpVersion.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/HttpVersion.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/InputChunkState.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/InputChunkState.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/InputState.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/InputState.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/LineState.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/LineState.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/NetworkCredential.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/NetworkCredential.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/QueryStringCollection.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/QueryStringCollection.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/ReadBufferState.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/ReadBufferState.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/RequestStream.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/RequestStream.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/ResponseStream.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/ResponseStream.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/ServerSslConfiguration.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/ServerSslConfiguration.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/WebHeaderCollection.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/WebHeaderCollection.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/WebSockets.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/WebSockets/HttpListenerWebSocketContext.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/WebSockets/HttpListenerWebSocketContext.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/WebSockets/TcpListenerWebSocketContext.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/WebSockets/TcpListenerWebSocketContext.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/WebSockets/WebSocketContext.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Net/WebSockets/WebSocketContext.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Opcode.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Opcode.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/PayloadData.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/PayloadData.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Rsv.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Rsv.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Server.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Server/HttpRequestEventArgs.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Server/HttpRequestEventArgs.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Server/HttpServer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Server/HttpServer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Server/IWebSocketSession.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Server/IWebSocketSession.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Server/ServerState.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Server/ServerState.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Server/WebSocketBehavior.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Server/WebSocketBehavior.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Server/WebSocketServer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Server/WebSocketServer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Server/WebSocketServiceHost.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Server/WebSocketServiceHost.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Server/WebSocketServiceHost`1.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Server/WebSocketServiceHost`1.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Server/WebSocketServiceManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Server/WebSocketServiceManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Server/WebSocketSessionManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/Server/WebSocketSessionManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/WebSocket.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/WebSocket.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/WebSocketException.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/WebSocketException.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/WebSocketFrame.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/WebSocketFrame.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/WebSocketState.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/WebSocketState.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/websocket-sharp.snk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/Libraries/websocket-sharp/websocket-sharp/websocket-sharp.snk.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/NativeWebSocketClient.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/NativeWebSocketClient.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/WebSocketClientFactory.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/WebSocketClientFactory.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/WebSocketEvent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/WebSocketEvent.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/WebSocketException.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/WebSocketException.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/WebSocketPeer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/WebSocketPeer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/WebSocketServerConnectionBehavior.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/WebSocketServerConnectionBehavior.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/WebSocketTransport.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/WebSocketTransport.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/com.community.netcode.transport.websocket.asmdef" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Packages/com.community.netcode.transport.websocket.asmdef.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,32 +212,23 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Packages/WebSocketTransport.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/_Scripts/DamageDealShot.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/_Scripts/RespawnManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.netcode.gameobjects@1.2.0/Runtime/Messaging/MessagingSystem.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/587abc34beb9401ea7c272afdb191b971e600/86/067c9470/RTCIceCandidateInit.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/587abc34beb9401ea7c272afdb191b971e600/5a/c8e6e95b/RTCSessionDescription.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1e25940ea5c641a6ba277827373bbee048200/10/1fd2d419/NetworkEvent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.webrtc@3.0.0-pre.4/Runtime/Scripts/RTCPeerConnection.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_InputField.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3ea01e77be99618395f448b16bd7cc2bd4248bd9e5d8474964b2d97f39c5d74/System.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/587abc34beb9401ea7c272afdb191b971e600/b3/db11db8a/RTCSdpType.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2M3PeIg5woiwcHxOFg8zNVhC6hV" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Discover.Launch.Via.Unity&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  }
-}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="$USER_HOME$/Documents/build\MiniTank.exe" />
@@ -199,17 +378,15 @@
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/_Scripts/DestroyShot.cs</url>
           <line>33</line>
-          <properties documentPath="C:\Users\kfb13\RiderProjects\Tanks\Assets\_Scripts\DestroyShot.cs" initialLine="33" containingFunctionPresentation="method 'NetDespawnServerRPC'">
-            <startOffsets>
-              <option value="626" />
-            </startOffsets>
-            <endOffsets>
-              <option value="627" />
-            </endOffsets>
-          </properties>
+          <properties documentPath="C:\Users\kfb13\RiderProjects\Tanks\Assets\_Scripts\DestroyShot.cs" initialLine="33" containingFunctionPresentation="method 'NetDespawnServerRPC'" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="Frame#ConnectionTesting+&lt;&gt;c.&lt;ConnectSignalingServer&gt;b__8_4" memberName="data" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>
