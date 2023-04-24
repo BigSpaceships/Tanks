@@ -1523,18 +1523,10 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
-  - {x: 1.0670257, y: 0.24836254, z: 1.2175691}
-  - {x: 0.76629066, y: 0.52471185, z: 0.8882854}
-  - {x: -1.074795, y: 1.9589319, z: 2.783698}
-  - {x: -4.385096, y: 3.0885375, z: 5.855741}
-  - {x: -3.9164603, y: 7.184252, z: 13.731062}
-  - {x: -3.3993678, y: 9.83375, z: 18.375923}
+  m_Positions: []
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 0.5
     widthCurve:
       serializedVersion: 2
       m_Curve:
