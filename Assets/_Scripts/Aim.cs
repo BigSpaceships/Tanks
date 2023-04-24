@@ -34,6 +34,8 @@ public class Aim : MonoBehaviour {
 
         CalculatePathValues();
         
+        _lineRenderer.material.SetFloat("_Length", _pathLength);
+        
         DrawPath();
     }
 
@@ -54,8 +56,8 @@ public class Aim : MonoBehaviour {
 
         _tEnd = horizontalDistance / launchSpeed / Mathf.Cos(_launchAngle);
 
-        // _pathLength = Util.Integrate((float x) => Mathf.Sqrt(Mathf.Pow(launchSpeed * Mathf.Cos(_launchAngle), 2) +
-        //                                                      Mathf.Pow(-_gravityValue * x + launchSpeed * Mathf.Sin(_launchAngle), 2)), 0, _tEnd, 100);
+        _pathLength = Util.Integrate((float x) => Mathf.Sqrt(Mathf.Pow(launchSpeed * Mathf.Cos(_launchAngle), 2) +
+            Mathf.Pow(-_gravityValue * x + launchSpeed * Mathf.Sin(_launchAngle), 2)), 0, _tEnd, 100);
 
         _yawAngle = Mathf.Atan2(relativeVector.x, relativeVector.z);
     }
