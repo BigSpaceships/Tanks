@@ -9,7 +9,7 @@ public class Aim : MonoBehaviour {
     private GameObject _focusedTank;
     private LineRenderer _lineRenderer;
 
-    [SerializeField] private float _launchAngle;
+    private float _launchAngle;
     private float _yawAngle;
     private float _pathLength;
     private float _tEnd;
@@ -44,8 +44,10 @@ public class Aim : MonoBehaviour {
 
         _gravityValue = -Physics.gravity.y;
 
+        var tankData = _focusedTank.GetComponent<TankData>();
+
         var relativeVector =
-            _focusedTank.GetComponent<TankData>().GetTargetPosition() - _focusedTank.transform.position;
+            tankData.GetTargetPosition() - tankData.barrel.transform.position;
 
         var horizontalDistance = new Vector3(relativeVector.x, 0, relativeVector.z).magnitude;
 
@@ -86,7 +88,7 @@ public class Aim : MonoBehaviour {
 
             var posChange = new Vector3(xDist, yDist, zDist);
 
-            points[i] = _focusedTank.transform.position + posChange;
+            points[i] = _focusedTank.GetComponent<TankData>().barrel.transform.position + posChange;
         }
 
         _lineRenderer.positionCount = numberOfPoints;

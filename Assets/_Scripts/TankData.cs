@@ -5,6 +5,10 @@ using Unity.Netcode;
 using UnityEngine;
 
 public class TankData : NetworkBehaviour {
+    public GameObject namePlate;
+    public GameObject turret;
+    public GameObject barrel;
+    
     private readonly NetworkVariable<FixedString32Bytes> _name = new("");
     private readonly NetworkVariable<Vector3> _targetPosition = new();
 
@@ -29,8 +33,7 @@ public class TankData : NetworkBehaviour {
     }
 
     private void UpdateNamePlate() {
-        var nameText = Array.Find(gameObject.GetComponentsInChildren<TextMeshProUGUI>(),
-            text => text.name == "Name Text");
+        var nameText = namePlate.GetComponent<TextMeshProUGUI>();
 
         nameText.text = _name.Value.ToString();
     }
