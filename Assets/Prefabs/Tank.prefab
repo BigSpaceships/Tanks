@@ -463,7 +463,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6067713366569380716}
   m_Layer: 8
-  m_Name: ShotSpawn
+  m_Name: Tip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -477,7 +477,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 788807164907357707}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -932,6 +932,7 @@ GameObject:
   - component: {fileID: 2615005589361691177}
   - component: {fileID: 6300415802549390454}
   - component: {fileID: 1832396456902728551}
+  - component: {fileID: 6008259059940474307}
   - component: {fileID: 4943463964405945040}
   - component: {fileID: 6821084742278125719}
   m_Layer: 9
@@ -1099,9 +1100,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 366fdd7408872da4c88ab0b2b6e1622a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6008259059940474307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6300415802549390449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5053f676f4484c2b900df01a47f75035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   namePlate: {fileID: 585863822977727647}
   turret: {fileID: 8071148175502998494}
-  barrel: {fileID: 7080681693890082835}
+  barrel: {fileID: 6524437459971624164}
+  barrelTip: {fileID: 788807164907357707}
 --- !u!114 &4943463964405945040
 MonoBehaviour:
   m_ObjectHideFlags: 0
