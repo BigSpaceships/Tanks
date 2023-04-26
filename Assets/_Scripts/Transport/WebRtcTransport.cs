@@ -24,7 +24,7 @@ public class WebRtcTransport : NetworkTransport {
     private Dictionary<string, ulong> _peerSocketIds = new();
 
     private void StartSocket() {
-        var uri = new Uri("https://8080-bigspaceshi-tanksignals-itvkcauzscy.ws-us94.gitpod.io/");
+        var uri = new Uri("https://8080-bigspaceshi-tanksignals-7puk1tvhum8.ws-us95.gitpod.io");
         _socket = new SocketIOUnity(uri, new SocketIOOptions {
             Transport = SocketIOClient.Transport.TransportProtocol.WebSocket
         });
@@ -40,7 +40,7 @@ public class WebRtcTransport : NetworkTransport {
         _socket.OnUnityThread("initiateConnection", data => {
             var senderId = data.GetValue<string>();
 
-            var newId = StartConnection(senderId);
+            var newId = StartConnection();
 
             _peerSocketIds.Add(senderId, newId);
 
@@ -54,7 +54,7 @@ public class WebRtcTransport : NetworkTransport {
                 type = RTCSdpType.Offer
             };
 
-            var newId = StartConnection(senderId);
+            var newId = StartConnection();
             _peerSocketIds.Add(senderId, newId);
 
             StartCoroutine(_peers[newId].OnSessionDescriptionReceived(senderId, desc));
@@ -82,9 +82,8 @@ public class WebRtcTransport : NetworkTransport {
         });
     }
 
-    private ulong StartConnection(string id) {
+    private ulong StartConnection() {
         var newId = GetMlAPIClientId(NextId);
-        Debug.Log(newId);
         _peers[newId] = new WebRtcConnection(_socket, this, newId);
 
         return newId;
