@@ -9,8 +9,6 @@ public class Aim : MonoBehaviour {
     private TankParts _tankParts;
     private LineRenderer _lineRenderer;
 
-    private float _launchAngle;
-    private float _yawAngle;
     private float _pathLength;
     private float _tEnd;
     private float _horizontalDistance;
@@ -65,24 +63,26 @@ public class Aim : MonoBehaviour {
         _horizontalDistance = new Vector3(relativeVector.x, 0, relativeVector.z).magnitude;
         _yDistance = relativeVector.y;
 
-        _launchAngle = Mathf.Atan(
+        var launchAngle = Mathf.Atan(
             (launchSpeed * launchSpeed - Mathf.Sqrt(Mathf.Pow(launchSpeed, 4) - _gravityValue *
                 (_gravityValue * _horizontalDistance * _horizontalDistance +
                  2 * relativeVector.y * launchSpeed * launchSpeed))) / (_gravityValue * _horizontalDistance));
 
-        _launchAngle = ImproveGuess(_launchAngle);
-        _launchAngle = ImproveGuess(_launchAngle);
-        _launchAngle = ImproveGuess(_launchAngle);
+        launchAngle = ImproveGuess(launchAngle);
+        launchAngle = ImproveGuess(launchAngle);
+        launchAngle = ImproveGuess(launchAngle);
 
-        _tEnd = _horizontalDistance / launchSpeed / Mathf.Cos(_launchAngle);
+        _tEnd = _horizontalDistance / launchSpeed / Mathf.Cos(launchAngle);
 
-        _pathLength = Util.Integrate((float x) => Mathf.Sqrt(Mathf.Pow(launchSpeed * Mathf.Cos(_launchAngle), 2) +
+        _pathLength = Util.Integrate((float x) => Mathf.Sqrt(Mathf.Pow(launchSpeed * Mathf.Cos(launchAngle), 2) +
                                                              Mathf.Pow(
                                                                  -_gravityValue * x +
-                                                                 launchSpeed * Mathf.Sin(_launchAngle), 2)), 0, _tEnd,
+                                                                 launchSpeed * Mathf.Sin(launchAngle), 2)), 0, _tEnd,
             100);
 
-        _yawAngle = Mathf.Atan2(relativeVector.x, relativeVector.z);
+        var yawAngle = Mathf.Atan2(relativeVector.x, relativeVector.z);
+
+        tankData.UpdateTargetAngles(new Vector2(launchAngle, yawAngle));
     }
 
     void DrawPath() {
@@ -90,25 +90,26 @@ public class Aim : MonoBehaviour {
 
         var points = new Vector3[numberOfPoints];
 
-        if (float.IsNaN(_launchAngle)) {
+        var angles = _focusedTank.GetComponent<TankData>().GetAngles();
+        var launchAngle = angles.x;
+        var yawAngle = angles.y;
+
+        if (float.IsNaN(launchAngle)) {
             _lineRenderer.positionCount = numberOfPoints;
             _lineRenderer.SetPositions(points);
 
             return;
         }
 
-        _tankParts.barrel.transform.localRotation = Quaternion.Euler(-_launchAngle * Mathf.Rad2Deg, 0, 0);
-        _tankParts.turret.transform.localRotation = Quaternion.Euler(0, _yawAngle * Mathf.Rad2Deg, 0);
-
         for (int i = 0; i < numberOfPoints; i++) {
             var t = i * _tEnd / numberOfPoints;
 
-            var horizontalDist = launchSpeed * t * Mathf.Cos(_launchAngle);
+            var horizontalDist = launchSpeed * t * Mathf.Cos(launchAngle);
 
-            var xDist = Mathf.Sin(_yawAngle) * horizontalDist;
-            var zDist = Mathf.Cos(_yawAngle) * horizontalDist;
+            var xDist = Mathf.Sin(yawAngle) * horizontalDist;
+            var zDist = Mathf.Cos(yawAngle) * horizontalDist;
 
-            var yDist = -.5f * _gravityValue * t * t + launchSpeed * t * Mathf.Sin(_launchAngle);
+            var yDist = -.5f * _gravityValue * t * t + launchSpeed * t * Mathf.Sin(launchAngle);
 
             var posChange = new Vector3(xDist, yDist, zDist);
 
@@ -120,7 +121,7 @@ public class Aim : MonoBehaviour {
     }
 
     private float ImproveGuess(float guess) {
-        return guess - ActualAngle(guess) / actualAngleDerivative(guess);
+        return guess - ActualAngle(guess) / ActualAngleDerivative(guess);
     }
 
     private float ActualAngle(float theta) {
@@ -136,7 +137,7 @@ public class Aim : MonoBehaviour {
         return t1 + t2 + t3 + t4;
     }
 
-    private float actualAngleDerivative(float theta) {
+    private float ActualAngleDerivative(float theta) {
         var t1 = -_gravityValue * _horizontalDistance * _horizontalDistance / launchSpeed / launchSpeed / 2 /
             Mathf.Cos(theta) / Mathf.Cos(theta) * Mathf.Tan(theta);
 

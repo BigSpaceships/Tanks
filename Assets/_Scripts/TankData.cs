@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using Unity.Collections;
 using Unity.Netcode;
@@ -6,7 +5,10 @@ using UnityEngine;
 
 public class TankData : NetworkBehaviour {
     private readonly NetworkVariable<FixedString32Bytes> _name = new("");
-    private readonly NetworkVariable<Vector3> _targetPosition = new();
+    private readonly NetworkVariable<Vector3> _targetPosition = new(Vector3.zero, NetworkVariableReadPermission.Owner);
+
+    // x is pitch y is yaw
+    private readonly NetworkVariable<Vector2> _targetLaunchAngles = new();
 
     private TankParts _parts;
 
@@ -18,9 +20,19 @@ public class TankData : NetworkBehaviour {
         UpdateNamePlate();
     }
 
+    private void Update() {
+        var angles = GetAngles();
+        var launchAngle = angles.x;
+        var yawAngle = angles.y;
+
+        // TODO: actually point in the right directions
+        // TODO: slow turn
+        _parts.barrel.transform.localRotation = Quaternion.Euler(-launchAngle * Mathf.Rad2Deg, 0, 0);
+        _parts.turret.transform.localRotation = Quaternion.Euler(0, yawAngle * Mathf.Rad2Deg, 0);
+    }
+
     public override void OnNetworkSpawn() {
         _name.OnValueChanged += (_, _) => UpdateNamePlate();
-        // _targetPosition.OnValueChanged += 
 
         if (IsOwner && IsClient) {
             ChangeName(PlayGUIManager.Manager.GetName());
@@ -63,6 +75,24 @@ public class TankData : NetworkBehaviour {
     }
 
     public Vector3 GetTargetPosition() {
-        return _targetPosition.Value;
+        if (IsServer || IsOwner) return _targetPosition.Value;
+
+        Debug.LogError("Cannot access other tanks targeted positions");
+        return Vector3.zero;
+    }
+
+    [ServerRpc]
+    private void UpdateTargetAnglesServerRpc(Vector2 angles) {
+        _targetLaunchAngles.Value = angles;
+    }
+
+    public void UpdateTargetAngles(Vector2 angles) {
+        if (IsClient && IsOwner) {
+            UpdateTargetAnglesServerRpc(angles);
+        }
+    }
+
+    public Vector2 GetAngles() {
+        return _targetLaunchAngles.Value;
     }
 }
