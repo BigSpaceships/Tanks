@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -45,9 +44,9 @@ public class Aim : MonoBehaviour {
         }
 
         CalculatePathValues();
-        
+
         _lineRenderer.material.SetFloat("_Length", _pathLength);
-        
+
         DrawPath();
     }
 
@@ -57,6 +56,8 @@ public class Aim : MonoBehaviour {
         _gravityValue = -Physics.gravity.y;
 
         var tankData = _focusedTank.GetComponent<TankData>();
+
+        barrelLength = _tankParts.BarrelLength;
 
         var relativeVector =
             tankData.GetTargetPosition() - _tankParts.barrel.transform.position;
@@ -76,7 +77,10 @@ public class Aim : MonoBehaviour {
         _tEnd = _horizontalDistance / launchSpeed / Mathf.Cos(_launchAngle);
 
         _pathLength = Util.Integrate((float x) => Mathf.Sqrt(Mathf.Pow(launchSpeed * Mathf.Cos(_launchAngle), 2) +
-            Mathf.Pow(-_gravityValue * x + launchSpeed * Mathf.Sin(_launchAngle), 2)), 0, _tEnd, 100);
+                                                             Mathf.Pow(
+                                                                 -_gravityValue * x +
+                                                                 launchSpeed * Mathf.Sin(_launchAngle), 2)), 0, _tEnd,
+            100);
 
         _yawAngle = Mathf.Atan2(relativeVector.x, relativeVector.z);
     }
@@ -92,7 +96,7 @@ public class Aim : MonoBehaviour {
 
             return;
         }
-        
+
         _tankParts.barrel.transform.localRotation = Quaternion.Euler(-_launchAngle * Mathf.Rad2Deg, 0, 0);
         _tankParts.turret.transform.localRotation = Quaternion.Euler(0, _yawAngle * Mathf.Rad2Deg, 0);
 
@@ -134,9 +138,10 @@ public class Aim : MonoBehaviour {
 
     private float actualAngleDerivative(float theta) {
         var t1 = -_gravityValue * _horizontalDistance * _horizontalDistance / launchSpeed / launchSpeed / 2 /
-                 Mathf.Cos(theta) / Mathf.Cos(theta) * Mathf.Tan(theta);
-        
-        var t2 = _gravityValue * barrelLength * _horizontalDistance / launchSpeed / launchSpeed / Mathf.Cos(theta) * Mathf.Tan(theta);
+            Mathf.Cos(theta) / Mathf.Cos(theta) * Mathf.Tan(theta);
+
+        var t2 = _gravityValue * barrelLength * _horizontalDistance / launchSpeed / launchSpeed / Mathf.Cos(theta) *
+                 Mathf.Tan(theta);
 
         var t3 = _horizontalDistance / Mathf.Cos(theta) / Mathf.Cos(theta);
 
