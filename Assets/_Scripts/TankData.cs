@@ -12,7 +12,7 @@ public class TankData : NetworkBehaviour {
 
     private TankParts _parts;
 
-    private void Start() {
+    private void Awake() {
         _parts = GetComponent<TankParts>();
     }
 

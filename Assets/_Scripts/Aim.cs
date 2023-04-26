@@ -82,6 +82,9 @@ public class Aim : MonoBehaviour {
 
         var yawAngle = Mathf.Atan2(relativeVector.x, relativeVector.z);
 
+        if (float.IsNaN(launchAngle))
+            launchAngle = Mathf.PI / 4;
+
         tankData.UpdateTargetAngles(new Vector2(launchAngle, yawAngle));
     }
 
@@ -117,7 +120,7 @@ public class Aim : MonoBehaviour {
         }
 
         _lineRenderer.positionCount = numberOfPoints;
-        _lineRenderer.SetPositions(points);
+        // _lineRenderer.SetPositions(points);
     }
 
     private float ImproveGuess(float guess) {
