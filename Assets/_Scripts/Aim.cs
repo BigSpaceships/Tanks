@@ -15,6 +15,9 @@ public class Aim : MonoBehaviour {
     private float _horizontalDistance;
     private float _yDistance;
 
+    private Vector3 _hitPoint;
+    private Vector3 _hitNormal;
+
     private float _gravityValue;
 
     [SerializeField] private float launchSpeed;
@@ -47,6 +50,8 @@ public class Aim : MonoBehaviour {
         _lineRenderer.material.SetFloat("_Length", _pathLength);
 
         DrawPath();
+
+        UpdateTargetDisplay();
     }
 
     private void CalculatePathValues() {
@@ -184,17 +189,30 @@ public class Aim : MonoBehaviour {
         var endPos = GetPointAtTime(tEnd);
 
         if (Physics.Linecast(startPos, endPos, out var hit)) {
+            _hitPoint = hit.point;
+            _hitNormal = hit.normal;
+
             var relativePos = hit.point - _tankParts.barrelTip.transform.position;
 
             var xDist = new Vector2(relativePos.x, relativePos.z).magnitude;
 
             var launchAngle = _tankParts.tankData.GetAngles().x;
 
-            Debug.Log(xDist);
-
             return (xDist - barrelLength * Mathf.Cos(launchAngle)) / launchSpeed / Mathf.Cos(launchAngle);
         }
 
         return float.NaN;
+    }
+
+    private void UpdateTargetDisplay() {
+        aimObject.transform.position = _hitPoint;
+        aimObject.transform.LookAt(aimObject.transform.position + _hitNormal);
+
+        var relativeVector = Camera.main.transform.position - aimObject.transform.position;
+
+        var scaleFactor = relativeVector.magnitude / 15;
+
+        aimObject.transform.GetChild(0).transform.localScale = Vector3.one * scaleFactor;
+        Debug.Log(scaleFactor);
     }
 }
