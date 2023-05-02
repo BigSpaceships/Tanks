@@ -24,7 +24,7 @@ public class Aim : MonoBehaviour {
         _lineRenderer = GetComponent<LineRenderer>();
     }
 
-    void Update() {
+    private void Update() {
         _focusedTank = GameManager.GetFocusedTank();
 
         if (_focusedTank != null) {
@@ -89,7 +89,7 @@ public class Aim : MonoBehaviour {
         tankData.UpdateTargetAngles(new Vector2(launchAngle, yawAngle));
     }
 
-    void DrawPath() {
+    private void DrawPath() {
         if (_focusedTank == null) return;
 
         var points = new Vector3[numberOfPoints];
@@ -105,7 +105,7 @@ public class Aim : MonoBehaviour {
             return;
         }
 
-        for (int i = 0; i < numberOfPoints; i++) {
+        for (var i = 0; i < numberOfPoints; i++) {
             var t = i * _tEnd / numberOfPoints;
 
             points[i] = GetPointAtTime(t);
