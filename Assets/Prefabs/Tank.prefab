@@ -1116,6 +1116,7 @@ MonoBehaviour:
   turret: {fileID: 8071148175502998494}
   barrel: {fileID: 6524437459971624164}
   barrelTip: {fileID: 788807164907357707}
+  tankData: {fileID: 1832396456902728551}
 --- !u!114 &4943463964405945040
 MonoBehaviour:
   m_ObjectHideFlags: 0

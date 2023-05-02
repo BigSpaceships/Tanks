@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class Aim : MonoBehaviour {
     [SerializeField] private GameObject aimObject;
     [SerializeField] private int numberOfPoints;
+    [SerializeField] private float tCheckIncrement;
 
     private GameObject _focusedTank;
     private TankParts _tankParts;
@@ -72,7 +73,7 @@ public class Aim : MonoBehaviour {
         launchAngle = ImproveGuess(launchAngle);
         launchAngle = ImproveGuess(launchAngle);
 
-        _tEnd = _horizontalDistance / launchSpeed / Mathf.Cos(launchAngle);
+        _tEnd = GetEndTime();
 
         _pathLength = Util.Integrate((float x) => Mathf.Sqrt(Mathf.Pow(launchSpeed * Mathf.Cos(launchAngle), 2) +
                                                              Mathf.Pow(
@@ -97,7 +98,7 @@ public class Aim : MonoBehaviour {
         var launchAngle = angles.x;
         var yawAngle = angles.y;
 
-        if (float.IsNaN(launchAngle)) {
+        if (float.IsNaN(launchAngle) || float.IsNaN(_tEnd)) {
             _lineRenderer.positionCount = numberOfPoints;
             _lineRenderer.SetPositions(points);
 
@@ -107,20 +108,29 @@ public class Aim : MonoBehaviour {
         for (int i = 0; i < numberOfPoints; i++) {
             var t = i * _tEnd / numberOfPoints;
 
-            var horizontalDist = launchSpeed * t * Mathf.Cos(launchAngle);
-
-            var xDist = Mathf.Sin(yawAngle) * horizontalDist;
-            var zDist = Mathf.Cos(yawAngle) * horizontalDist;
-
-            var yDist = -.5f * _gravityValue * t * t + launchSpeed * t * Mathf.Sin(launchAngle);
-
-            var posChange = new Vector3(xDist, yDist, zDist);
-
-            points[i] = _tankParts.barrelTip.transform.position + posChange;
+            points[i] = GetPointAtTime(t);
         }
 
         _lineRenderer.positionCount = numberOfPoints;
-        // _lineRenderer.SetPositions(points);
+        _lineRenderer.SetPositions(points);
+    }
+
+    private Vector3 GetPointAtTime(float t) {
+        var angles = _tankParts.tankData.GetAngles();
+
+        var launchAngle = angles.x;
+        var yawAngle = angles.y;
+
+        var horizontalDist = launchSpeed * t * Mathf.Cos(launchAngle);
+
+        var xDist = Mathf.Sin(yawAngle) * horizontalDist;
+        var zDist = Mathf.Cos(yawAngle) * horizontalDist;
+
+        var yDist = -.5f * _gravityValue * t * t + launchSpeed * t * Mathf.Sin(launchAngle);
+
+        var posChange = new Vector3(xDist, yDist, zDist);
+
+        return _tankParts.barrelTip.transform.position + posChange;
     }
 
     private float ImproveGuess(float guess) {
@@ -150,5 +160,41 @@ public class Aim : MonoBehaviour {
         var t3 = _horizontalDistance / Mathf.Cos(theta) / Mathf.Cos(theta);
 
         return t1 + t2 + t3;
+    }
+
+    private float GetEndTime() {
+        for (int i = 0; i < 1000; i++) {
+            var startT = i * tCheckIncrement;
+            var endT = (i + 1) * tCheckIncrement;
+
+            var intersectTime = CheckLineSegment(startT, endT);
+
+            if (float.IsNaN(intersectTime)) {
+                continue;
+            }
+
+            return intersectTime;
+        }
+
+        return float.NaN;
+    }
+
+    private float CheckLineSegment(float tStart, float tEnd) {
+        var startPos = GetPointAtTime(tStart);
+        var endPos = GetPointAtTime(tEnd);
+
+        if (Physics.Linecast(startPos, endPos, out var hit)) {
+            var relativePos = hit.point - _tankParts.barrelTip.transform.position;
+
+            var xDist = new Vector2(relativePos.x, relativePos.z).magnitude;
+
+            var launchAngle = _tankParts.tankData.GetAngles().x;
+
+            Debug.Log(xDist);
+
+            return (xDist - barrelLength * Mathf.Cos(launchAngle)) / launchSpeed / Mathf.Cos(launchAngle);
+        }
+
+        return float.NaN;
     }
 }
