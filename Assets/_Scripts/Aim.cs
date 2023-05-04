@@ -23,6 +23,9 @@ public class Aim : MonoBehaviour {
     [SerializeField] private float launchSpeed;
     public float barrelLength;
 
+    [SerializeField] private float distanceScaleFactor;
+    [SerializeField] private float minSize;
+
     private void Start() {
         _lineRenderer = GetComponent<LineRenderer>();
     }
@@ -206,12 +209,20 @@ public class Aim : MonoBehaviour {
     }
 
     private void UpdateTargetDisplay() {
+        if (_tankParts == null) {
+            aimObject.SetActive(false);
+
+            return;
+        }
+
+        aimObject.SetActive(true);
+
         aimObject.transform.position = _hitPoint;
         aimObject.transform.LookAt(aimObject.transform.position + _hitNormal);
 
-        var relativeVector = Camera.main.transform.position - aimObject.transform.position;
+        var relativeVector = _tankParts.transform.position - aimObject.transform.position;
 
-        var scaleFactor = relativeVector.magnitude / 15;
+        var scaleFactor = relativeVector.magnitude / distanceScaleFactor + minSize;
 
         aimObject.transform.GetChild(0).transform.localScale = Vector3.one * scaleFactor;
     }

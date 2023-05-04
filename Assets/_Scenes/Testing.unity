@@ -1039,10 +1039,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: aim
       objectReference: {fileID: 0}
-    - target: {fileID: -3888481672020999207, guid: 083887e47ede8104a98bf6fac40c1342, type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 8742538545776668643, guid: 083887e47ede8104a98bf6fac40c1342, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1573,6 +1569,8 @@ MonoBehaviour:
   tCheckIncrement: 0.25
   launchSpeed: 40
   barrelLength: 0
+  distanceScaleFactor: 40
+  minSize: 1
 --- !u!4 &1070459158
 Transform:
   m_ObjectHideFlags: 0
