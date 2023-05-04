@@ -126,16 +126,17 @@ public class Aim : MonoBehaviour {
         var launchAngle = angles.x;
         var yawAngle = angles.y;
 
-        var horizontalDist = launchSpeed * t * Mathf.Cos(launchAngle);
+        var horizontalDist = launchSpeed * t * Mathf.Cos(launchAngle) + barrelLength * Mathf.Cos(launchAngle);
 
         var xDist = Mathf.Sin(yawAngle) * horizontalDist;
         var zDist = Mathf.Cos(yawAngle) * horizontalDist;
 
-        var yDist = -.5f * _gravityValue * t * t + launchSpeed * t * Mathf.Sin(launchAngle);
+        var yDist = -.5f * _gravityValue * t * t + launchSpeed * t * Mathf.Sin(launchAngle) +
+                    barrelLength * Mathf.Sin(launchAngle);
 
         var posChange = new Vector3(xDist, yDist, zDist);
 
-        return _tankParts.barrelTip.transform.position + posChange;
+        return _tankParts.barrel.transform.position + posChange;
     }
 
     private float ImproveGuess(float guess) {

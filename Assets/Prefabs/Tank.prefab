@@ -1114,7 +1114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   namePlate: {fileID: 585863822977727647}
   turret: {fileID: 8071148175502998494}
-  barrel: {fileID: 6524437459971624164}
+  barrel: {fileID: 7080681693890082835}
   barrelTip: {fileID: 788807164907357707}
   tankData: {fileID: 1832396456902728551}
 --- !u!114 &4943463964405945040
