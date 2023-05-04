@@ -25,10 +25,16 @@ public class TankData : NetworkBehaviour {
         var launchAngle = angles.x;
         var yawAngle = angles.y;
 
-        // TODO: actually point in the right directions
+        var targetRot = Quaternion.Euler(-launchAngle * Mathf.Rad2Deg, yawAngle * Mathf.Rad2Deg, 0);
+
+        var targetDir = targetRot * Vector3.forward;
+        targetDir = transform.InverseTransformDirection(targetDir);
+
+        var rotChange = Quaternion.FromToRotation(Vector3.forward, targetDir);
+
         // TODO: slow turn
-        _parts.barrel.transform.localRotation = Quaternion.Euler(-launchAngle * Mathf.Rad2Deg, 0, 0);
-        _parts.turret.transform.localRotation = Quaternion.Euler(0, yawAngle * Mathf.Rad2Deg, 0);
+        _parts.barrel.transform.localRotation = Quaternion.Euler(rotChange.eulerAngles.x, 0, 0);
+        _parts.turret.transform.localRotation = Quaternion.Euler(0, rotChange.eulerAngles.y, 0);
     }
 
     public override void OnNetworkSpawn() {

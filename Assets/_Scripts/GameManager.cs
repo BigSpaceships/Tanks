@@ -15,4 +15,17 @@ public class GameManager : MonoBehaviour {
 
         return null;
     }
+
+    private void OnDisable() {
+        Close();
+    }
+
+    private void OnDestroy() {
+        Close();
+    }
+
+    private void Close() {
+        Debug.Log("shutdown");
+        NetworkManager.Singleton.Shutdown();
+    }
 }

@@ -214,6 +214,5 @@ public class Aim : MonoBehaviour {
         var scaleFactor = relativeVector.magnitude / 15;
 
         aimObject.transform.GetChild(0).transform.localScale = Vector3.one * scaleFactor;
-        Debug.Log(scaleFactor);
     }
 }
