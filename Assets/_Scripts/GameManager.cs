@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void Close() {
-        Debug.Log("shutdown");
-        NetworkManager.Singleton.Shutdown();
+        // Debug.Log("shutdown");
+        // NetworkManager.Singleton.Shutdown();
     }
 }
