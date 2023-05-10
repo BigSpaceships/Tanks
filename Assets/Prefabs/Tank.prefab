@@ -1055,6 +1055,7 @@ GameObject:
   - component: {fileID: 6300415802549390448}
   - component: {fileID: 2615005589361691177}
   - component: {fileID: 6300415802549390454}
+  - component: {fileID: -2711356619660920874}
   - component: {fileID: 1832396456902728551}
   - component: {fileID: 6008259059940474307}
   - component: {fileID: 4943463964405945040}
@@ -1212,6 +1213,42 @@ MonoBehaviour:
   turnStopLimit: 0.1
   turnStopSpeed: 1.5
   flipHeight: 2
+--- !u!114 &-2711356619660920874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6300415802549390449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4856ebbda9ef4434ca6cc614e402e6aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controls:
+    m_Name: Controls
+    m_Id: b810dc69-5e85-443d-ac85-c4b7e1974936
+    m_Asset: {fileID: 0}
+    m_Actions:
+    - m_Name: Shoot
+      m_Type: 1
+      m_ExpectedControlType: Button
+      m_Id: a1103e13-b4fd-42af-a7f3-bb3825ddd68f
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Bindings:
+    - m_Name: 
+      m_Id: dae879ea-aa36-4c37-ad02-7ee7f2e73d92
+      m_Path: <Mouse>/leftButton
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Shoot
+      m_Flags: 0
+  launchSpeed: 40
+  shotPrefab: {fileID: 1124947101382114133, guid: cf8d1e9bb303fc8419827807a92429a2, type: 3}
 --- !u!114 &1832396456902728551
 MonoBehaviour:
   m_ObjectHideFlags: 0

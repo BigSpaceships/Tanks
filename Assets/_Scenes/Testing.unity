@@ -1567,7 +1567,6 @@ MonoBehaviour:
   aimObject: {fileID: 1201946150}
   numberOfPoints: 10
   tCheckIncrement: 0.25
-  launchSpeed: 40
   barrelLength: 0
   distanceScaleFactor: 40
   minSize: 1
@@ -2339,7 +2338,12 @@ MonoBehaviour:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 1381154617}
     PlayerPrefab: {fileID: 6300415802549390449, guid: 0f1dbb490a9dd8f4d89eb01a6653ee19, type: 3}
-    NetworkPrefabs: []
+    NetworkPrefabs:
+    - Override: 0
+      Prefab: {fileID: 1124947101382114133, guid: cf8d1e9bb303fc8419827807a92429a2, type: 3}
+      SourcePrefabToOverride: {fileID: 0}
+      SourceHashToOverride: 0
+      OverridingTargetPrefab: {fileID: 0}
     TickRate: 30
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0

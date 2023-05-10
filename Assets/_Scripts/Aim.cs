@@ -20,7 +20,7 @@ public class Aim : MonoBehaviour {
 
     private float _gravityValue;
 
-    [SerializeField] private float launchSpeed;
+    private float _launchSpeed;
     public float barrelLength;
 
     [SerializeField] private float distanceScaleFactor;
@@ -35,6 +35,7 @@ public class Aim : MonoBehaviour {
 
         if (_focusedTank != null) {
             _tankParts = _focusedTank.GetComponent<TankParts>();
+            _launchSpeed = _focusedTank.GetComponent<TankShooting>().launchSpeed;
         }
         else {
             _tankParts = null;
@@ -73,9 +74,9 @@ public class Aim : MonoBehaviour {
         _yDistance = relativeVector.y;
 
         var launchAngle = Mathf.Atan(
-            (launchSpeed * launchSpeed - Mathf.Sqrt(Mathf.Pow(launchSpeed, 4) - _gravityValue *
+            (_launchSpeed * _launchSpeed - Mathf.Sqrt(Mathf.Pow(_launchSpeed, 4) - _gravityValue *
                 (_gravityValue * _horizontalDistance * _horizontalDistance +
-                 2 * relativeVector.y * launchSpeed * launchSpeed))) / (_gravityValue * _horizontalDistance));
+                 2 * relativeVector.y * _launchSpeed * _launchSpeed))) / (_gravityValue * _horizontalDistance));
 
         launchAngle = ImproveGuess(launchAngle);
         launchAngle = ImproveGuess(launchAngle);
@@ -83,10 +84,10 @@ public class Aim : MonoBehaviour {
 
         _tEnd = GetEndTime();
 
-        _pathLength = Util.Integrate((float x) => Mathf.Sqrt(Mathf.Pow(launchSpeed * Mathf.Cos(launchAngle), 2) +
+        _pathLength = Util.Integrate((float x) => Mathf.Sqrt(Mathf.Pow(_launchSpeed * Mathf.Cos(launchAngle), 2) +
                                                              Mathf.Pow(
                                                                  -_gravityValue * x +
-                                                                 launchSpeed * Mathf.Sin(launchAngle), 2)), 0, _tEnd,
+                                                                 _launchSpeed * Mathf.Sin(launchAngle), 2)), 0, _tEnd,
             100);
 
         var yawAngle = Mathf.Atan2(relativeVector.x, relativeVector.z);
@@ -129,12 +130,12 @@ public class Aim : MonoBehaviour {
         var launchAngle = angles.x;
         var yawAngle = angles.y;
 
-        var horizontalDist = launchSpeed * t * Mathf.Cos(launchAngle) + barrelLength * Mathf.Cos(launchAngle);
+        var horizontalDist = _launchSpeed * t * Mathf.Cos(launchAngle) + barrelLength * Mathf.Cos(launchAngle);
 
         var xDist = Mathf.Sin(yawAngle) * horizontalDist;
         var zDist = Mathf.Cos(yawAngle) * horizontalDist;
 
-        var yDist = -.5f * _gravityValue * t * t + launchSpeed * t * Mathf.Sin(launchAngle) +
+        var yDist = -.5f * _gravityValue * t * t + _launchSpeed * t * Mathf.Sin(launchAngle) +
                     barrelLength * Mathf.Sin(launchAngle);
 
         var posChange = new Vector3(xDist, yDist, zDist);
@@ -147,23 +148,23 @@ public class Aim : MonoBehaviour {
     }
 
     private float ActualAngle(float theta) {
-        var t1 = -_gravityValue * _horizontalDistance * _horizontalDistance / launchSpeed / launchSpeed / 2 /
+        var t1 = -_gravityValue * _horizontalDistance * _horizontalDistance / _launchSpeed / _launchSpeed / 2 /
                  Mathf.Cos(theta) / Mathf.Cos(theta);
 
-        var t2 = _gravityValue * barrelLength * _horizontalDistance / launchSpeed / launchSpeed / Mathf.Cos(theta);
+        var t2 = _gravityValue * barrelLength * _horizontalDistance / _launchSpeed / _launchSpeed / Mathf.Cos(theta);
 
         var t3 = _horizontalDistance * Mathf.Tan(theta);
 
-        var t4 = -_yDistance - barrelLength * barrelLength * _gravityValue / 2 / launchSpeed / launchSpeed;
+        var t4 = -_yDistance - barrelLength * barrelLength * _gravityValue / 2 / _launchSpeed / _launchSpeed;
 
         return t1 + t2 + t3 + t4;
     }
 
     private float ActualAngleDerivative(float theta) {
-        var t1 = -_gravityValue * _horizontalDistance * _horizontalDistance / launchSpeed / launchSpeed / 2 /
+        var t1 = -_gravityValue * _horizontalDistance * _horizontalDistance / _launchSpeed / _launchSpeed / 2 /
             Mathf.Cos(theta) / Mathf.Cos(theta) * Mathf.Tan(theta);
 
-        var t2 = _gravityValue * barrelLength * _horizontalDistance / launchSpeed / launchSpeed / Mathf.Cos(theta) *
+        var t2 = _gravityValue * barrelLength * _horizontalDistance / _launchSpeed / _launchSpeed / Mathf.Cos(theta) *
                  Mathf.Tan(theta);
 
         var t3 = _horizontalDistance / Mathf.Cos(theta) / Mathf.Cos(theta);
@@ -202,7 +203,7 @@ public class Aim : MonoBehaviour {
 
             var launchAngle = _tankParts.tankData.GetAngles().x;
 
-            return (xDist - barrelLength * Mathf.Cos(launchAngle)) / launchSpeed / Mathf.Cos(launchAngle);
+            return (xDist - barrelLength * Mathf.Cos(launchAngle)) / _launchSpeed / Mathf.Cos(launchAngle);
         }
 
         return float.NaN;
