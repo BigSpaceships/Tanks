@@ -26,6 +26,8 @@ public class Aim : MonoBehaviour {
     [SerializeField] private float distanceScaleFactor;
     [SerializeField] private float minSize;
 
+    private LayerMask ShootingLayerMask => (Physics.DefaultRaycastLayers & ~LayerMask.GetMask("Bullet"));
+
     private void Start() {
         _lineRenderer = GetComponent<LineRenderer>();
     }
@@ -43,7 +45,7 @@ public class Aim : MonoBehaviour {
 
         var ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-        if (Physics.Raycast(ray, out var hit)) {
+        if (Physics.Raycast(ray, out var hit, Mathf.Infinity, ShootingLayerMask)) {
             if (_focusedTank == null) return;
 
             _focusedTank.GetComponent<TankData>().UpdateTargetPosition(hit.point);
@@ -193,7 +195,7 @@ public class Aim : MonoBehaviour {
         var startPos = GetPointAtTime(tStart);
         var endPos = GetPointAtTime(tEnd);
 
-        if (Physics.Linecast(startPos, endPos, out var hit)) {
+        if (Physics.Linecast(startPos, endPos, out var hit, ShootingLayerMask)) {
             _hitPoint = hit.point;
             _hitNormal = hit.normal;
 
