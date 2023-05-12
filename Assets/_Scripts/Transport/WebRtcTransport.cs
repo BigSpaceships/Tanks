@@ -24,7 +24,7 @@ public class WebRtcTransport : NetworkTransport {
     private Dictionary<string, ulong> _peerSocketIds = new();
 
     private void StartSocket() {
-        var uri = new Uri("https://8080-bigspaceshi-tanksignals-7puk1tvhum8.ws-us95.gitpod.io");
+        var uri = new Uri("https://8080-bigspaceshi-tanksignals-394qrmk7edx.ws-us97.gitpod.io");
         _socket = new SocketIOUnity(uri, new SocketIOOptions {
             Transport = SocketIOClient.Transport.TransportProtocol.WebSocket
         });

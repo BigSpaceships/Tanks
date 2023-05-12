@@ -3,8 +3,6 @@ using UnityEngine;
 public class Shell : MonoBehaviour {
     private Rigidbody _rb;
 
-    [SerializeField] private ParticleSystem particles;
-
     private void Awake() {
         _rb = GetComponent<Rigidbody>();
     }
@@ -16,9 +14,7 @@ public class Shell : MonoBehaviour {
     }
 
     private void OnCollisionEnter(Collision collision) {
-        var explosionParticles = Instantiate(particles, transform.position, Quaternion.identity);
-
-        Destroy(explosionParticles.gameObject, 2f);
+        ExplosionManager.Manager.SpawnExplosionClientRpc(transform.position);
         Destroy(gameObject);
     }
 }
