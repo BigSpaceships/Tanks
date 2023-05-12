@@ -3668,9 +3668,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera
       objectReference: {fileID: 0}
-    - target: {fileID: 3176970178094358703, guid: 291e5ca81c6fcaa4b898023889e5aeaf, type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 2147483647
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 291e5ca81c6fcaa4b898023889e5aeaf, type: 3}

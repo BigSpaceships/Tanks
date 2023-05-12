@@ -16,7 +16,7 @@ TagManager:
   - 
   - PlayerCollision
   - Player
-  - Target
+  - Bullet
   - 
   - 
   - 
