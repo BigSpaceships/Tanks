@@ -8,6 +8,8 @@ using UnityEngine;
 public class WebRtcTransport : NetworkTransport {
     private SocketIOUnity _socket;
 
+    public string signalServerUri;
+
     [SerializeField] private bool logNetworkDebug;
 
     private enum Type {
@@ -24,7 +26,7 @@ public class WebRtcTransport : NetworkTransport {
     private Dictionary<string, ulong> _peerSocketIds = new();
 
     private void StartSocket() {
-        var uri = new Uri("https://8080-bigspaceshi-tanksignals-394qrmk7edx.ws-us97.gitpod.io");
+        var uri = new Uri(signalServerUri);
         _socket = new SocketIOUnity(uri, new SocketIOOptions {
             Transport = SocketIOClient.Transport.TransportProtocol.WebSocket
         });
