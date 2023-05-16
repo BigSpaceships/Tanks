@@ -25,7 +25,5 @@ public class ExplosionManager : NetworkBehaviour {
         explosionParticles.GetComponent<Rigidbody>().velocity = velocity / 10f;
         
         explosionParticles.Play();
-        
-        Debug.DrawRay(pos, velocity, Color.green, 1);
     }
 }
