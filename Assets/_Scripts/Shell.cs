@@ -14,7 +14,7 @@ public class Shell : MonoBehaviour {
     }
 
     private void OnCollisionEnter(Collision collision) {
-        ExplosionManager.Manager.SpawnExplosionClientRpc(transform.position);
+        ExplosionManager.Manager.SpawnExplosionClientRpc(transform.position, collision.GetContact(0).normal, _rb.velocity);
         Destroy(gameObject);
     }
 }
