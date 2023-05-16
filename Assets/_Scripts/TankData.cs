@@ -74,6 +74,10 @@ public class TankData : NetworkBehaviour {
 
     [ServerRpc]
     private void ChangeNameServerRpc(string newName) {
+        if (newName == "") {
+            newName = GameManager.Manager.NextNamelessPlayer;
+        }
+        
         _name.Value = newName;
     }
 
