@@ -131,6 +131,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085b9a91fc9d40908be52a3a60e7c708, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxDamage: 50
+  damageRadius: 6.5
+  damageFalloff:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.050343975
+      outSlope: -0.050343975
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.18739054
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -3.1984055
+      outSlope: -1
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.028021038
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!136 &3805635708326144730
 CapsuleCollider:
   m_ObjectHideFlags: 0

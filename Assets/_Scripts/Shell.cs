@@ -4,6 +4,10 @@ using UnityEngine;
 public class Shell : NetworkBehaviour {
     private Rigidbody _rb;
 
+    [SerializeField] private float maxDamage;
+    [SerializeField] private float damageRadius;
+    [SerializeField] private AnimationCurve damageFalloff;
+
     private void Awake() {
         _rb = GetComponent<Rigidbody>();
     }
@@ -31,6 +35,19 @@ public class Shell : NetworkBehaviour {
             ExplosionManager.Manager.SpawnExplosionClientRpc(transform.position, collision.GetContact(0).normal,
                 _rb.velocity);
             Destroy(gameObject);
+
+            var hitColliders =
+                Physics.OverlapSphere(transform.position, damageRadius, LayerMask.GetMask("PlayerCollision"));
+
+            foreach (var tankCollider in hitColliders) {
+                var tank = tankCollider.GetComponentInParent<TankData>();
+
+                var dist = (tank.transform.position - transform.position).magnitude;
+
+                var damage = maxDamage * damageFalloff.Evaluate(dist / damageRadius);
+
+                tank.DealDamage(damage);
+            }
         }
     }
 

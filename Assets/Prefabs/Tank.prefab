@@ -1261,6 +1261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 366fdd7408872da4c88ab0b2b6e1622a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 100
 --- !u!114 &6008259059940474307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1274,6 +1275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   namePlate: {fileID: 585863822977727647}
+  healthSlider: {fileID: 1615300318439382108}
   turret: {fileID: 8071148175502998494}
   barrel: {fileID: 7080681693890082835}
   barrelTip: {fileID: 788807164907357707}

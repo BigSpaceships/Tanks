@@ -2,6 +2,7 @@ using TMPro;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TankData : NetworkBehaviour {
     private readonly NetworkVariable<FixedString32Bytes> _name = new("");
@@ -13,6 +14,8 @@ public class TankData : NetworkBehaviour {
     private readonly NetworkVariable<Vector2> _targetLaunchAngles = new();
 
     private TankParts _parts;
+
+    public float maxHealth = 100;
 
     private void Awake() {
         _parts = GetComponent<TankParts>();
@@ -41,17 +44,26 @@ public class TankData : NetworkBehaviour {
 
     public override void OnNetworkSpawn() {
         _name.OnValueChanged += (_, _) => UpdateNamePlate();
+        _health.OnValueChanged += (_, _) => UpdateHealth();
 
         if (IsOwner && IsClient) {
             ChangeName(PlayGUIManager.Manager.GetName());
         }
-        else if (IsClient) {
+
+        if (IsServer) {
+            _health.Value = maxHealth;
+            _parts.healthSlider.GetComponent<Slider>().maxValue = maxHealth;
+        }
+
+        if (IsClient) {
             UpdateNamePlate();
+            UpdateHealth();
         }
     }
 
     public override void OnNetworkDespawn() {
         _name.OnValueChanged -= (_, _) => UpdateNamePlate();
+        _health.OnValueChanged -= (_, _) => UpdateHealth();
     }
 
     private void UpdateNamePlate() {
@@ -102,5 +114,17 @@ public class TankData : NetworkBehaviour {
 
     public Vector2 GetAngles() {
         return _targetLaunchAngles.Value;
+    }
+
+    private void UpdateHealth() {
+        _parts.healthSlider.GetComponent<Slider>().value = _health.Value;
+    }
+
+    public void DealDamage(float amount) {
+        if (IsServer) {
+            var newHealth = _health.Value - amount;
+
+            _health.Value = Mathf.Clamp(newHealth, 0, maxHealth);
+        }
     }
 }
