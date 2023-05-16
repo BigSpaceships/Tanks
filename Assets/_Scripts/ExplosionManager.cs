@@ -18,9 +18,6 @@ public class ExplosionManager : NetworkBehaviour {
 
         var shape = explosionParticles.shape;
         shape.rotation = rot.eulerAngles;
-        
-        // var main = explosionParticles.main;
-        // main.emitterVelocity = velocity;
 
         explosionParticles.GetComponent<Rigidbody>().velocity = velocity / 10f;
         
