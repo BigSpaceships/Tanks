@@ -7,6 +7,8 @@ public class TankData : NetworkBehaviour {
     private readonly NetworkVariable<FixedString32Bytes> _name = new("");
     private readonly NetworkVariable<Vector3> _targetPosition = new(Vector3.zero, NetworkVariableReadPermission.Owner);
 
+    private readonly NetworkVariable<float> _health = new();
+
     // x is pitch y is yaw
     private readonly NetworkVariable<Vector2> _targetLaunchAngles = new();
 
