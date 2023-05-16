@@ -19,13 +19,11 @@ public class Shell : NetworkBehaviour {
     }
 
     private void Update() {
-        if (!IsClient) {
+        if (IsServer) {
             if (_rb.velocity.sqrMagnitude > float.Epsilon) {
                 transform.forward = _rb.velocity.normalized;
             }
-        }
-
-        if (IsServer) {
+            
             TransformClientRpc(transform.position, transform.rotation.eulerAngles);
         }
     }
