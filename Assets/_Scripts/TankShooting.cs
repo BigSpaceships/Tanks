@@ -18,8 +18,8 @@ public class TankShooting : NetworkBehaviour {
     }
 
     private void UpdateControls() {
-        if (NetworkManager.Singleton.IsClient) {
-            if (NetworkObject.IsOwner) {
+        if (IsClient) {
+            if (IsOwner) {
                 controls.Enable();
 
                 controls["Shoot"].performed += OnShoot;
@@ -28,9 +28,9 @@ public class TankShooting : NetworkBehaviour {
     }
 
     private void OnShoot(InputAction.CallbackContext context) {
-        if (!NetworkManager.Singleton.IsClient) return;
+        if (!IsClient) return;
 
-        if (!NetworkObject.IsOwner) return;
+        if (!IsOwner) return;
 
         ShootServerRpc();
     }

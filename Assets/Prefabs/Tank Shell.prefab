@@ -14,8 +14,6 @@ GameObject:
   - component: {fileID: 242619044664002054}
   - component: {fileID: 8475188731588986584}
   - component: {fileID: -94145038520406473}
-  - component: {fileID: 1233371928397836426}
-  - component: {fileID: 7983115381214729635}
   - component: {fileID: 3805635708326144730}
   m_Layer: 10
   m_Name: Tank Shell
@@ -131,45 +129,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 085b9a91fc9d40908be52a3a60e7c708, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  particles: {fileID: 2086453627722148572, guid: f5e4f7b279796954cbbee1a6587594f8, type: 3}
---- !u!114 &1233371928397836426
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1124947101382114133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SyncPositionX: 1
-  SyncPositionY: 1
-  SyncPositionZ: 1
-  SyncRotAngleX: 1
-  SyncRotAngleY: 1
-  SyncRotAngleZ: 1
-  SyncScaleX: 1
-  SyncScaleY: 1
-  SyncScaleZ: 1
-  PositionThreshold: 0.001
-  RotAngleThreshold: 0.01
-  ScaleThreshold: 0.01
-  InLocalSpace: 0
-  Interpolate: 1
---- !u!114 &7983115381214729635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1124947101382114133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!136 &3805635708326144730
