@@ -137,6 +137,8 @@ public class WebRtcTransport : NetworkTransport {
         foreach (var (id, connection) in _peers) {
             connection.Close();
         }
+
+        _peers.Clear();
     }
 
     public override void Initialize(NetworkManager networkManager = null) { }
@@ -169,11 +171,5 @@ public class WebRtcTransport : NetworkTransport {
 
     public void Log(object message) {
         if (logNetworkDebug) Debug.Log(message);
-    }
-
-    [Serializable]
-    public struct DescriptionData {
-        public RTCSdpType type;
-        public string desc;
     }
 }

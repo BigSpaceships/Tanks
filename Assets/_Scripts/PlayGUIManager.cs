@@ -19,6 +19,8 @@ public class PlayGUIManager : MonoBehaviour {
 
     private void Start() {
         Manager = this;
+
+        NetworkManager.Singleton.OnClientDisconnectCallback += OnDisconnect;
     }
 
     public void UpdateOptionDisplays(int option) {
@@ -64,6 +66,10 @@ public class PlayGUIManager : MonoBehaviour {
     public void Disconnect() {
         NetworkManager.Singleton.Shutdown();
 
+        OnDisconnect(0);
+    }
+
+    public void OnDisconnect(ulong id) {
         transform.Find("Play Options").gameObject.SetActive(true);
         transform.Find("In Game").gameObject.SetActive(false);
     }
