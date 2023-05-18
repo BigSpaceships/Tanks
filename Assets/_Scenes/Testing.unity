@@ -730,7 +730,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 253173ca5398ca0459cadea0ac96a0a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particles: {fileID: 2086453627722148572, guid: f5e4f7b279796954cbbee1a6587594f8, type: 3}
+  particlesPrefab: {fileID: 2086453627722148572, guid: f5e4f7b279796954cbbee1a6587594f8, type: 3}
+  explosionAudioPrefab: {fileID: 1966114202251431454, guid: 3df54a607f9c9b04f876c6d12fa50efb, type: 3}
 --- !u!1 &502495965
 GameObject:
   m_ObjectHideFlags: 0

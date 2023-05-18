@@ -8,6 +8,7 @@ public class TankShooting : NetworkBehaviour {
     public float launchSpeed;
 
     [SerializeField] private GameObject shotPrefab;
+    [SerializeField] private AudioClip shotAudioClip;
 
     private void OnEnable() {
         UpdateControls();
@@ -43,5 +44,12 @@ public class TankShooting : NetworkBehaviour {
         newShot.GetComponent<NetworkObject>().Spawn();
 
         newShot.GetComponent<Rigidbody>().AddForce(launchObject.transform.forward * launchSpeed, ForceMode.Impulse);
+
+        ShotFiredClientRpc();
+    }
+
+    [ClientRpc]
+    private void ShotFiredClientRpc() {
+        GetComponent<TankParts>().shotAudioSource.PlayOneShot(shotAudioClip);
     }
 }

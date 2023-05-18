@@ -7,6 +7,8 @@ public class TankParts : MonoBehaviour {
     public GameObject barrel;
     public GameObject barrelTip;
 
+    public AudioSource shotAudioSource;
+
     public TankData tankData;
 
     public float BarrelLength => barrel.transform.InverseTransformPoint(barrelTip.transform.position).z;
