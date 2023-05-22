@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -41,7 +42,10 @@ public class Aim : MonoBehaviour {
         }
         else {
             _tankParts = null;
+            return;
         }
+
+        if (!(_tankParts.tankData.IsOwner && NetworkManager.Singleton.IsClient)) return;
 
         var ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 

@@ -51,7 +51,6 @@ public class WebRtcConnection {
         };
 
         _pc.OnTrack = track => Debug.Log(track.ToString());
-        
     }
 
     public void Close() {
@@ -60,7 +59,7 @@ public class WebRtcConnection {
 
     public IEnumerator StartConnection(string otherId) {
         _otherSocketId = otherId;
-        
+
         RTCDataChannelInit config = new RTCDataChannelInit();
         _dataChannel = _pc.CreateDataChannel("data", config);
 
@@ -92,8 +91,8 @@ public class WebRtcConnection {
     }
 
     public IEnumerator OnSessionDescriptionReceived(string otherId, RTCSessionDescription desc) {
-        _otherSocketId = otherId; 
-        
+        _otherSocketId = otherId;
+
         _transport.Log($"Received remote description {desc}");
         _transport.Log("Setting remote description");
 
@@ -170,6 +169,7 @@ public class WebRtcConnection {
     }
 
     private void OnDataChannelClosed() {
+        _transport.Log("Close");
         _transport.ProcessEvent(NetworkEvent.Disconnect, this, default, Time.time);
     }
 
