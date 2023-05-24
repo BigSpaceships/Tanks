@@ -21,7 +21,7 @@ public class PlayGUIManager : MonoBehaviour {
     private void Start() {
         Manager = this;
 
-        NetworkManager.Singleton.OnClientDisconnectCallback += OnDisconnect;
+        // NetworkManager.Singleton.OnClientDisconnectCallback += OnDisconnect;
     }
 
     public void UpdateOptionDisplays(int option) {
