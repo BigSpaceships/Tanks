@@ -2421,7 +2421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   signalServerUri: https://8080-bigspaceshi-tanksignals-394qrmk7edx.ws-us97.gitpod.io
-  logNetworkDebug: 0
+  logNetworkDebug: 1
 --- !u!1 &1434455596
 GameObject:
   m_ObjectHideFlags: 0

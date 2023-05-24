@@ -112,6 +112,16 @@ public class WebRtcTransport : NetworkTransport {
             _peers[clientId].Close();
             _peers.Remove(clientId);
 
+            var keysToRemove = new List<string>();
+
+            foreach (var kv in _peerSocketIds) {
+                if (clientId == kv.Value) keysToRemove.Add(kv.Key);
+            }
+
+            foreach (var key in keysToRemove) {
+                _peerSocketIds.Remove(key);
+            }
+
             Log($"disconnect {clientId}");
         }
     }
@@ -122,6 +132,7 @@ public class WebRtcTransport : NetworkTransport {
         }
 
         _peers.Clear();
+        _peerSocketIds.Clear();
 
         Log("disconnect local");
     }
@@ -158,6 +169,10 @@ public class WebRtcTransport : NetworkTransport {
 
     public void ProcessEvent(NetworkEvent eventType, WebRtcConnection peer, ArraySegment<byte> payload,
         float receiveTime) {
+        if (eventType == NetworkEvent.Disconnect) {
+            _peers.Remove(peer.id);
+        }
+
         InvokeOnTransportEvent(eventType, peer.id, payload, receiveTime);
     }
 

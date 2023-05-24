@@ -3,6 +3,7 @@ using System.Linq;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayGUIManager : MonoBehaviour {
     [SerializeField] private List<GameObject> hostOptions;
@@ -72,5 +73,8 @@ public class PlayGUIManager : MonoBehaviour {
     public void OnDisconnect(ulong id) {
         transform.Find("Play Options").gameObject.SetActive(true);
         transform.Find("In Game").gameObject.SetActive(false);
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene()
+            .buildIndex); // TODO: properly clean up connection so we don't have to do this 
     }
 }
