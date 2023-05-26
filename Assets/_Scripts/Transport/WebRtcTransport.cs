@@ -145,6 +145,7 @@ public class WebRtcTransport : NetworkTransport {
     public override void Shutdown() {
         Log("Shutdown");
         _socket?.Disconnect();
+        _socket?.Dispose();
         foreach (var (id, connection) in _peers) {
             connection.Close();
         }
