@@ -16,12 +16,8 @@ public class GameManager : MonoBehaviour {
     }
 
     public static GameObject GetFocusedTank() {
-        if (NetworkManager.Singleton.IsClient && (NetworkManager.Singleton.LocalClient != null)) {
+        if (NetworkManager.Singleton.IsClient && NetworkManager.Singleton.LocalClient != null && NetworkManager.Singleton.LocalClient.PlayerObject) {
             var focusedTank = NetworkManager.Singleton.LocalClient.PlayerObject.gameObject;
-
-            if (!focusedTank) {
-                // focusedTank = GameObject.FindGameObjectsWithTag("Player")[0];
-            }
 
             return focusedTank;
         }

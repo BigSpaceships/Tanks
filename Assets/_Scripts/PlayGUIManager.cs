@@ -74,7 +74,7 @@ public class PlayGUIManager : MonoBehaviour {
         transform.Find("Play Options").gameObject.SetActive(true);
         transform.Find("In Game").gameObject.SetActive(false);
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene()
-            .buildIndex); // TODO: properly clean up connection so we don't have to do this 
+        // SceneManager.LoadScene(SceneManager.GetActiveScene()
+        //     .buildIndex); // TODO: properly clean up connection so we don't have to do this
     }
 }

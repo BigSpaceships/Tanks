@@ -36,7 +36,7 @@ public class TankShooting : NetworkBehaviour {
         ShootServerRpc();
     }
 
-    [ServerRpc]
+    [Rpc(SendTo.Server)]
     private void ShootServerRpc() {
         var launchObject = GetComponent<TankParts>().barrelTip.transform;
         var newShot = Instantiate(shotPrefab, launchObject.position, launchObject.rotation);
@@ -48,7 +48,7 @@ public class TankShooting : NetworkBehaviour {
         ShotFiredClientRpc();
     }
 
-    [ClientRpc]
+    [Rpc(SendTo.ClientsAndHost)]
     private void ShotFiredClientRpc() {
         GetComponent<TankParts>().shotAudioSource.PlayOneShot(shotAudioClip);
     }

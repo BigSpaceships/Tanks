@@ -135,7 +135,7 @@ public class TankController : NetworkBehaviour {
         FlipServerRpc();
     }
 
-    [ServerRpc]
+    [Rpc(SendTo.Server)]
     private void FlipServerRpc() {
         var yRot = transform.rotation.eulerAngles.y;
         transform.rotation = Quaternion.identity;
@@ -143,7 +143,7 @@ public class TankController : NetworkBehaviour {
         transform.Translate(Vector3.up * flipHeight);
     }
 
-    [ServerRpc]
+    [Rpc(SendTo.Server)]
     private void SendMovementInputServerRpc(Vector2 input) {
         _forwardInput = input.y;
         _turnInput = input.x;

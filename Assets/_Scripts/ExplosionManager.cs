@@ -11,7 +11,7 @@ public class ExplosionManager : NetworkBehaviour {
         Manager = this;
     }
 
-    [ClientRpc]
+    [Rpc(SendTo.ClientsAndHost)]
     public void SpawnExplosionClientRpc(Vector3 pos, Vector3 normal, Vector3 velocity) {
         var rot = Quaternion.LookRotation(normal);
 

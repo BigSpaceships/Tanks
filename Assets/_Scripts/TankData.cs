@@ -72,7 +72,7 @@ public class TankData : NetworkBehaviour {
         nameText.text = _name.Value.ToString();
     }
 
-    [ServerRpc]
+    [Rpc(SendTo.Server)]
     private void ChangeNameServerRpc(string newName) {
         if (newName == "") {
             newName = GameManager.Manager.NextNamelessPlayer;
@@ -87,7 +87,7 @@ public class TankData : NetworkBehaviour {
         }
     }
 
-    [ServerRpc]
+    [Rpc(SendTo.Server)]
     private void UpdateTargetPositionServerRpc(Vector3 pos) {
         _targetPosition.Value = pos;
     }
@@ -105,7 +105,7 @@ public class TankData : NetworkBehaviour {
         return Vector3.zero;
     }
 
-    [ServerRpc]
+    [Rpc(SendTo.Server)]
     private void UpdateTargetAnglesServerRpc(Vector2 angles) {
         _targetLaunchAngles.Value = angles;
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using SocketIOClient;
 using Unity.Netcode;
 using Unity.WebRTC;
@@ -151,6 +152,8 @@ public class WebRtcTransport : NetworkTransport {
         }
 
         _peers.Clear();
+
+        _lastId = 0;
     }
 
     public override void Initialize(NetworkManager networkManager = null) { }

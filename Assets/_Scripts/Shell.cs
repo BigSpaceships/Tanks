@@ -49,7 +49,7 @@ public class Shell : NetworkBehaviour {
         }
     }
 
-    [ClientRpc]
+    [Rpc(SendTo.ClientsAndHost)]
     private void TransformClientRpc(Vector3 pos, Vector3 rot) {
         transform.position = pos;
         transform.rotation = Quaternion.Euler(rot);

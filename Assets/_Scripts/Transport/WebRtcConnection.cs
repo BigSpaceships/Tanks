@@ -22,7 +22,7 @@ public class WebRtcConnection {
     }
 
     private void ReceiveMessage(byte[] data) {
-        _transport.ProcessEvent(NetworkEvent.Data, this, new ArraySegment<byte>(data), Time.time);
+        _transport.ProcessEvent(NetworkEvent.Data, this, new ArraySegment<byte>(data), Time.realtimeSinceStartup);
     }
 
     public WebRtcConnection(SocketIOUnity socket, WebRtcTransport transport, ulong id) {
@@ -166,12 +166,12 @@ public class WebRtcConnection {
     }
 
     private void OnDataChannelOpen() {
-        _transport.ProcessEvent(NetworkEvent.Connect, this, default, Time.time);
+        _transport.ProcessEvent(NetworkEvent.Connect, this, default, Time.realtimeSinceStartup);
     }
 
     private void OnDataChannelClosed() {
         _transport.Log("Close");
-        _transport.ProcessEvent(NetworkEvent.Disconnect, this, default, Time.time);
+        _transport.ProcessEvent(NetworkEvent.Disconnect, this, default, Time.realtimeSinceStartup);
     }
 
     private void OnConnectionStateChange(RTCPeerConnectionState state) {
