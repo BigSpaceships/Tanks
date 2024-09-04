@@ -54,6 +54,7 @@ public class WebRtcConnection {
     }
 
     public void Close() {
+        _dataChannel.Close();
         _pc.Close();
     }
 

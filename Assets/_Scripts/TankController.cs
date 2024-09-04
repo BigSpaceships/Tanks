@@ -36,6 +36,11 @@ public class TankController : NetworkBehaviour {
         UpdateControls();
     }
 
+    public override void OnDestroy() {
+        RemoveControls();
+        base.OnDestroy();
+    }
+
     private void Update() {
         if (NetworkManager.Singleton.IsServer) {
             Move();
@@ -89,6 +94,13 @@ public class TankController : NetworkBehaviour {
                 controls["Flip"].performed += OnFlip;
             }
         }
+    }
+
+    private void RemoveControls() {
+        controls["Move"].performed -= OnMove;
+        controls["Move"].canceled -= OnMove;
+
+        controls["Flip"].performed -= OnFlip;
     }
 
     private void ApplyVisualsToWheel(WheelCollider wheel) {
