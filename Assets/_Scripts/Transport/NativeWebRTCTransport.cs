@@ -1,33 +1,28 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using SocketIOClient;
 using Unity.Netcode;
 using Unity.WebRTC;
 using UnityEngine;
 
-public class WebRtcTransport : NetworkTransport {
+public class NativeWebRTCTransport : WebRTCTransportBase {
     private SocketIOUnity _socket;
 
-    public string signalServerUri;
-
-    [SerializeField] private bool logNetworkDebug;
-
-    private enum Type {
-        Server,
-        Client,
-    }
+    public WebRTCTransport Transport;
 
     private ulong _lastId = 0;
     private ulong NextId => _lastId++;
 
-    private Type _type;
+    private readonly Dictionary<ulong, WebRtcConnection> _peers = new();
+    private readonly Dictionary<string, ulong> _peerSocketIds = new();
 
-    private Dictionary<ulong, WebRtcConnection> _peers = new();
-    private Dictionary<string, ulong> _peerSocketIds = new();
+    public NativeWebRTCTransport(WebRTCTransport transport) {
+        Transport = transport;
+    }
 
-    private void StartSocket() {
-        var uri = new Uri(signalServerUri);
+    protected override void ConnectSocket(string serverUri) {
+        var uri = new Uri(serverUri);
         _socket = new SocketIOUnity(uri, new SocketIOOptions {
             Transport = SocketIOClient.Transport.TransportProtocol.WebSocket
         });
@@ -47,7 +42,7 @@ public class WebRtcTransport : NetworkTransport {
 
             _peerSocketIds.Add(senderId, newId);
 
-            StartCoroutine(_peers[newId].StartConnection(senderId));
+            Transport.StartCoroutine(_peers[newId].StartConnection(senderId));
         });
 
         _socket.OnUnityThread("sessionDescriptionOffer", data => {
@@ -60,7 +55,7 @@ public class WebRtcTransport : NetworkTransport {
             var newId = StartConnection();
             _peerSocketIds.Add(senderId, newId);
 
-            StartCoroutine(_peers[newId].OnSessionDescriptionReceived(senderId, desc));
+            Transport.StartCoroutine(_peers[newId].OnSessionDescriptionReceived(senderId, desc));
         });
 
         _socket.OnUnityThread("sessionDescriptionAnswer", data => {
@@ -70,7 +65,7 @@ public class WebRtcTransport : NetworkTransport {
                 type = RTCSdpType.Answer
             };
 
-            StartCoroutine(_peers[_peerSocketIds[senderId]].OnAnswerReceived(desc));
+            Transport.StartCoroutine(_peers[_peerSocketIds[senderId]].OnAnswerReceived(desc));
         });
 
         _socket.OnUnityThread("iceCandidate", data => {
@@ -92,42 +87,20 @@ public class WebRtcTransport : NetworkTransport {
         return newId;
     }
 
-    public override bool StartClient() {
-        _type = Type.Client;
-
-        StartSocket();
-
-        return true;
+    public override void SendData(ulong id, ArraySegment<byte> data) {
+        _peers[id].SendMessage(data);
     }
 
-    public override bool StartServer() {
-        _type = Type.Server;
-
-        StartSocket();
-
-        return true;
-    }
-
-    public override void DisconnectRemoteClient(ulong clientId) {
-        if (_peers.ContainsKey(clientId)) {
-            _peers[clientId].Close();
-            _peers.Remove(clientId);
-
-            var keysToRemove = new List<string>();
-
-            foreach (var kv in _peerSocketIds) {
-                if (clientId == kv.Value) keysToRemove.Add(kv.Key);
-            }
-
-            foreach (var key in keysToRemove) {
-                _peerSocketIds.Remove(key);
-            }
-
-            Log($"disconnect {clientId}");
+    public void ProcessEvent(NetworkEvent eventType, WebRtcConnection peer, ArraySegment<byte> payload,
+        float receiveTime) {
+        if (eventType == NetworkEvent.Disconnect) {
+            _peers.Remove(peer.id);
         }
+
+        Transport.TransportEvent(eventType, peer.id, payload, receiveTime);
     }
 
-    public override void DisconnectLocalClient() {
+    public override void DisconnectLocal() {
         foreach (var peerPair in _peers) {
             peerPair.Value.Close();
         }
@@ -138,12 +111,26 @@ public class WebRtcTransport : NetworkTransport {
         Log("disconnect local");
     }
 
-    // TODO: Ping
-    public override ulong GetCurrentRtt(ulong clientId) {
-        return 1;
+    public override void DisconnectRemote(ulong id) {
+        if (_peers.ContainsKey(id)) {
+            _peers[id].Close();
+            _peers.Remove(id);
+
+            var keysToRemove = new List<string>();
+
+            foreach (var kv in _peerSocketIds) {
+                if (id == kv.Value) keysToRemove.Add(kv.Key);
+            }
+
+            foreach (var key in keysToRemove) {
+                _peerSocketIds.Remove(key);
+            }
+
+            Log($"disconnect {id}");
+        }
     }
 
-    public override void Shutdown() {
+    public override void Close() {
         Log("Shutdown");
         _socket?.Disconnect();
         _socket?.Dispose();
@@ -154,30 +141,6 @@ public class WebRtcTransport : NetworkTransport {
         _peers.Clear();
 
         _lastId = 0;
-    }
-
-    public override void Initialize(NetworkManager networkManager = null) { }
-
-    public override ulong ServerClientId => 0;
-
-    public override void Send(ulong clientId, ArraySegment<byte> data, NetworkDelivery delivery) {
-        _peers[clientId].SendMessage(data);
-    }
-
-    public override NetworkEvent PollEvent(out ulong clientId, out ArraySegment<byte> payload, out float receiveTime) {
-        clientId = 0;
-        receiveTime = Time.realtimeSinceStartup;
-        payload = new ArraySegment<byte>();
-        return NetworkEvent.Nothing;
-    }
-
-    public void ProcessEvent(NetworkEvent eventType, WebRtcConnection peer, ArraySegment<byte> payload,
-        float receiveTime) {
-        if (eventType == NetworkEvent.Disconnect) {
-            _peers.Remove(peer.id);
-        }
-
-        InvokeOnTransportEvent(eventType, peer.id, payload, receiveTime);
     }
 
     private ulong GetMlAPIClientId(ulong clientId) {

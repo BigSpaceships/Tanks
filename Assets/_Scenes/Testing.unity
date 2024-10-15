@@ -2427,11 +2427,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1381154613}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82c330916a264598b430c9b691274467, type: 3}
+  m_Script: {fileID: 11500000, guid: 81e70b399bb9481b98a8b676e9ab6b7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   signalServerUri: https://8080-bigspaceshi-tanksignals-gxl47dmg3z8.ws-us116.gitpod.io
-  logNetworkDebug: 1
 --- !u!1 &1434455596
 GameObject:
   m_ObjectHideFlags: 0

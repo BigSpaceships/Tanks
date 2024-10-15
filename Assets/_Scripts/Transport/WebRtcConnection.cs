@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class WebRtcConnection {
     private readonly SocketIOUnity _socket;
-    private WebRtcTransport _transport;
+    private NativeWebRTCTransport _transport;
 
     private readonly RTCPeerConnection _pc;
     private RTCDataChannel _dataChannel;
@@ -25,7 +25,7 @@ public class WebRtcConnection {
         _transport.ProcessEvent(NetworkEvent.Data, this, new ArraySegment<byte>(data), Time.realtimeSinceStartup);
     }
 
-    public WebRtcConnection(SocketIOUnity socket, WebRtcTransport transport, ulong id) {
+    public WebRtcConnection(SocketIOUnity socket, NativeWebRTCTransport transport, ulong id) {
         _socket = socket;
         _transport = transport;
         this.id = id;
