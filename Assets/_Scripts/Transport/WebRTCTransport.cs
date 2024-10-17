@@ -8,6 +8,7 @@ public class WebRTCTransport : NetworkTransport {
     public string signalServerUri;
 
     public override void Send(ulong clientId, ArraySegment<byte> payload, NetworkDelivery networkDelivery) {
+        Debug.Log("transport send data");
         transport.SendData(clientId, payload);
     }
 
@@ -48,15 +49,17 @@ public class WebRTCTransport : NetworkTransport {
 
     public override void Initialize(NetworkManager networkManager = null) {
 #if (UNITY_WEBGL && !UNITY_EDITOR)
-        transport = new WebRTCTransportWebGL();
+        transport = new WebGLWebRTCTransport(this);
 #else
         transport = new NativeWebRTCTransport(this);
 #endif
+        transport.Initialize();
     }
 
     public override ulong ServerClientId => 0;
 
     public void TransportEvent(NetworkEvent type, ulong clientId, ArraySegment<byte> data, float time) {
+        Debug.Log("transport event with type " + type + " from client " + clientId);
         InvokeOnTransportEvent(type, clientId, data, time);
     }
 }

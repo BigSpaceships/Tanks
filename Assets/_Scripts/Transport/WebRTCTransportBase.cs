@@ -12,6 +12,12 @@ public abstract class WebRTCTransportBase {
 
     public bool logNetworkDebug;
 
+    protected WebRTCTransport Transport;
+
+    protected WebRTCTransportBase(WebRTCTransport transport) {
+        Transport = transport;
+    }
+
     public void ConnectSocket(Type type, string serverUri) {
         _type = type;
         ConnectSocket(serverUri);
@@ -26,4 +32,6 @@ public abstract class WebRTCTransportBase {
     public abstract void DisconnectRemote(ulong id);
 
     public abstract void Close();
+
+    public abstract void Initialize();
 }

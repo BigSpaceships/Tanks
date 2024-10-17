@@ -1,4 +1,4 @@
-﻿
+﻿#if !UNITY_WEBGL || UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using SocketIOClient;
@@ -9,16 +9,13 @@ using UnityEngine;
 public class NativeWebRTCTransport : WebRTCTransportBase {
     private SocketIOUnity _socket;
 
-    public WebRTCTransport Transport;
-
     private ulong _lastId = 0;
     private ulong NextId => _lastId++;
 
-    private readonly Dictionary<ulong, WebRtcConnection> _peers = new();
+    private readonly Dictionary<ulong, NativeWebRTCConnection> _peers = new();
     private readonly Dictionary<string, ulong> _peerSocketIds = new();
 
-    public NativeWebRTCTransport(WebRTCTransport transport) {
-        Transport = transport;
+    public NativeWebRTCTransport(WebRTCTransport transport) : base(transport) {
     }
 
     protected override void ConnectSocket(string serverUri) {
@@ -82,7 +79,7 @@ public class NativeWebRTCTransport : WebRTCTransportBase {
 
     private ulong StartConnection() {
         var newId = GetMlAPIClientId(NextId);
-        _peers[newId] = new WebRtcConnection(_socket, this, newId);
+        _peers[newId] = new NativeWebRTCConnection(_socket, this, newId);
 
         return newId;
     }
@@ -91,7 +88,7 @@ public class NativeWebRTCTransport : WebRTCTransportBase {
         _peers[id].SendMessage(data);
     }
 
-    public void ProcessEvent(NetworkEvent eventType, WebRtcConnection peer, ArraySegment<byte> payload,
+    public void ProcessEvent(NetworkEvent eventType, NativeWebRTCConnection peer, ArraySegment<byte> payload,
         float receiveTime) {
         if (eventType == NetworkEvent.Disconnect) {
             _peers.Remove(peer.id);
@@ -143,6 +140,10 @@ public class NativeWebRTCTransport : WebRTCTransportBase {
         _lastId = 0;
     }
 
+    public override void Initialize() {
+
+    }
+
     private ulong GetMlAPIClientId(ulong clientId) {
         if (_type == Type.Server) {
             clientId += 1;
@@ -155,3 +156,4 @@ public class NativeWebRTCTransport : WebRTCTransportBase {
         if (logNetworkDebug) Debug.Log(message);
     }
 }
+#endif

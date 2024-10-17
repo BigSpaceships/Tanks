@@ -2400,7 +2400,7 @@ MonoBehaviour:
       SourceHashToOverride: 0
       OverridingTargetPrefab: {fileID: 0}
   RunInBackground: 1
-  LogLevel: 1
+  LogLevel: 0
 --- !u!4 &1381154616
 Transform:
   m_ObjectHideFlags: 0
@@ -2430,7 +2430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e70b399bb9481b98a8b676e9ab6b7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  signalServerUri: https://8080-bigspaceshi-tanksignals-gxl47dmg3z8.ws-us116.gitpod.io
+  signalServerUri: https://8080-bigspaceshi-tanksignals-u51vj87ph9d.ws-us116.gitpod.io
 --- !u!1 &1434455596
 GameObject:
   m_ObjectHideFlags: 0

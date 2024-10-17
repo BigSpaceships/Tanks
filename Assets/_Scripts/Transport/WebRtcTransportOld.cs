@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !UNITY_WEBGL || UNITY_EDITOR
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using SocketIOClient;
@@ -23,7 +24,7 @@ public class WebRtcTransportOld : NetworkTransport {
 
     private Type _type;
 
-    private Dictionary<ulong, WebRtcConnection> _peers = new();
+    private Dictionary<ulong, NativeWebRTCConnection> _peers = new();
     private Dictionary<string, ulong> _peerSocketIds = new();
 
     private void StartSocket() {
@@ -171,7 +172,7 @@ public class WebRtcTransportOld : NetworkTransport {
         return NetworkEvent.Nothing;
     }
 
-    public void ProcessEvent(NetworkEvent eventType, WebRtcConnection peer, ArraySegment<byte> payload,
+    public void ProcessEvent(NetworkEvent eventType, NativeWebRTCConnection peer, ArraySegment<byte> payload,
         float receiveTime) {
         if (eventType == NetworkEvent.Disconnect) {
             _peers.Remove(peer.id);
@@ -192,3 +193,5 @@ public class WebRtcTransportOld : NetworkTransport {
         if (logNetworkDebug) Debug.Log(message);
     }
 }
+
+#endif

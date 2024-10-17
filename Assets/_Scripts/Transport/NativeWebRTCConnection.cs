@@ -1,10 +1,12 @@
-﻿using System;
+﻿#if !UNITY_WEBGL || UNITY_EDITOR
+
+using System;
 using System.Collections;
 using Unity.Netcode;
 using Unity.WebRTC;
 using UnityEngine;
 
-public class WebRtcConnection {
+public class NativeWebRTCConnection {
     private readonly SocketIOUnity _socket;
     private NativeWebRTCTransport _transport;
 
@@ -25,7 +27,7 @@ public class WebRtcConnection {
         _transport.ProcessEvent(NetworkEvent.Data, this, new ArraySegment<byte>(data), Time.realtimeSinceStartup);
     }
 
-    public WebRtcConnection(SocketIOUnity socket, NativeWebRTCTransport transport, ulong id) {
+    public NativeWebRTCConnection(SocketIOUnity socket, NativeWebRTCTransport transport, ulong id) {
         _socket = socket;
         _transport = transport;
         this.id = id;
@@ -210,3 +212,5 @@ public class WebRtcConnection {
         }
     }
 }
+
+#endif
