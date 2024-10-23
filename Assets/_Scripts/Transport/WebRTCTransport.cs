@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class WebRTCTransport : NetworkTransport {
     WebRTCTransportBase transport;
 
-    public string signalServerUri;
+    public string[] signalServerUris;
 
     public override void Send(ulong clientId, ArraySegment<byte> payload, NetworkDelivery networkDelivery) {
         Debug.Log("transport send data");
@@ -19,14 +21,30 @@ public class WebRTCTransport : NetworkTransport {
         return NetworkEvent.Nothing;
     }
 
+    public IEnumerator ConnectSocket(WebRTCTransportBase.Type type) {
+        foreach (var serverUri in signalServerUris) {
+            var request = new UnityWebRequest(serverUri);
+
+            yield return request.SendWebRequest();
+
+            if (request.error != null) {
+                transport.ConnectSocket(type, serverUri);
+
+                yield break;
+            }
+        }
+
+        Debug.LogError("Could not connect to any socket");
+    }
+
     public override bool StartClient() {
-        transport.ConnectSocket(WebRTCTransportBase.Type.Client, signalServerUri);
+        StartCoroutine(ConnectSocket(WebRTCTransportBase.Type.Client));
 
         return true;
     }
 
     public override bool StartServer() {
-        transport.ConnectSocket(WebRTCTransportBase.Type.Server, signalServerUri);
+        StartCoroutine(ConnectSocket(WebRTCTransportBase.Type.Server));
 
         return true;
     }

@@ -662,8 +662,8 @@ GameObject:
   m_Component:
   - component: {fileID: 333615584}
   - component: {fileID: 333615583}
-  - component: {fileID: 333615586}
   - component: {fileID: 333615585}
+  - component: {fileID: 333615586}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2430,7 +2430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e70b399bb9481b98a8b676e9ab6b7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  signalServerUri: https://8080-bigspaceshi-tanksignals-u51vj87ph9d.ws-us116.gitpod.io
+  signalServerUris: []
 --- !u!1 &1434455596
 GameObject:
   m_ObjectHideFlags: 0
